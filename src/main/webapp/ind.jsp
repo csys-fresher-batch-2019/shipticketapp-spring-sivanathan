@@ -67,7 +67,7 @@ body {
 ><button type="submit" >Submit</button>
 
 <button type="reset" >reset</button>
-<br><br><a href="index.jsp">next</a>
+<h1><br><br><a href="index.jsp">next</a></h1>
 
 </form>
 </body>

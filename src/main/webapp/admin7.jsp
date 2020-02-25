@@ -9,14 +9,11 @@
 <body>
 <form action="Admin7">
 				<br>
-				<br>shipid: <input type="number" name="shipid" required
-					autofocus> <br>
-				<br>journeyid : <input type="name" name="journeyid" required />
+				<br>ship id: <input type="number" name="shipid" required autofocus> <br>
+				<br>journey id : <input type="name" name="journeyid" required />
 				<br>
-				<br>sourcedate : <input type="date" name="sourcedate"
-					required /> <br>
-				<br>destinationdate : <input type="date"
-					name="destinationdate" required /> <br>
+				<br>source date : <input type="date" name="sourcedate" required /> <br>
+				<br>destination date : <input type="date" name="destinationdate" required /> <br>
 				
 				<button type="submit">conform</button>
 
