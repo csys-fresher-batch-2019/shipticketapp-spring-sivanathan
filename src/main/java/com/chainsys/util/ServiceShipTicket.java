@@ -19,6 +19,7 @@ import com.chainsys.shipdetails.ShipDetailDAOImplementation;
 import com.chainsys.user.User;
 import com.chainsys.user.UserDAO;
 import com.chainsys.user.UserDAOImplementation;
+
 //it is used when client is not necessary to call DAO directly instead we using one service class to call all the DAO .So that service will call the DAO and return the statement to client through servelet.
 public class ServiceShipTicket {
 
@@ -28,18 +29,18 @@ public class ServiceShipTicket {
 	private JourneyDAO journey = new JourneyDAOImplementation();
 	private ShipDetailDAO ship = new ShipDetailDAOImplementation();
 	private UserDAO user = new UserDAOImplementation();
-	//static Jdbi jdbi=TestConnection.getJdbi();
-	//static UserDAO user=jdbi.onDemand(UserDAO.class);
-	public int Totalcost(int a,int b)throws ServiceException{
+
+	// static Jdbi jdbi=TestConnection.getJdbi();
+	// static UserDAO user=jdbi.onDemand(UserDAO.class);
+	public int Totalcost(int a, int b) throws ServiceException {
 		try {
-			return seat.Totalcost(a,b);
+			return seat.Totalcost(a, b);
 		} catch (DBException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION);
-		}	
+		}
 	}
-	
 
 	public boolean AdminLogin(int adminId, String pass) throws ServiceException {
 		boolean adminLogin = false;
@@ -64,7 +65,7 @@ public class ServiceShipTicket {
 			userLogin = user.User(userId, password);
 		} catch (ValidatorException e) {
 			e.printStackTrace();
-			throw new ServiceException(ErrorMessages.INVALID_VALIDATE );
+			throw new ServiceException(ErrorMessages.INVALID_VALIDATE);
 		} catch (DBException e) {
 			e.printStackTrace();
 			throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION);
@@ -74,9 +75,16 @@ public class ServiceShipTicket {
 
 	}
 
-	public int book(Booking b) throws Exception{
-		return book.book(b);
+	public int book(Booking b) throws ServiceException {
+		try {
+			return book.book(b);
+		} catch (DBException e) {
+			e.printStackTrace();
+			throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION);
+
+		}
 	}
+
 	public void add(SeatAvailability a) throws ServiceException {
 		try {
 			seat.add(a);
@@ -117,8 +125,14 @@ public class ServiceShipTicket {
 		}
 	}
 
-	public int costOfBooking(String b) throws Exception {
-		 return seat.costOfBooking(b);
+	public int costOfBooking(String b) throws ServiceException {
+		try {
+			return seat.costOfBooking(b);
+		} catch (DBException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION);
+		}
 	}
 
 	public void addBooking(Booking a) throws ServiceException {
@@ -151,8 +165,14 @@ public class ServiceShipTicket {
 		}
 	}
 
-	public int count() throws Exception {
-		return book.count();
+	public int count() throws ServiceException {
+		try {
+			return book.count();
+		} catch (DBException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION);
+		}
 	}
 
 	public void addJourney(Journey a) throws ServiceException {
@@ -185,8 +205,14 @@ public class ServiceShipTicket {
 		}
 	}
 
-	public ArrayList<Journey> getJourney(int a) throws Exception {
-		 return journey.getJourney( a);
+	public ArrayList<Journey> getJourney(int a) throws ServiceException {
+		try {
+			return journey.getJourney(a);
+		} catch (DBException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION);
+		}
 	}
 
 	public void addShip(ShipDetail s) throws ServiceException {
@@ -219,12 +245,24 @@ public class ServiceShipTicket {
 		}
 	}
 
-	public ArrayList<ShipDetail> getShip(ShipDetail s) throws Exception {
-		 return ship.getShip(s);
+	public ArrayList<ShipDetail> getShip(ShipDetail s) throws ServiceException {
+		try {
+			return ship.getShip(s);
+		} catch (DBException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION);
+		}
 	}
-	
-	public ArrayList<ShipDetail> Ship() throws Exception {
-		 return ship.Ship();
+
+	public ArrayList<ShipDetail> Ship() throws ServiceException {
+		try {
+			return ship.Ship();
+		} catch (DBException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION);
+		}
 	}
 
 	public void distinctShip(String s) throws ServiceException {
@@ -277,8 +315,14 @@ public class ServiceShipTicket {
 		}
 	}
 
-	public int seat(SeatAvailability b) throws Exception {
-		return seat.seat(b);
+	public int seat(SeatAvailability b) throws ServiceException {
+		try {
+			return seat.seat(b);
+		} catch (DBException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION);
+		}
 	}
 
 	public void validSearch(int adminId, String pass) throws ValidatorException {
@@ -291,7 +335,7 @@ public class ServiceShipTicket {
 	}
 
 	public void validSearch1(int userId, String password) throws ValidatorException {
-		if (userId==0) {
+		if (userId == 0) {
 			throw new ValidatorException("Invalid userid");
 
 		} else if (password == null || password.equals("") || password.trim().equals("")) {

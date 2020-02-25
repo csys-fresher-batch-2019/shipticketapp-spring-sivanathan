@@ -50,7 +50,7 @@ public class SeatDAOImplementation implements SeatDAO {
 			try (PreparedStatement smt2 = com.prepareStatement(sql2);) {
 				smt2.setInt(1, a.getAvailabilitySeats());
 				smt2.setInt(2, a.getShipId());
-				//smt2.setInt(3, a.getJourneyId());
+				// smt2.setInt(3, a.getJourneyId());
 				logger.debug(sql2);
 
 				int row1 = smt2.executeUpdate();
@@ -87,7 +87,7 @@ public class SeatDAOImplementation implements SeatDAO {
 	}
 
 	public void procedure(SeatAvailability b) {
-		
+
 		try (Connection com = TestConnection.getConnection();) {
 			String sql4 = "call TICKET_BOOKING(?,?,?,?,?,?)";
 			try (CallableStatement stmt = com.prepareCall(sql4);) {
@@ -108,34 +108,41 @@ public class SeatDAOImplementation implements SeatDAO {
 				try (PreparedStatement smt4 = com.prepareStatement(sql);) {
 					// smt4 = com.prepareStatement(sql);
 					smt4.setInt(1, b.getuserNo());
-					ResultSet value1 = smt4.executeQuery();
-					logger.debug(sql4);
-					if (value1.next()) {
-						logger.debug("status:" + value1.getString("ticket_status"));
-						logger.debug("total:" + value1.getInt("cost"));
-					
+					{
+						try (ResultSet value1 = smt4.executeQuery();) {
 
-					String sqlselect = "select email from user_detail where user_id in (select user_id from booking_detail where ticket_status='ordered')";
-					try (Statement stm = com.createStatement();) {
-						ResultSet value2 = stm.executeQuery(sqlselect);
-						logger.debug(value2);
-						String email = "";
-						if (value2.next()) {
-							email = value2.getString("email");
-							logger.debug("emailID:" + email);
+							logger.debug(sql4);
+							if (value1.next()) {
+								logger.debug("status:" + value1.getString("ticket_status"));
+								logger.debug("total:" + value1.getInt("cost"));
 
-							if (value1.getString("ticket_status").equalsIgnoreCase(value)) {
-								SendSmsIml.send("sivanathan011198@gmail.com", "8608872041", email,
-										" Your Application is ordered ", "stay tuned for further update",
-										b.getuserNo());
+								String sqlselect = "select email from user_detail where user_id in (select user_id from booking_detail where ticket_status='ordered')";
+								try (Statement stm = com.createStatement();) {
+									ResultSet value2 = stm.executeQuery(sqlselect);
+									logger.debug(value2);
+									String email = "";
+									if (value2.next()) {
+										email = value2.getString("email");
+										logger.debug("emailID:" + email);
+
+										if (value1.getString("ticket_status").equalsIgnoreCase(value)) {
+											SendSmsIml.send("sivanathan011198@gmail.com", "8608872041", email,
+													" Your Application is ordered ", "stay tuned for further update",
+													b.getuserNo());
+										}
+									}
+								} catch (Exception e) {
+									e.printStackTrace();
+									logger.error(ErrorMessages.INVALID_CREATESTATEMENT + e);
+								}
 							}
+						} catch (Exception e) {
+							e.printStackTrace();
+							logger.error(ErrorMessages.INVALID_RESULTSET);
 						}
-					} catch (Exception e) {
-						e.printStackTrace();
-						logger.error(ErrorMessages.INVALID_CREATESTATEMENT + e);
 					}
-					}} catch (Exception e) {
-						e.printStackTrace();
+				} catch (Exception e) {
+					e.printStackTrace();
 					logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + e);
 				}
 			} catch (Exception e) {
@@ -150,7 +157,7 @@ public class SeatDAOImplementation implements SeatDAO {
 
 	public int costOfBooking(String b) {
 		// PreparedStatement smt4 = null;
-int cost=0;
+		int cost = 0;
 		// Connection com = null;
 		try (Connection com = TestConnection.getConnection();) {
 			// com = TestConnection.getConnection();
@@ -158,19 +165,23 @@ int cost=0;
 			try (PreparedStatement smt4 = com.prepareStatement(sql4);) {
 				// smt4 = com.prepareStatement(sql4);
 
-				ResultSet rs4 = smt4.executeQuery();
-				if (rs4.next()) {
-					cost=rs4.getInt("cost");
-					logger.debug("cost:" + cost);
-				}
+				try (ResultSet rs4 = smt4.executeQuery();) {
+					if (rs4.next()) {
+						cost = rs4.getInt("cost");
+						logger.debug("cost:" + cost);
+					}
 
+				} catch (Exception e) {
+					e.printStackTrace();
+					throw new Exception(ErrorMessages.INVALID_RESULTSET);
+				}
 			} catch (Exception e) {
 				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + e);
 			}
 		} catch (Exception e) {
 			logger.error(ErrorMessages.CONNECTION_FAILURE + e);
 		}
-return cost;
+		return cost;
 	}
 
 	@Override
@@ -186,14 +197,19 @@ return cost;
 				System.out.println(b.getShipId());
 				smt8.setInt(2, b.getJourneyId());
 				System.out.println(b.getJourneyId());
-				ResultSet rs8 = smt8.executeQuery();
-				System.out.println(sql8);
-				if (rs8.next()) {
-					seats = rs8.getInt("available_seat");
-					logger.debug("availableseat:" + seats);
-				}
+				try (ResultSet rs8 = smt8.executeQuery();) {
+					System.out.println(sql8);
+					if (rs8.next()) {
+						seats = rs8.getInt("available_seat");
+						logger.debug("availableseat:" + seats);
+					}
 
+				} catch (Exception e) {
+					e.printStackTrace();
+					throw new Exception(ErrorMessages.INVALID_RESULTSET);
+				}
 			} catch (Exception e) {
+
 				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + e);
 			}
 		} catch (Exception e) {
@@ -202,31 +218,37 @@ return cost;
 		return seats;
 
 	}
-	public int Totalcost(int a,int b) {
+
+	public int Totalcost(int a, int b) {
 		// PreparedStatement smt4 = null;
-int cost=0;
+		int cost = 0;
 		// Connection com = null;
 		try (Connection com = TestConnection.getConnection();) {
 			// com = TestConnection.getConnection();
 			String sql4 = "select cost from booking_detail where (journey_id=? and ship_id=?)";
 			try (PreparedStatement smt4 = com.prepareStatement(sql4);) {
 				// smt4 = com.prepareStatement(sql4);
-smt4.setInt(1, a);
-smt4.setInt(2, b);
-				ResultSet rs4 = smt4.executeQuery();
-				while (rs4.next()) {
-					cost=rs4.getInt("cost");
-					
-					logger.debug("cost:" + cost);
-				}
+				smt4.setInt(1, a);
+				smt4.setInt(2, b);
+				try (ResultSet rs4 = smt4.executeQuery();) {
+					while (rs4.next()) {
+						cost = rs4.getInt("cost");
 
+						logger.debug("cost:" + cost);
+					}
+
+				} catch (Exception e) {
+					e.printStackTrace();
+					throw new Exception(ErrorMessages.INVALID_RESULTSET);
+				}
 			} catch (Exception e) {
+
 				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + e);
 			}
 		} catch (Exception e) {
 			logger.error(ErrorMessages.CONNECTION_FAILURE + e);
 		}
-return cost;
+		return cost;
 	}
 
 }

@@ -85,9 +85,7 @@ public class SeatAvailability {
 		this.userNo = userNo;
 	}
 
-
-
-private int shipId;
+	private int shipId;
 	private int journeyId;
 	private int availabilitySeats;
 	private int userId;
@@ -97,6 +95,7 @@ private int shipId;
 	private int shipNo;
 	private int journeyNo;
 	private int userNo;
+
 	@Override
 	public String toString() {
 		return "SeatAvailability [shipId=" + shipId + ", journeyId=" + journeyId + ", availabilitySeats="
@@ -109,8 +108,5 @@ private int shipId;
 				+ ", getuserNo()=" + getuserNo() + ", hashCode()=" + hashCode() + ", getClass()=" + getClass()
 				+ ", toString()=" + super.toString() + "]";
 	}
-	
-	
-	
-	
+
 }

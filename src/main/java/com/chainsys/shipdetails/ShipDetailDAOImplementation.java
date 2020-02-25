@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import com.chainsys.util.DBException;
 import com.chainsys.util.ErrorMessages;
 import com.chainsys.util.Logger;
 import com.chainsys.util.TestConnection;
@@ -14,7 +15,7 @@ public class ShipDetailDAOImplementation implements ShipDetailDAO {
 	Logger logger = Logger.getInstance();
 	// Connection com = null;
 
-	public void addShip(ShipDetail s)  {
+	public void addShip(ShipDetail s) {
 		try (Connection com = TestConnection.getConnection();) {
 
 			String sql = "insert into ship_detail(ship_id,ship_name,source_place,destination_place,total_no_of_seats,classes,amount) values(?,?,?,?,?,?,?)";
@@ -98,7 +99,7 @@ public class ShipDetailDAOImplementation implements ShipDetailDAO {
 
 	public ArrayList<ShipDetail> getShip(ShipDetail s) {
 
-		ResultSet rs = null;
+		// ResultSet rs = null;
 		ArrayList<ShipDetail> list = new ArrayList<ShipDetail>();
 		try (Connection com = TestConnection.getConnection();) {
 
@@ -109,19 +110,26 @@ public class ShipDetailDAOImplementation implements ShipDetailDAO {
 
 				smt3.setString(1, s.getSourcePlace());
 				smt3.setString(2, s.getDestinationPlace());
-				rs = smt3.executeQuery();
-				// ArrayList<ShipDetail> list=new ArrayList<ShipDetail>();
+				{
+					try (ResultSet rs = smt3.executeQuery();) {
+						while (rs.next()) {
+							ShipDetail ship = new ShipDetail();
+							ship.setAmount(rs.getInt("amount"));
+							ship.setClasses(rs.getString("classes"));
+							ship.setSourcePlace(rs.getString("source_place"));
+							ship.setDestinationPlace(rs.getString("destination_place"));
+							ship.setShipId(rs.getInt("ship_id"));
+							ship.setShipName(rs.getString("ship_name"));
+							ship.setNoOfSeats(rs.getInt("total_no_of_seats"));
+							list.add(ship);
 
-				while (rs.next()) {
-					ShipDetail ship = new ShipDetail();
-					ship.setAmount(rs.getInt("amount"));
-					ship.setClasses(rs.getString("classes"));
-					ship.setSourcePlace(rs.getString("source_place"));
-					ship.setDestinationPlace(rs.getString("destination_place"));
-					ship.setShipId(rs.getInt("ship_id"));
-					ship.setShipName(rs.getString("ship_name"));
-					ship.setNoOfSeats(rs.getInt("total_no_of_seats"));
-					list.add(ship);
+						}
+					} catch (Exception e) {
+						e.printStackTrace();
+						throw new DBException(ErrorMessages.INVALID_RESULTSET);
+					}
+
+					// ArrayList<ShipDetail> list=new ArrayList<ShipDetail>();
 
 				}
 
@@ -137,18 +145,21 @@ public class ShipDetailDAOImplementation implements ShipDetailDAO {
 		return list;
 	}
 
-	public void distinctShip(String s)  {
+	public void distinctShip(String s) {
 		// PreparedStatement smt4 = null;
-		ResultSet rs4 = null;
+		// ResultSet rs4 = null;
 		try (Connection com = TestConnection.getConnection();) {
 			String sql4 = "select distinct(" + s + ") as classes from ship_detail";
 			try (PreparedStatement smt4 = com.prepareStatement(sql4);) {
-				rs4 = smt4.executeQuery();
-				while (rs4.next()) {
+				try (ResultSet rs4 = smt4.executeQuery();) {
+					while (rs4.next()) {
 
-					logger.info(rs4.getString("classes"));
+						logger.info(rs4.getString("classes"));
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+					logger.error(ErrorMessages.INVALID_RESULTSET + e);
 				}
-
 			} catch (Exception e) {
 				e.printStackTrace();
 				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + e);
@@ -161,43 +172,46 @@ public class ShipDetailDAOImplementation implements ShipDetailDAO {
 
 	}
 
-public ArrayList<ShipDetail> Ship() {
+	public ArrayList<ShipDetail> Ship() {
 
-	ResultSet rs1 = null;
-	ArrayList<ShipDetail> list = new ArrayList<ShipDetail>();
-	try (Connection com = TestConnection.getConnection();) {
+		// ResultSet rs1 = null;
+		ArrayList<ShipDetail> list = new ArrayList<ShipDetail>();
+		try (Connection com = TestConnection.getConnection();) {
 
-		String sql3 = "select * from ship_detail";
-		// String sql3 = "select source_place,destination_place from ship_detail where
-		// ship_id=?";
-		try (Statement stm = com.createStatement();) {
-			rs1 = stm.executeQuery(sql3);
-			logger.debug(rs1);
-			
+			String sql3 = "select * from ship_detail";
+			// String sql3 = "select source_place,destination_place from ship_detail where
+			// ship_id=?";
+			try (Statement stm = com.createStatement();) {
+				try (ResultSet rs1 = stm.executeQuery(sql3);) {
+					logger.debug(rs1);
 
-			while (rs1.next()) {
-				ShipDetail ship = new ShipDetail();
-				ship.setAmount(rs1.getInt("amount"));
-				ship.setClasses(rs1.getString("classes"));
-				ship.setSourcePlace(rs1.getString("source_place"));
-				ship.setDestinationPlace(rs1.getString("destination_place"));
-				ship.setShipId(rs1.getInt("ship_id"));
-				ship.setShipName(rs1.getString("ship_name"));
-				ship.setNoOfSeats(rs1.getInt("total_no_of_seats"));
-				list.add(ship);
+					while (rs1.next()) {
+						ShipDetail ship = new ShipDetail();
+						ship.setAmount(rs1.getInt("amount"));
+						ship.setClasses(rs1.getString("classes"));
+						ship.setSourcePlace(rs1.getString("source_place"));
+						ship.setDestinationPlace(rs1.getString("destination_place"));
+						ship.setShipId(rs1.getInt("ship_id"));
+						ship.setShipName(rs1.getString("ship_name"));
+						ship.setNoOfSeats(rs1.getInt("total_no_of_seats"));
+						list.add(ship);
 
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+					throw new DBException(ErrorMessages.INVALID_RESULTSET);
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
+				logger.error(ErrorMessages.INVALID_CREATESTATEMENT + e);
 			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			logger.error(ErrorMessages.INVALID_CREATESTATEMENT + e);
+			logger.error(ErrorMessages.CONNECTION_FAILURE + e);
 		}
-
-	} catch (Exception e) {
-		e.printStackTrace();
-		logger.error(ErrorMessages.CONNECTION_FAILURE + e);
+		return list;
 	}
-	return list;
-}
 
 }

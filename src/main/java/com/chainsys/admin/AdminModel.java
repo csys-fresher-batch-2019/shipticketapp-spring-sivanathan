@@ -8,4 +8,4 @@ public class AdminModel {
 	private String adminName;
 	private String emailId;
 	private String passWord;
-	}
+}

@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 import com.chainsys.util.ErrorMessages;
 import com.chainsys.util.Logger;
 import com.chainsys.util.TestConnection;
+
 public class BookingDAOImplementation implements BookingDAO {
 	Connection com = null;
 	Logger logger = Logger.getInstance();
@@ -84,17 +85,21 @@ public class BookingDAOImplementation implements BookingDAO {
 
 	public int count() {
 		// public void count(String b) throws Exception {
-		ResultSet rs4 = null;
 		int value = 0;
 		try (Connection com = TestConnection.getConnection();) {
 			String sql4 = "select count(*) from booking_detail";
 			// String sql4 = "select " + b + "(*) from booking_detail";
 			try (PreparedStatement smt4 = com.prepareStatement(sql4);) {
 
-				rs4 = smt4.executeQuery();
-				if (rs4.next()) {
-					value = rs4.getInt("count(*)");
-					logger.debug("count:" + value);
+				try (ResultSet rs4 = smt4.executeQuery();) {
+
+					if (rs4.next()) {
+						value = rs4.getInt("count(*)");
+						logger.debug("count:" + value);
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+					throw new Exception(ErrorMessages.INVALID_RESULTSET);
 				}
 			} catch (Exception e) {
 				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + e);
@@ -123,21 +128,20 @@ public class BookingDAOImplementation implements BookingDAO {
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
-					logger.error("result set " + e);
+					logger.error(ErrorMessages.INVALID_RESULTSET + e);
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
 				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT);
-			
-			}}
-		catch(Exception e)
-		{
+
+			}
+		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error(ErrorMessages.INVALID_CONNECTIONSTATEMENT);
-			
+
 		}
-			return res;
-		
+		return res;
+
 	}
 
 }

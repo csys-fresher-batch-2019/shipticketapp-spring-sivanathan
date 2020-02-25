@@ -158,7 +158,7 @@ public class UserDAOImplementation implements UserDAO {
 				logger.info(sql3);
 
 				int row3 = smt3.executeUpdate();
-				logger.info("NO OF  UPDATED:"+row3);
+				logger.info("NO OF  UPDATED:" + row3);
 
 			} catch (Exception e) {
 				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT);
@@ -170,7 +170,7 @@ public class UserDAOImplementation implements UserDAO {
 		}
 	}
 
-	public boolean User(int userId, String password)  {
+	public boolean User(int userId, String password) {
 
 		Statement stmt6 = null;
 		boolean result = false;

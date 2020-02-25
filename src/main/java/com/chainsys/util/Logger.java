@@ -2,8 +2,9 @@ package com.chainsys.util;
 
 public class Logger {
 
-	private Logger() {}
-	
+	private Logger() {
+	}
+
 	public static Logger getInstance() {
 		Logger logger = new Logger();
 		return logger;
@@ -12,7 +13,7 @@ public class Logger {
 	public void debug(Object message) {
 		System.out.println(message);
 	}
-	
+
 	public void input(Object message) {
 		System.out.println(message);
 	}
