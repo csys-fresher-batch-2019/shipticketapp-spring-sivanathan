@@ -2,12 +2,16 @@ package com.chainsys.util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.util.TimeZone;
 
 public class TestConnection {
 	public static Connection getConnection() throws Exception {
 		Logger logger = Logger.getInstance();
 		Connection con = null;
 		try {
+
+	        TimeZone timeZone = TimeZone.getTimeZone("Asia/Kolkata");
+			TimeZone.setDefault(timeZone);
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 
 			// con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE",
