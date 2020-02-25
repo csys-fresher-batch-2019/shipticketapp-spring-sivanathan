@@ -19,7 +19,6 @@
 <br><br><a href="admin4.jsp">cost Of Booking</a>
 <br><br><a href="admin5.jsp">update the seat availability</a>
 <br><br><a href="admin6.jsp">add the ship</a>
-
 <br><br>
 </h2>
 </center>

@@ -11,15 +11,15 @@ table, th, td {
 }
 </style>
 </head>
-<a href="updatecontact.jsp">update contact number</a>
+
 <center>
 <body>
-<p>ENTER THE CORRECT SHIP ID FOR BOOKING</p>
+<p>ENTER THE SEAT  FOR BOOKING</p>
 	<h2>shipdetails</h2>
 	
 
 <table border="1">
-<thead><tr><th>S.NO</th> <th>SHIP ID</th> <th>SHIP NAME</th> <th>SOURCE PLACE</th> <th>DESTINATION PLACE</th>  <th>CLASSES</th> <th>AMOUNT</th><th>seat</th></thead>
+<thead><tr><th>S.NO</th> <th>SHIP ID</th> <th>SHIP NAME</th> <th>SOURCE PLACE</th> <th>DESTINATION PLACE</th>  <th>CLASSES</th> <th>AMOUNT</th><th>SEAT</th></thead>
 <tbody>
 <%
 ArrayList<ShipDetail>list=(ArrayList<ShipDetail>)session.getAttribute("ship");
@@ -104,6 +104,7 @@ for(ShipDetail ship: list)
   
 </table>-->
 	<br>
+	<a href="updatecontact.jsp">update contact number</a><br>
   <br><a href="forget.jsp">Reset Password
 </a>
 

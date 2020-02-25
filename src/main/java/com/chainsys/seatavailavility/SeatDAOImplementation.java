@@ -87,7 +87,7 @@ public class SeatDAOImplementation implements SeatDAO {
 	}
 
 	public void procedure(SeatAvailability b) {
-
+		String value = "ordered";
 		try (Connection com = TestConnection.getConnection();) {
 			String sql4 = "call TICKET_BOOKING(?,?,?,?,?,?)";
 			try (CallableStatement stmt = com.prepareCall(sql4);) {
@@ -101,7 +101,7 @@ public class SeatDAOImplementation implements SeatDAO {
 
 				logger.debug(b);
 				stmt.execute();
-				String value = "ordered";
+				
 				// System.out.println(b.getTicketStatus());
 
 				String sql = "select ticket_status,cost from booking_detail where user_id = ?";
@@ -115,12 +115,14 @@ public class SeatDAOImplementation implements SeatDAO {
 							if (value1.next()) {
 								logger.debug("status:" + value1.getString("ticket_status"));
 								logger.debug("total:" + value1.getInt("cost"));
-
-								String sqlselect = "select email from user_detail where user_id in (select user_id from booking_detail where ticket_status='ordered')";
-								try (Statement stm = com.createStatement();) {
-									ResultSet value2 = stm.executeQuery(sqlselect);
-									logger.debug(value2);
+								String sqlselect = "select email from user_detail where user_id in (select user_id from booking_detail where ticket_status='ordered' and user_id=?)";
+								try (PreparedStatement stm = com.prepareStatement(sqlselect);) {
+									stm.setInt(1, b.getuserNo());
+									ResultSet value2 = stm.executeQuery();
+									//logger.debug(value2);
+									
 									String email = "";
+									//System.out.println("!!");
 									if (value2.next()) {
 										email = value2.getString("email");
 										logger.debug("emailID:" + email);
