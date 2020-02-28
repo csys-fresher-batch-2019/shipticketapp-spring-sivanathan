@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.util.TimeZone;
 
 public class TestConnection {
-	public static Connection getConnection() throws Exception {
+	public static Connection getConnection() throws DBException {
 		Logger logger = Logger.getInstance();
 		Connection con = null;
 		try {
