@@ -40,7 +40,6 @@ public class ServiceShipTicket {
 		try {
 			return seat.Totalcost(a, b);
 		} catch (DBException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION);
 		}
@@ -93,7 +92,6 @@ public class ServiceShipTicket {
 		try {
 			seat.add(a);
 		} catch (DBException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION);
 		}
@@ -103,7 +101,6 @@ public class ServiceShipTicket {
 		try {
 			seat.update(a);
 		} catch (DBException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION);
 		}
@@ -113,7 +110,6 @@ public class ServiceShipTicket {
 		try {
 			seat.delete(a);
 		} catch (DBException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION);
 		}
@@ -123,7 +119,6 @@ public class ServiceShipTicket {
 		try {
 			seat.procedure(b);
 		} catch (DBException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION);
 		}
@@ -133,7 +128,6 @@ public class ServiceShipTicket {
 		try {
 			return seat.costOfBooking(b);
 		} catch (DBException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION);
 		}
@@ -143,7 +137,6 @@ public class ServiceShipTicket {
 		try {
 			book.addBooking(a);
 		} catch (DBException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION);
 		}
@@ -153,7 +146,6 @@ public class ServiceShipTicket {
 		try {
 			book.updateBooking(a);
 		} catch (DBException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION);
 		}
@@ -163,7 +155,6 @@ public class ServiceShipTicket {
 		try {
 			book.deleteBooking(a);
 		} catch (DBException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION);
 		}
@@ -173,7 +164,6 @@ public class ServiceShipTicket {
 		try {
 			return book.count();
 		} catch (DBException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION);
 		}
@@ -183,7 +173,6 @@ public class ServiceShipTicket {
 		try {
 			journey.addJourney(a);
 		} catch (DBException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION);
 		}
@@ -193,7 +182,6 @@ public class ServiceShipTicket {
 		try {
 			journey.updateJourney(a);
 		} catch (DBException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION);
 		}
@@ -203,7 +191,6 @@ public class ServiceShipTicket {
 		try {
 			journey.deleteJourney(a);
 		} catch (DBException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION);
 		}
@@ -213,7 +200,6 @@ public class ServiceShipTicket {
 		try {
 			return journey.getJourney(a);
 		} catch (DBException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION);
 		}
@@ -223,7 +209,6 @@ public class ServiceShipTicket {
 		try {
 			ship.addShip(s);
 		} catch (DBException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION);
 		}
@@ -233,7 +218,6 @@ public class ServiceShipTicket {
 		try {
 			ship.updateShip(s);
 		} catch (DBException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION);
 		}
@@ -243,7 +227,6 @@ public class ServiceShipTicket {
 		try {
 			ship.deleteShip(s);
 		} catch (DBException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION);
 		}
@@ -253,7 +236,6 @@ public class ServiceShipTicket {
 		try {
 			return ship.getShip(s);
 		} catch (DBException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION);
 		}
@@ -263,7 +245,6 @@ public class ServiceShipTicket {
 		try {
 			return ship.Ship();
 		} catch (DBException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION);
 		}
@@ -273,7 +254,6 @@ public class ServiceShipTicket {
 		try {
 			ship.distinctShip(s);
 		} catch (DBException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION);
 		}
@@ -283,7 +263,6 @@ public class ServiceShipTicket {
 		try {
 			user.addUser(a);
 		} catch (DBException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION);
 		}
@@ -293,7 +272,6 @@ public class ServiceShipTicket {
 		try {
 			user.updateUser(a);
 		} catch (DBException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION);
 		}
@@ -303,7 +281,6 @@ public class ServiceShipTicket {
 		try {
 			user.deleteUser(a);
 		} catch (DBException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION);
 		}
@@ -313,7 +290,6 @@ public class ServiceShipTicket {
 		try {
 			user.resetUser(a);
 		} catch (DBException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION);
 		}
@@ -323,7 +299,6 @@ public class ServiceShipTicket {
 		try {
 			return seat.seat(b);
 		} catch (DBException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION);
 		}
