@@ -1,4 +1,4 @@
-<%@page import="com.chainsys.shipdetails.ShipDetail"%>
+<%@page import="com.chainsys.shipticketbooking.model.ShipDetail"%>
 <%@page import="java.util.ArrayList"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>

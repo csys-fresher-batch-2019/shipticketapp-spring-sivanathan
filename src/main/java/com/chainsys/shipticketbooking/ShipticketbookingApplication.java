@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 
 @SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
-@ServletComponentScan("com.chainsys.servlet")
+@ServletComponentScan("com.chainsys.shipticketbooking.servlet")
 public class ShipticketbookingApplication {
 
 	public static void main(String[] args) {

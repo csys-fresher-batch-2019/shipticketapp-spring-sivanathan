@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.chainsys.journey.Journey;
-import com.chainsys.util.ServiceShipTicket;
+import com.chainsys.shipticketbooking.model.Journey;
+import com.chainsys.shipticketbooking.service.ServiceShipTicket;
 
 @WebServlet("/Admin7")
 public class Admin7 extends HttpServlet {
