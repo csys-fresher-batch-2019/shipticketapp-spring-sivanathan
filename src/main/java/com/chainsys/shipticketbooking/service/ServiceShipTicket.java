@@ -51,7 +51,7 @@ public class ServiceShipTicket {
 			validSearch(adminId, pass);
 			adminLogin = admin.AdminLogin(adminId, pass);
 		} catch (ValidatorException e) {
-			throw new ServiceException(ErrorMessages.INVALID_VALIDATE);
+			throw new ServiceException(ErrorMessages.ADMIN_LOGIN_FAILED);
 		} catch (DBException e) {
 			e.printStackTrace();
 			throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION);
@@ -68,7 +68,7 @@ public class ServiceShipTicket {
 			userLogin = user.User(userId, password);
 		} catch (ValidatorException e) {
 			e.printStackTrace();
-			throw new ServiceException(ErrorMessages.INVALID_VALIDATE);
+			throw new ServiceException(ErrorMessages.USER_LOGIN_FAILED);
 		} catch (DBException e) {
 			e.printStackTrace();
 			throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION);
