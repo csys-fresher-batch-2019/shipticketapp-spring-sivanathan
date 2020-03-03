@@ -21,14 +21,11 @@ table, th, td {
 ArrayList<Journey>list=(ArrayList<Journey>)session.getAttribute("journey12");
 
 if (list != null){
-	%>
-
-
-<%
 int i=1;
 
 for(Journey ship: list)
-{%>	
+{
+%>	
 	
 	<tr>
 	<td><%= i++ %></td>
