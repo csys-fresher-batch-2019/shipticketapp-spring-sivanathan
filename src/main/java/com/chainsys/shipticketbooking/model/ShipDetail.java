@@ -64,6 +64,13 @@ public class ShipDetail {
 	public void setAmount(int amount) {
 		this.amount = amount;
 	}
+	public String getRoutePlace() {
+		return routePlace;
+	}
+
+	public void setRoutePlace(String routePlace) {
+		this.routePlace = routePlace;
+	}
 
 	private int shipId;
 	private String shipName;
@@ -72,4 +79,6 @@ public class ShipDetail {
 	private int noOfSeats;
 	private String classes;
 	private int amount;
+	private String routePlace;
+
 }

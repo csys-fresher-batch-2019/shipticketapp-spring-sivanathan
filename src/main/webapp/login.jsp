@@ -20,6 +20,7 @@ body {
 			<a href="register.jsp">create a new registration</a> <br>
 			<br>
 			<a href="admin.jsp">admin login</a>
+			<br><br><br><a href="wallet.jsp">wallet</a>
 		</h2>
 		<br>
 		<br>

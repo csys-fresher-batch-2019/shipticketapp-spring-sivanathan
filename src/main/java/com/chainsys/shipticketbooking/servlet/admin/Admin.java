@@ -22,6 +22,7 @@ public class Admin extends HttpServlet {
 		int id = Integer.parseInt(request.getParameter("admin_id"));
 		String password = request.getParameter("password");
 		System.out.println(id + "-" + password);
+		
 		try {
 			boolean value = m4.AdminLogin(id,password);
 			System.out.println(value);

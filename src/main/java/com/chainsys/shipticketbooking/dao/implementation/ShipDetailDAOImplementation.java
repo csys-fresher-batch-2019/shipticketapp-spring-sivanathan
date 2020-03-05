@@ -122,7 +122,7 @@ public class ShipDetailDAOImplementation implements ShipDetailDAO {
 							ship.setDestinationPlace(rs.getString("destination_place"));
 							ship.setShipId(rs.getInt("ship_id"));
 							ship.setShipName(rs.getString("ship_name"));
-							ship.setNoOfSeats(rs.getInt("total_no_of_seats"));
+							//ship.setNoOfSeats(rs.getInt("total_no_of_seats"));
 							list.add(ship);
 
 						}
@@ -196,6 +196,44 @@ public class ShipDetailDAOImplementation implements ShipDetailDAO {
 						ship.setShipId(rs1.getInt("ship_id"));
 						ship.setShipName(rs1.getString("ship_name"));
 						ship.setNoOfSeats(rs1.getInt("total_no_of_seats"));
+						list.add(ship);
+
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+					throw new DBException(ErrorMessages.INVALID_RESULTSET);
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
+				logger.error(ErrorMessages.INVALID_CREATESTATEMENT + e);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error(ErrorMessages.CONNECTION_FAILURE + e);
+		}
+		return list;
+	}
+	public ArrayList<ShipDetail> routeShip() {
+
+		// ResultSet rs1 = null;
+		ArrayList<ShipDetail> list = new ArrayList<ShipDetail>();
+		try (Connection com = TestConnection.getConnection();) {
+
+			String sql3 = "select * from ship_route";
+			// String sql3 = "select source_place,destination_place from ship_detail";
+			// String sql3 = "select source_place,destination_place from ship_detail where
+			// ship_id=?";
+			try (Statement stm = com.createStatement();) {
+				try (ResultSet rs1 = stm.executeQuery(sql3);) {
+					logger.debug(rs1);
+
+					while (rs1.next()) {
+						ShipDetail ship = new ShipDetail();
+						
+						ship.setRoutePlace(rs1.getString("route_place"));
+						
 						list.add(ship);
 
 					}

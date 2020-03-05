@@ -249,6 +249,14 @@ public class ServiceShipTicket {
 			throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION);
 		}
 	}
+	public ArrayList<ShipDetail> routeShip() throws ServiceException {
+		try {
+			return ship.routeShip();
+		} catch (DBException e) {
+			e.printStackTrace();
+			throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION);
+		}
+	}
 
 	public void distinctShip(String s) throws ServiceException {
 		try {

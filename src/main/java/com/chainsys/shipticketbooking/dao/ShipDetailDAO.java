@@ -19,4 +19,6 @@ public interface ShipDetailDAO {
 
 	public void distinctShip(String s) throws DBException;// used for differentiate in classes in sql //user work
 	
+	public ArrayList<ShipDetail> routeShip() throws DBException;
+	
 }

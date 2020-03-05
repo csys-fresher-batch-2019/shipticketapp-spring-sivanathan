@@ -20,9 +20,14 @@ total amount:<input type="number" name="amount" value="<%=amount %>" readonly >
 				<br><br><input type="radio" name="cash"value="nb"required>net banking
 				<br><br><input type="radio" name="cash"value="w"required>wallet
 				
-<br> <button type="submit" >conform</button>
+<br><br> <button type="submit" >conform</button>
 				
 </form>
+<div
+	style="position: absolute; top: 0; right: 0; width: 100px; text-align: right;">
+
+	<jsp:include page="logout.jsp" /></center>
+</div>
+
 </body>
-<jsp:include page="logout.jsp"/></center>
 </html>

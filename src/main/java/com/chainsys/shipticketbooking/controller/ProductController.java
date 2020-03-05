@@ -3,6 +3,7 @@ package com.chainsys.shipticketbooking.controller;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,6 +15,7 @@ import com.chainsys.shipticketbooking.model.ShipDetail;
 import com.chainsys.shipticketbooking.model.User;
 import com.chainsys.shipticketbooking.service.ServiceShipTicket;
 
+@CrossOrigin(origins="*")
 @RestController
 @RequestMapping("api")
 public class ProductController {
@@ -55,5 +57,11 @@ public class ProductController {
 	 user.addUser(a);
 	 
 	 }
-	
+	 @GetMapping("/routeShip")
+		public ArrayList<ShipDetail> routeShip() {
+			ShipDetail ship = new ShipDetail();
+			
+			
+			return user.routeShip();
+		}
 	}
