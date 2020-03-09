@@ -18,6 +18,8 @@ public interface SeatDAO {
 	public int findAvailableSeats(SeatAvailability b) throws DBException;
 
 	public int findTotalcost(int a, int b) throws DBException;
+	
+	public void findTicketStatusAndCost(SeatAvailability b)throws DBException;
 
 	// public void count(SeatAvailability b) throws Exception;
 

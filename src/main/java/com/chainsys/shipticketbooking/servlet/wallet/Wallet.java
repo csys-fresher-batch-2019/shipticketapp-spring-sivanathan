@@ -1,7 +1,9 @@
 package com.chainsys.shipticketbooking.servlet.wallet;
 
 import java.io.IOException;
+import java.util.Map;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.chainsys.shipticketbooking.logger.Logger;
 import com.chainsys.shipticketbooking.wallet.WalletAPI;
 
 @WebServlet("/Wallet")
@@ -18,18 +21,40 @@ public class Wallet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		response.getWriter().append("Served at: ").append(request.getContextPath());
+		
 		WalletAPI wallet = new WalletAPI();
+		Logger logger = Logger.getInstance();
+		
+		int user_id=Integer.parseInt("userid");
 		String name = request.getParameter("merchantId");
 		long contactNumber = Long.parseLong(request.getParameter("MobileNo"));
 		float amount = Float.parseFloat(request.getParameter("amount"));
-		System.out.println(name);
-		System.out.println(contactNumber);
-		System.out.println(amount);
-		Object api = wallet.paywallet(contactNumber, name, amount);
+		
+		logger.info(name);
+		logger.info(contactNumber);
+		logger.info(amount);
+		
+		// {transactionId=183, status=SUCCESS, errorMessage=null}
+		// Object resultMap=(Object)wallet.paywallet(contactNumber, name, amount);
 
-		HttpSession session1 = request.getSession();
-		session1.setAttribute("api", api);
-		response.sendRedirect("wallet1.jsp");
+		Map<String, Object> resultMap = wallet.paywallet(contactNumber, name, amount);
+
+		Integer transactionId = (Integer) resultMap.get("transactionId");
+		logger.info(transactionId);
+		
+		String status = (String) resultMap.get("status");
+		logger.info(status);
+		
+		String error = (String) resultMap.get("error");
+		logger.info(error);
+
+		//HttpSession session = request.getSession();
+		request.setAttribute("api1", transactionId);
+		request.setAttribute("api2", status);
+		request.setAttribute("api3", error);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("wallet1.jsp");
+		dispatcher.forward(request, response);
+		//response.sendRedirect("wallet1.jsp");
 
 	}
 

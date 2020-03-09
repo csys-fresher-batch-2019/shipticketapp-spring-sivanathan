@@ -36,6 +36,16 @@ public class ServiceShipTicket {
 
 	// static Jdbi jdbi=TestConnection.getJdbi();
 	// static UserDAO user=jdbi.onDemand(UserDAO.class);
+	public void findamount(SeatAvailability b) throws ServiceException {
+		try {
+			seat.findTicketStatusAndCost(b);
+		} catch (DBException e) {
+			e.printStackTrace();
+			throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION);
+		}
+	}
+
+
 	public int Totalcost(int a, int b) throws ServiceException {
 		try {
 			return seat.findTotalcost(a, b);
@@ -123,7 +133,6 @@ public class ServiceShipTicket {
 			throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION);
 		}
 	}
-
 	public int costOfBooking(String b) throws ServiceException {
 		try {
 			return seat.costOfBooking(b);

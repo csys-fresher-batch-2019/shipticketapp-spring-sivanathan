@@ -87,9 +87,68 @@ public class SeatDAOImplementation implements SeatDAO {
 			logger.error(ErrorMessages.CONNECTION_FAILURE + e);
 		}
 	}
+	public void findTicketStatusAndCost(SeatAvailability b) {
+		String value = "ordered";
+		String sql = "select ticket_status,cost from booking_detail where user_id = ?";
+		try (Connection com = TestConnection.getConnection();) {
+		try (PreparedStatement smt4 = com.prepareStatement(sql);) {
+			// smt4 = com.prepareStatement(sql);
+			smt4.setInt(1, b.getuserNo());
+			{
+				try (ResultSet value1 = smt4.executeQuery();) {
+
+					logger.debug(sql);
+					if (value1.next()) {
+						logger.debug("status:" + value1.getString("ticket_status"));
+						logger.debug("total:" + value1.getInt("cost"));
+						String sqlselect = "select email from user_detail where user_id in (select user_id from booking_detail where ticket_status='ordered' and user_id=?)";
+						try (PreparedStatement stm = com.prepareStatement(sqlselect);) {
+							stm.setInt(1, b.getuserNo());
+							ResultSet value2 = stm.executeQuery();
+							// logger.debug(value2);
+
+							String email = "";
+							// System.out.println("!!");
+							if (value2.next()) {
+								email = value2.getString("email");
+								logger.debug("emailID:" + email);
+
+								if (value1.getString("ticket_status").equalsIgnoreCase(value)) {
+									SendSmsIml.send("sivanathan011198@gmail.com", "8608872041", email,
+											" Your Application is ordered ", "stay tuned for further update",
+											b.getuserNo());
+								}
+							}
+						} catch (Exception e) {
+							e.printStackTrace();
+							logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + e);
+						}
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+					logger.error(ErrorMessages.INVALID_RESULTSET);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + e);
+		}
+	} catch (Exception e) {
+		e.printStackTrace();
+		logger.error(ErrorMessages.CONNECTION_FAILURE + e);
+	}
+	
+}
+
+	
+	
+	
+	
+	
+	
 
 	public void procedure(SeatAvailability b) {
-		String value = "ordered";
+		//String value = "ordered";
 		try (Connection com = TestConnection.getConnection();) {
 			String sql4 = "call TICKET_BOOKING(?,?,?,?,?,?)";
 			try (CallableStatement stmt = com.prepareCall(sql4);) {
@@ -103,10 +162,10 @@ public class SeatDAOImplementation implements SeatDAO {
 
 				logger.debug(b);
 				stmt.execute();
-
+				//findTicketStatusAndCost(b);
 				// System.out.println(b.getTicketStatus());
 
-				String sql = "select ticket_status,cost from booking_detail where user_id = ?";
+/*				String sql = "select ticket_status,cost from booking_detail where user_id = ?";
 				try (PreparedStatement smt4 = com.prepareStatement(sql);) {
 					// smt4 = com.prepareStatement(sql);
 					smt4.setInt(1, b.getuserNo());
@@ -149,7 +208,7 @@ public class SeatDAOImplementation implements SeatDAO {
 					e.printStackTrace();
 					logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + e);
 				}
-			} catch (Exception e) {
+			}*/ }catch (Exception e) {
 				e.printStackTrace();
 				logger.error(ErrorMessages.INVALID_CALLABLESTATEMENT + e);
 			}
