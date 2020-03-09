@@ -20,13 +20,13 @@ public interface UserDAO {
 	 * 
 	 */
 
-	public boolean User(int userId, String password) throws DBException;
+	public boolean userExist(int userId, String password) throws DBException;
 
-	public void addUser(User a) throws DBException;// user
+	public void saveUser(User a) throws DBException;// user
 
 	public void updateUser(User a) throws DBException;// user
 
 	public void deleteUser(User a) throws DBException;// admin
 
-	public void resetUser(User a) throws DBException;// user
+	public void passwordResetUser(User a) throws DBException;// user
 }

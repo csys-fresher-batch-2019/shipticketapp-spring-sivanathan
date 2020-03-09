@@ -16,7 +16,7 @@ import com.chainsys.shipticketbooking.util.TestConnection;
 public class SeatDAOImplementation implements SeatDAO {
 	Logger logger = Logger.getInstance();
 
-	public void add(SeatAvailability a) {
+	public void addSeatAvailability(SeatAvailability a) {
 
 		// Connection com = null;
 		// PreparedStatement smt1 = null;
@@ -42,7 +42,7 @@ public class SeatDAOImplementation implements SeatDAO {
 		}
 	}
 
-	public void update(SeatAvailability a) {
+	public void updateSeatAvailability(SeatAvailability a) {
 
 		// Connection com = null;
 		// PreparedStatement smt2 = null;
@@ -65,7 +65,7 @@ public class SeatDAOImplementation implements SeatDAO {
 		}
 	}
 
-	public void delete(SeatAvailability a) {
+	public void deleteSeatAvailability(SeatAvailability a) {
 		// PreparedStatement smt3 = null;
 
 		// Connection com = null;
@@ -189,7 +189,7 @@ public class SeatDAOImplementation implements SeatDAO {
 	}
 
 	@Override
-	public int seat(SeatAvailability b) {
+	public int findAvailableSeats(SeatAvailability b) {
 		int seats = 0;
 		try (Connection com = TestConnection.getConnection();) {
 			// com = TestConnection.getConnection();
@@ -223,7 +223,7 @@ public class SeatDAOImplementation implements SeatDAO {
 
 	}
 
-	public int Totalcost(int a, int b) {
+	public int findTotalcost(int a, int b) {
 		// PreparedStatement smt4 = null;
 		int cost = 0;
 		// Connection com = null;

@@ -16,8 +16,9 @@ class SeatDAOImplementationTest {
 		int shipId = 112233;
 		SeatDAOImplementation seat=new SeatDAOImplementation();
 		int expected=5000;
+		//int expected=0;
 		int actual;
-		actual = seat.Totalcost(journeyId, shipId);
+		actual = seat.findTotalcost(journeyId, shipId);
 		logger.info("cost:" +actual);
 		assertEquals(expected,actual);
 	

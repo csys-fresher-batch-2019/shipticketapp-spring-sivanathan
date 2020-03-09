@@ -14,7 +14,7 @@
 <h3>ProductList</h3>
 </center>
 <%
-ServiceShipTicket m4 = new ServiceShipTicket();
+	ServiceShipTicket m4 = new ServiceShipTicket();
 ShipDetail s=new ShipDetail();
 String source = request.getParameter("sourceplace");
 String destination = request.getParameter("destinationplace");
@@ -22,8 +22,7 @@ System.out.println(source + "-" + destination);
 s.setSourcePlace(source);
 s.setDestinationPlace(destination);
 
-List<shipdetails> list = m4.getShip(s);
-
+List<shipdetails> list = m4.findAllShipDetailWithSourceAndDestination(s);
 %>
 <center>
 <table border="1">

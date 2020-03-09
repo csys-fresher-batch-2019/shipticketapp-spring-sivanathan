@@ -17,7 +17,7 @@ public class ShipDetailDAOImplementation implements ShipDetailDAO {
 	Logger logger = Logger.getInstance();
 	// Connection com = null;
 
-	public void addShip(ShipDetail s) {
+	public void saveShipDetail(ShipDetail s) {
 		try (Connection com = TestConnection.getConnection();) {
 
 			String sql = "insert into ship_detail(ship_id,ship_name,source_place,destination_place,total_no_of_seats,classes,amount) values(?,?,?,?,?,?,?)";
@@ -47,7 +47,7 @@ public class ShipDetailDAOImplementation implements ShipDetailDAO {
 		}
 	}
 
-	public void updateShip(ShipDetail s) {
+	public void updateShipDetail(ShipDetail s) {
 
 		try (Connection com = TestConnection.getConnection();) {
 
@@ -73,7 +73,7 @@ public class ShipDetailDAOImplementation implements ShipDetailDAO {
 
 	}
 
-	public void deleteShip(ShipDetail s) {
+	public void deleteShipDetail(ShipDetail s) {
 
 		try (Connection com = TestConnection.getConnection();) {
 
@@ -99,7 +99,7 @@ public class ShipDetailDAOImplementation implements ShipDetailDAO {
 
 	}
 
-	public ArrayList<ShipDetail> getShip(ShipDetail s) {
+	public ArrayList<ShipDetail> findAllShipDetailWithSourceAndDestination(ShipDetail s) {
 
 		// ResultSet rs = null;
 		ArrayList<ShipDetail> list = new ArrayList<ShipDetail>();
@@ -174,7 +174,7 @@ public class ShipDetailDAOImplementation implements ShipDetailDAO {
 
 	}
 
-	public ArrayList<ShipDetail> Ship() {
+	public ArrayList<ShipDetail> findAllShip() {
 
 		// ResultSet rs1 = null;
 		ArrayList<ShipDetail> list = new ArrayList<ShipDetail>();

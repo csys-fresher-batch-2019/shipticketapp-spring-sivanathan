@@ -15,7 +15,7 @@ public class BookingDAOImplementation implements BookingDAO {
 	Connection com = null;
 	Logger logger = Logger.getInstance();
 
-	public void addBooking(Booking a) {
+	public void saveBooking(Booking a) {
 		// PreparedStatement smt1=null;
 		try (Connection com = TestConnection.getConnection();) {
 
@@ -85,7 +85,7 @@ public class BookingDAOImplementation implements BookingDAO {
 		}
 	}
 
-	public int count() {
+	public int countOfBooking() {
 		// public void count(String b) throws Exception {
 		int value = 0;
 		try (Connection com = TestConnection.getConnection();) {
@@ -112,7 +112,7 @@ public class BookingDAOImplementation implements BookingDAO {
 		return value;
 	}
 
-	public int book(Booking b) {
+	public int findCostOfBooking(Booking b) {
 
 		int res = 0;
 		try (Connection com = TestConnection.getConnection();) {

@@ -5,14 +5,14 @@ import com.chainsys.shipticketbooking.model.Booking;
 
 public interface BookingDAO {
 
-	public void addBooking(Booking b) throws DBException;// user work
+	public void saveBooking(Booking b) throws DBException;// user work
 
 	public void updateBooking(Booking b) throws DBException;// admin work
 
 	public void deleteBooking(Booking b) throws DBException;// user work
 
-	public int book(Booking b) throws DBException;
+	public int findCostOfBooking(Booking b) throws DBException;
 
-	public int count() throws DBException;// admin work
+	public int countOfBooking() throws DBException;// admin work
 
 }

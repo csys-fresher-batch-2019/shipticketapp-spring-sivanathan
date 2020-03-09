@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.chainsys.shipticketbooking.model.Booking;
 import com.chainsys.shipticketbooking.model.SeatAvailability;
@@ -81,7 +82,9 @@ public class Booking1 extends HttpServlet {
 			s1.addBooking(b1);
 			s1.procedure(b2);
 			int total_amount =s1.book(b3);
-			request.setAttribute("total", total_amount);
+			HttpSession session=request.getSession();
+			session.setAttribute("total", total_amount);
+			//request.setAttribute("total", total_amount);
 			out.print("booking selection is successful");
 			//request.setAttribute("statement", value);
 			//request.setAttribute(name, o);

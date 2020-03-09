@@ -16,7 +16,7 @@ public class UserDAOImplementation implements UserDAO {
 	Logger logger = Logger.getInstance();
 
 	// for adding the user details in sql.
-	public void addUser(User a) {
+	public void saveUser(User a) {
 		/*
 		 * Jdbi jdbi=TestConnection.getJdbi(); //ServiceShipTicket
 		 * service=jdbi.onDemand(service.class); UserDAO user = new
@@ -148,7 +148,7 @@ public class UserDAOImplementation implements UserDAO {
 	 */
 
 	// reset the password for the user if there is login failed
-	public void resetUser(User a) {
+	public void passwordResetUser(User a) {
 		// PreparedStatement smt3 = null;
 
 		try (Connection com = TestConnection.getConnection();) {
@@ -172,7 +172,7 @@ public class UserDAOImplementation implements UserDAO {
 		}
 	}
 
-	public boolean User(int userId, String password) {
+	public boolean userExist(int userId, String password) {
 
 		Statement stmt6 = null;
 		boolean result = false;

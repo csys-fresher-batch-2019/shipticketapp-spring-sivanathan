@@ -7,15 +7,15 @@ import com.chainsys.shipticketbooking.model.ShipDetail;
 
 public interface ShipDetailDAO {
 
-	public void addShip(ShipDetail s) throws DBException;// admin work
+	public void saveShipDetail(ShipDetail s) throws DBException;// admin work
 
-	public void updateShip(ShipDetail s) throws DBException;// admin work
+	public void updateShipDetail(ShipDetail s) throws DBException;// admin work
 
-	public void deleteShip(ShipDetail s) throws DBException;// admin work
+	public void deleteShipDetail(ShipDetail s) throws DBException;// admin work
 
-	public ArrayList<ShipDetail> getShip(ShipDetail s) throws DBException;// user work
+	public ArrayList<ShipDetail> findAllShipDetailWithSourceAndDestination(ShipDetail s) throws DBException;// user work
 
-	public ArrayList<ShipDetail> Ship() throws DBException;// user work
+	public ArrayList<ShipDetail> findAllShip() throws DBException;// user work
 
 	public void distinctShip(String s) throws DBException;// used for differentiate in classes in sql //user work
 	

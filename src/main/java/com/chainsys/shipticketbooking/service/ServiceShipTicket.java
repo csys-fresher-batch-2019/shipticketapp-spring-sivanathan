@@ -38,7 +38,7 @@ public class ServiceShipTicket {
 	// static UserDAO user=jdbi.onDemand(UserDAO.class);
 	public int Totalcost(int a, int b) throws ServiceException {
 		try {
-			return seat.Totalcost(a, b);
+			return seat.findTotalcost(a, b);
 		} catch (DBException e) {
 			e.printStackTrace();
 			throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION);
@@ -49,7 +49,7 @@ public class ServiceShipTicket {
 		boolean adminLogin = false;
 		try {
 			validSearch(adminId, pass);
-			adminLogin = admin.AdminLogin(adminId, pass);
+			adminLogin = admin.adminExist(adminId, pass);
 		} catch (ValidatorException e) {
 			throw new ServiceException(ErrorMessages.ADMIN_LOGIN_FAILED);
 		} catch (DBException e) {
@@ -65,7 +65,7 @@ public class ServiceShipTicket {
 		boolean userLogin = false;
 		try {
 			validSearch1(userId, password);
-			userLogin = user.User(userId, password);
+			userLogin = user.userExist(userId, password);
 		} catch (ValidatorException e) {
 			e.printStackTrace();
 			throw new ServiceException(ErrorMessages.USER_LOGIN_FAILED);
@@ -80,7 +80,7 @@ public class ServiceShipTicket {
 
 	public int book(Booking b) throws ServiceException {
 		try {
-			return book.book(b);
+			return book.findCostOfBooking(b);
 		} catch (DBException e) {
 			e.printStackTrace();
 			throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION);
@@ -90,7 +90,7 @@ public class ServiceShipTicket {
 
 	public void add(SeatAvailability a) throws ServiceException {
 		try {
-			seat.add(a);
+			seat.addSeatAvailability(a);
 		} catch (DBException e) {
 			e.printStackTrace();
 			throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION);
@@ -99,7 +99,7 @@ public class ServiceShipTicket {
 
 	public void update(SeatAvailability a) throws ServiceException {
 		try {
-			seat.update(a);
+			seat.updateSeatAvailability(a);
 		} catch (DBException e) {
 			e.printStackTrace();
 			throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION);
@@ -108,7 +108,7 @@ public class ServiceShipTicket {
 
 	public void delete(SeatAvailability a) throws ServiceException {
 		try {
-			seat.delete(a);
+			seat.deleteSeatAvailability(a);
 		} catch (DBException e) {
 			e.printStackTrace();
 			throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION);
@@ -135,7 +135,7 @@ public class ServiceShipTicket {
 
 	public void addBooking(Booking a) throws ServiceException {
 		try {
-			book.addBooking(a);
+			book.saveBooking(a);
 		} catch (DBException e) {
 			e.printStackTrace();
 			throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION);
@@ -162,7 +162,7 @@ public class ServiceShipTicket {
 
 	public int count() throws ServiceException {
 		try {
-			return book.count();
+			return book.countOfBooking();
 		} catch (DBException e) {
 			e.printStackTrace();
 			throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION);
@@ -171,7 +171,7 @@ public class ServiceShipTicket {
 
 	public void addJourney(Journey a) throws ServiceException {
 		try {
-			journey.addJourney(a);
+			journey.saveJourney(a);
 		} catch (DBException e) {
 			e.printStackTrace();
 			throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION);
@@ -198,7 +198,7 @@ public class ServiceShipTicket {
 
 	public ArrayList<Journey> getJourney(int a) throws ServiceException {
 		try {
-			return journey.getJourney(a);
+			return journey.findAllJourney(a);
 		} catch (DBException e) {
 			e.printStackTrace();
 			throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION);
@@ -207,7 +207,7 @@ public class ServiceShipTicket {
 
 	public void addShip(ShipDetail s) throws ServiceException {
 		try {
-			ship.addShip(s);
+			ship.saveShipDetail(s);
 		} catch (DBException e) {
 			e.printStackTrace();
 			throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION);
@@ -216,7 +216,7 @@ public class ServiceShipTicket {
 
 	public void updateShip(ShipDetail s) throws ServiceException {
 		try {
-			ship.updateShip(s);
+			ship.updateShipDetail(s);
 		} catch (DBException e) {
 			e.printStackTrace();
 			throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION);
@@ -225,7 +225,7 @@ public class ServiceShipTicket {
 
 	public void deleteShip(ShipDetail s) throws ServiceException {
 		try {
-			ship.deleteShip(s);
+			ship.deleteShipDetail(s);
 		} catch (DBException e) {
 			e.printStackTrace();
 			throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION);
@@ -234,7 +234,7 @@ public class ServiceShipTicket {
 
 	public ArrayList<ShipDetail> getShip(ShipDetail s) throws ServiceException {
 		try {
-			return ship.getShip(s);
+			return ship.findAllShipDetailWithSourceAndDestination(s);
 		} catch (DBException e) {
 			e.printStackTrace();
 			throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION);
@@ -243,7 +243,7 @@ public class ServiceShipTicket {
 
 	public ArrayList<ShipDetail> Ship() throws ServiceException {
 		try {
-			return ship.Ship();
+			return ship.findAllShip();
 		} catch (DBException e) {
 			e.printStackTrace();
 			throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION);
@@ -269,7 +269,7 @@ public class ServiceShipTicket {
 
 	public void addUser(User a) throws ServiceException {
 		try {
-			user.addUser(a);
+			user.saveUser(a);
 		} catch (DBException e) {
 			e.printStackTrace();
 			throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION);
@@ -296,7 +296,7 @@ public class ServiceShipTicket {
 
 	public void resetUser(User a) throws ServiceException {
 		try {
-			user.resetUser(a);
+			user.passwordResetUser(a);
 		} catch (DBException e) {
 			e.printStackTrace();
 			throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION);
@@ -305,7 +305,7 @@ public class ServiceShipTicket {
 
 	public int seat(SeatAvailability b) throws ServiceException {
 		try {
-			return seat.seat(b);
+			return seat.findAvailableSeats(b);
 		} catch (DBException e) {
 			e.printStackTrace();
 			throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION);

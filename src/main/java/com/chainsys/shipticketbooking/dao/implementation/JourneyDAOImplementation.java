@@ -15,7 +15,7 @@ public class JourneyDAOImplementation implements JourneyDAO {
 	Connection com = null;
 	Logger logger = Logger.getInstance();
 
-	public void addJourney(Journey a) {
+	public void saveJourney(Journey a) {
 		try (Connection com = TestConnection.getConnection();) {
 
 			String sql1 = "insert into journey_detail(journey_id,source_date,destination_date,ship_id)values(?,?,?,?)";
@@ -82,7 +82,7 @@ public class JourneyDAOImplementation implements JourneyDAO {
 		}
 	}
 
-	public ArrayList<Journey> getJourney(int a) {
+	public ArrayList<Journey> findAllJourney(int a) {
 		ArrayList<Journey> list = new ArrayList<Journey>();
 		try (Connection com = TestConnection.getConnection();) {
 

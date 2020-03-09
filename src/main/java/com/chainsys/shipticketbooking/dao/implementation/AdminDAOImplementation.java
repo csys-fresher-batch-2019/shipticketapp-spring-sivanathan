@@ -11,7 +11,7 @@ import com.chainsys.shipticketbooking.util.TestConnection;
 
 public class AdminDAOImplementation implements AdminDAO {
 
-	public boolean AdminLogin(int adminId, String pass)
+	public boolean adminExist(int adminId, String pass)
 
 	{
 		Logger logger = Logger.getInstance();
