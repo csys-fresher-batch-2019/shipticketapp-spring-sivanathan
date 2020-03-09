@@ -122,7 +122,7 @@ public class ShipDetailDAOImplementation implements ShipDetailDAO {
 							ship.setDestinationPlace(rs.getString("destination_place"));
 							ship.setShipId(rs.getInt("ship_id"));
 							ship.setShipName(rs.getString("ship_name"));
-							//ship.setNoOfSeats(rs.getInt("total_no_of_seats"));
+							// ship.setNoOfSeats(rs.getInt("total_no_of_seats"));
 							list.add(ship);
 
 						}
@@ -215,6 +215,7 @@ public class ShipDetailDAOImplementation implements ShipDetailDAO {
 		}
 		return list;
 	}
+
 	public ArrayList<ShipDetail> routeShip() {
 
 		// ResultSet rs1 = null;
@@ -231,9 +232,9 @@ public class ShipDetailDAOImplementation implements ShipDetailDAO {
 
 					while (rs1.next()) {
 						ShipDetail ship = new ShipDetail();
-						
+
 						ship.setRoutePlace(rs1.getString("route_place"));
-						
+
 						list.add(ship);
 
 					}

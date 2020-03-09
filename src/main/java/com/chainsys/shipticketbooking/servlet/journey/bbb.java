@@ -12,13 +12,16 @@ import javax.servlet.http.HttpSession;
 
 import com.chainsys.shipticketbooking.model.SeatAvailability;
 import com.chainsys.shipticketbooking.service.ServiceShipTicket;
+
 @WebServlet("/bbb")
 public class bbb extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
-		
+
 		ServiceShipTicket m1 = new ServiceShipTicket();
 		SeatAvailability u1 = new SeatAvailability();
 
@@ -50,9 +53,7 @@ public class bbb extends HttpServlet {
 				e.printStackTrace();
 			}
 
-		}
-		else if(value2==booking)
-		{
+		} else if (value2 == booking) {
 			try {
 				int availableseats = m1.seat(u1);
 				session.setAttribute("seats", availableseats);

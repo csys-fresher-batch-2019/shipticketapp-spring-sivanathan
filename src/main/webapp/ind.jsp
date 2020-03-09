@@ -33,7 +33,7 @@ body {
 	<form onsubmit="viewShip()">
 		<p>ENTER THE SOURCE PLACE</p>
 		<br> <select name="sourceplace" id="source">
-		<!--  <option <!-- <span id="span"></span> value="">select</option>-->
+			<!--  <option <!-- <span id="span"></span> value="">select</option>-->
 			<option value="">select</option>
 			<option value="amindivi">amindivi</option>
 			<option value="lagoons">lagoons</option>
@@ -86,28 +86,28 @@ body {
 		style="position: absolute; bottom: 0; right: 0; width: 100px; text-align: right;">
 
 		<h1>
-		<!-- <button  onclick=<a href="index.jsp">main</a>></button> -->
-			<button onclick="index()" >main</button><br> 
+			<!-- <button  onclick=<a href="index.jsp">main</a>></button> -->
+			<button onclick="index()">main</button>
+			<br>
 		</h1>
 	</div>
 
 
-<!-- java script -->
+	<!-- java script -->
 	<script>
-	
-	function index(){
-		window.location.href = "index.jsp";
-	}
-	
-	window.history.forward();
-	
-	function noBack() {
-	    window.history.forward();
-	}
-	
-	function nextpage() {
-	    window.location.replace("http://localhost:9000/index.jsp")
-	}
+		function index() {
+			window.location.href = "index.jsp";
+		}
+
+		window.history.forward();
+
+		function noBack() {
+			window.history.forward();
+		}
+
+		function nextpage() {
+			window.location.replace("http://localhost:9000/index.jsp")
+		}
 		$("#container").hide();
 		function viewShip() {
 			event.preventDefault();
@@ -165,12 +165,10 @@ body {
 			//alert(row);
 			$("#ShipTbl").append(row);
 		}
-		
-/* 		function btnDisable(){
-			$("#span").append("diabled");
-		} */
-		
-		
+
+		/* 		function btnDisable(){
+		 $("#span").append("diabled");
+		 } */
 	</script>
 
 </body>

@@ -14,7 +14,8 @@ import com.chainsys.shipticketbooking.service.ServiceShipTicket;
 
 @WebServlet("/Admin6")
 public class Admin6 extends HttpServlet {
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		ServiceShipTicket m1 = new ServiceShipTicket();
@@ -26,10 +27,10 @@ public class Admin6 extends HttpServlet {
 		int seats = Integer.parseInt(request.getParameter("totalnoofseats"));
 		String source = request.getParameter("sourceplace");
 		String destination = request.getParameter("destinationplace");
-	//	String email = request.getParameter("email");
-		
+		// String email = request.getParameter("email");
+
 		System.out.println(u1);
-		//System.out.println(password);
+		// System.out.println(password);
 		u1.setAmount(amount);
 		u1.setClasses(classes);
 		u1.setDestinationPlace(destination);
@@ -40,16 +41,13 @@ public class Admin6 extends HttpServlet {
 
 		try {
 			m1.addShip(u1);
-			//response.sendRedirect("login.jsp");
+			// response.sendRedirect("login.jsp");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			response.sendRedirect("admin6.jsp");
 		}
 
-
-	}
-		
 	}
 
-
+}

@@ -1,4 +1,5 @@
 package com.project.shipticket.admin.admin7;
+
 import java.io.IOException;
 import java.time.LocalDate;
 
@@ -25,29 +26,29 @@ public class Admin7 extends HttpServlet {
 		int shipId = Integer.parseInt(request.getParameter("shipid"));
 
 		int journeyid = Integer.parseInt(request.getParameter("journeyid"));
-		
+
 		String source = request.getParameter("sourceplace");
 		LocalDate sourceplace = LocalDate.parse(source);
-		
+
 		String destination = request.getParameter("destinationplace");
 		LocalDate destinationplace = LocalDate.parse(destination);
-		System.out.println(source + destination);		
-		u1.setDestinationDate(destinationplace);;
-		u1.setSourceDate(sourceplace);;
-		u1.setJourneyId(journeyid);;
+		System.out.println(source + destination);
+		u1.setDestinationDate(destinationplace);
+		;
+		u1.setSourceDate(sourceplace);
+		;
+		u1.setJourneyId(journeyid);
+		;
 		u1.setShipId(shipId);
 		System.out.println(u1);
 		try {
 			m1.addJourney(u1);
-			//response.sendRedirect("admin8.jsp");
+			// response.sendRedirect("admin8.jsp");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-
-		
-		
 	}
 
 }

@@ -17,10 +17,11 @@ public class TestConnection {
 //	        TimeZone.setDefault(timeZone);
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 
-			 con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","system","oracle");
+			con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "system", "oracle");
 			// "system", "oracle");
 			// it is used to communicate with url
-			//con = DriverManager.getConnection("jdbc:oracle:thin:@13.235.147.120:1521:XE", "sivanathan", "sivanathan");
+			// con = DriverManager.getConnection("jdbc:oracle:thin:@13.235.147.120:1521:XE",
+			// "sivanathan", "sivanathan");
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error(ErrorMessages.CONNECTION_FAILURE);

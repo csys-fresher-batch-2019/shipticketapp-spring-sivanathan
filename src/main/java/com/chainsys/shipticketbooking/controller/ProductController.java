@@ -15,7 +15,7 @@ import com.chainsys.shipticketbooking.model.ShipDetail;
 import com.chainsys.shipticketbooking.model.User;
 import com.chainsys.shipticketbooking.service.ServiceShipTicket;
 
-@CrossOrigin(origins="*")
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("api")
 public class ProductController {
@@ -51,17 +51,17 @@ public class ProductController {
 		return user.getShip(ship);
 	}
 
-	 @PostMapping("/addinguser") 
-	 public void addinguser(@RequestBody User a) {
-		 
-	 user.addUser(a);
-	 
-	 }
-	 @GetMapping("/routeShip")
-		public ArrayList<ShipDetail> routeShip() {
-			ShipDetail ship = new ShipDetail();
-			
-			
-			return user.routeShip();
-		}
+	@PostMapping("/addinguser")
+	public void addinguser(@RequestBody User a) {
+
+		user.addUser(a);
+
 	}
+
+	@GetMapping("/routeShip")
+	public ArrayList<ShipDetail> routeShip() {
+		ShipDetail ship = new ShipDetail();
+
+		return user.routeShip();
+	}
+}

@@ -30,9 +30,9 @@ public class registration extends HttpServlet {
 		String gender = request.getParameter("gender");
 		String password = request.getParameter("password");
 		String email = request.getParameter("email");
-		
+
 		System.out.println(u1);
-		//System.out.println(password);
+		// System.out.println(password);
 		u1.setUserId(userId);
 		u1.setUserName(name);
 		u1.setDateOfBirth(dob);
@@ -49,7 +49,6 @@ public class registration extends HttpServlet {
 			e.printStackTrace();
 			response.sendRedirect("register.jsp");
 		}
-
 
 	}
 }

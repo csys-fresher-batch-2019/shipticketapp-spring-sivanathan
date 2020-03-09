@@ -52,9 +52,7 @@ public class aaa extends HttpServlet {
 				e.printStackTrace();
 			}
 
-		}
-		else if(value2==booking)
-		{
+		} else if (value2 == booking) {
 			try {
 				int availableseats = m1.seat(u1);
 				session.setAttribute("seats", availableseats);

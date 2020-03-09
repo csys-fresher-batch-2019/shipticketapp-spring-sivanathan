@@ -15,15 +15,11 @@ body {
 		<h1>login</h1>
 
 		<h2>
-			<br>
-			<br>
-			<a href="register.jsp">create a new registration</a> <br>
-			<br>
-			<a href="admin.jsp">admin login</a>
+			<br> <br> <a href="register.jsp">create a new
+				registration</a> <br> <br> <a href="admin.jsp">admin login</a>
 			<!-- <br><br><br><a href="wallet.jsp">wallet</a> -->
 		</h2>
-		<br>
-		<br>
+		<br> <br>
 
 		<form action="Login">
 			<br>Enter userId : <input type="number" name="userid"

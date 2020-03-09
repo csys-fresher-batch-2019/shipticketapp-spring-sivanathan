@@ -11,10 +11,12 @@ import javax.servlet.http.HttpSession;
 @WebServlet("/AdminLogout")
 public class AdminLogout extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
-		HttpSession session =request.getSession();
+		HttpSession session = request.getSession();
 		session.invalidate();
 		response.sendRedirect("admin.jsp");
 	}

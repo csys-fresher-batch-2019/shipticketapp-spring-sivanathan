@@ -9,19 +9,20 @@ import com.chainsys.shipticketbooking.logger.Logger;
 
 class SeatDAOImplementationTest {
 
-	@Test @Ignore
+	@Test
+	@Ignore
 	void testTotalcost() {
-		Logger logger=Logger.getInstance();
+		Logger logger = Logger.getInstance();
 		int journeyId = 10202;
 		int shipId = 112233;
-		SeatDAOImplementation seat=new SeatDAOImplementation();
-		int expected=5000;
-		//int expected=0;
+		SeatDAOImplementation seat = new SeatDAOImplementation();
+		int expected = 5000;
+		// int expected=0;
 		int actual;
 		actual = seat.findTotalcost(journeyId, shipId);
-		logger.info("cost:" +actual);
-		assertEquals(expected,actual);
-	
+		logger.info("cost:" + actual);
+		assertEquals(expected, actual);
+
 	}
 
 }

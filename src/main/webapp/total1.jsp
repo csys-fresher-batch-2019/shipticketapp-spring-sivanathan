@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -17,18 +17,15 @@
 	<form onsubmit="call()">
 		<center>
 			<h1>total amount</h1>
-			total amount:<input type="number" name="amount" value="<%=amount%>" readonly> <br><br>
-			
-			payment through:<br>
-			<br>
-			<input type="radio" name="cash" id="credit"  disabled value="credit" id="credit" required>credit card <br>
-			<br>
-			<input type="radio" name="cash" id="net" disabled value="net" required>net banking
-			<br>
-			<br>
-			<input type="radio" name="cash" id="wallet" value="wallet" required>wallet <br>
-			<br>
-			
+			total amount:<input type="number" name="amount" value="<%=amount%>"
+				readonly> <br>
+			<br> payment through:<br> <br> <input type="radio"
+				name="cash" id="credit" disabled value="credit" id="credit" required>credit
+			card <br> <br> <input type="radio" name="cash" id="net"
+				disabled value="net" required>net banking <br> <br>
+			<input type="radio" name="cash" id="wallet" value="wallet" required>wallet
+			<br> <br>
+
 
 			<button type="submit">confirm</button>
 	</form>
@@ -49,7 +46,7 @@
 			} else if (option == "netbanking") {
 				console.log("netbanking");
 				//window.location.href = "netbanking.jsp";
-			} else */ 
+			} else */
 			if (option == "wallet") {
 				console.log("wallet");
 				window.location.href = "wallet.jsp";

@@ -103,7 +103,7 @@ public class SeatDAOImplementation implements SeatDAO {
 
 				logger.debug(b);
 				stmt.execute();
-				
+
 				// System.out.println(b.getTicketStatus());
 
 				String sql = "select ticket_status,cost from booking_detail where user_id = ?";
@@ -121,10 +121,10 @@ public class SeatDAOImplementation implements SeatDAO {
 								try (PreparedStatement stm = com.prepareStatement(sqlselect);) {
 									stm.setInt(1, b.getuserNo());
 									ResultSet value2 = stm.executeQuery();
-									//logger.debug(value2);
-									
+									// logger.debug(value2);
+
 									String email = "";
-									//System.out.println("!!");
+									// System.out.println("!!");
 									if (value2.next()) {
 										email = value2.getString("email");
 										logger.debug("emailID:" + email);

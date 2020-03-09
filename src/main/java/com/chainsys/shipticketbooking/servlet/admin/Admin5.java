@@ -9,19 +9,22 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.chainsys.shipticketbooking.model.SeatAvailability;
 import com.chainsys.shipticketbooking.service.ServiceShipTicket;
+
 @WebServlet("/Admin5")
 public class Admin5 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		ServiceShipTicket m4 = new ServiceShipTicket();
-		SeatAvailability a=new SeatAvailability ();
+		SeatAvailability a = new SeatAvailability();
 		int sid = Integer.parseInt(request.getParameter("shipid"));
-	//	int jid = Integer.parseInt(request.getParameter("journeyid"));
-		int seat= Integer.parseInt(request.getParameter("availableseats"));
+		// int jid = Integer.parseInt(request.getParameter("journeyid"));
+		int seat = Integer.parseInt(request.getParameter("availableseats"));
 		a.setShipId(sid);
-		//a.setJourneyId(jid);
+		// a.setJourneyId(jid);
 		a.setAvailabilitySeats(seat);
 		try {
 			m4.update(a);
@@ -30,8 +33,7 @@ public class Admin5 extends HttpServlet {
 			e.printStackTrace();
 			response.sendRedirect("admin5.jsp");
 		}
-	
-	
+
 	}
 
 }

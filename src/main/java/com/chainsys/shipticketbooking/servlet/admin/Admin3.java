@@ -9,10 +9,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.chainsys.shipticketbooking.model.Journey;
 import com.chainsys.shipticketbooking.service.ServiceShipTicket;
+
 @WebServlet("/Admin3")
 public class Admin3 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		ServiceShipTicket m1 = new ServiceShipTicket();
@@ -26,7 +29,7 @@ public class Admin3 extends HttpServlet {
 			e.printStackTrace();
 			response.sendRedirect("admin3.jsp");
 		}
-		
+
 	}
 
 }

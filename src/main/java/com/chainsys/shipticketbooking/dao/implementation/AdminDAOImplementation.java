@@ -19,7 +19,7 @@ public class AdminDAOImplementation implements AdminDAO {
 		try (Connection con = TestConnection.getConnection();) {
 			try (Statement stmt = con.createStatement();) {
 
-				String sql = "select pass_word from AdminRegister where Admin_id="+adminId+""; 
+				String sql = "select pass_word from AdminRegister where Admin_id=" + adminId + "";
 				try (ResultSet rs1 = stmt.executeQuery(sql);) {
 					if (rs1.next()) {
 						String password = rs1.getString("pass_word");

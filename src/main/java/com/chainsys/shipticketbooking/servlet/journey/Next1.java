@@ -47,16 +47,16 @@ public class Next1 extends HttpServlet {
 		try {
 			int cost = m4.Totalcost(shipId, journey);
 			System.out.println(cost);
-			
+
 			HttpSession session9 = request.getSession();
 			session9.setAttribute("cost", cost);
-			
+
 			int availableseats = m4.seat(u1);
 			System.out.println(availableseats);
-			
+
 			HttpSession session1 = request.getSession();
 			session1.setAttribute("seats", availableseats);
-			
+
 			RequestDispatcher dispatcher = request.getRequestDispatcher("booking1.jsp");
 			dispatcher.forward(request, response);
 		} catch (Exception e) {

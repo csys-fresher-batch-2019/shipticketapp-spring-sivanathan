@@ -10,8 +10,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.chainsys.shipticketbooking.wallet.WalletAPI;
+
 @WebServlet("/Wallet")
-public class Wallet extends HttpServlet{
+public class Wallet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -24,12 +25,11 @@ public class Wallet extends HttpServlet{
 		System.out.println(name);
 		System.out.println(contactNumber);
 		System.out.println(amount);
-		Object api=wallet.paywallet(contactNumber, name, amount);
+		Object api = wallet.paywallet(contactNumber, name, amount);
 
-		HttpSession session1=request.getSession();
+		HttpSession session1 = request.getSession();
 		session1.setAttribute("api", api);
 		response.sendRedirect("wallet1.jsp");
-		
 
 	}
 

@@ -11,8 +11,7 @@
 </center>
 <style>
 body {
-	background-image:
-		url('assets/images/353381.jpg');
+	background-image: url('assets/images/353381.jpg');
 	background-repeat: no-repeat;
 	background-attachment: fixed;
 	background-size: 100% 100%;
@@ -59,9 +58,7 @@ body {
 		<button type="submit">Search</button>
 		<button type="reset">reset</button>
 		<h1>
-			<br>
-			<br>
-			<a href="index.jsp">next</a>
+			<br> <br> <a href="index.jsp">next</a>
 		</h1>
 
 	</form>

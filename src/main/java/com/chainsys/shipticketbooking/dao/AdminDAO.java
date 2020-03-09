@@ -1,6 +1,5 @@
 package com.chainsys.shipticketbooking.dao;
 
-
 import com.chainsys.shipticketbooking.exception.DBException;
 
 public interface AdminDAO {

@@ -16,23 +16,24 @@ import com.chainsys.shipticketbooking.service.ServiceShipTicket;
 
 @WebServlet("/Next")
 public class Next extends HttpServlet {
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ServiceShipTicket m4=new ServiceShipTicket();
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		ServiceShipTicket m4 = new ServiceShipTicket();
 		response.getWriter().append("Served at: ").append(request.getContextPath());
-	int ship=Integer.parseInt(request.getParameter("shipid"));
-	System.out.println(ship);
-	try {
-		ArrayList<Journey> value=m4.getJourney(ship);
-		System.out.println(value);
-		HttpSession session = request.getSession();
-		session.setAttribute("journey12", value);
-		RequestDispatcher dis=request.getRequestDispatcher("next1.jsp");
-		dis.forward(request, response);
-	} catch (Exception e) {
-		e.printStackTrace();
-		response.sendRedirect("next.jsp");
-	}
-	
+		int ship = Integer.parseInt(request.getParameter("shipid"));
+		System.out.println(ship);
+		try {
+			ArrayList<Journey> value = m4.getJourney(ship);
+			System.out.println(value);
+			HttpSession session = request.getSession();
+			session.setAttribute("journey12", value);
+			RequestDispatcher dis = request.getRequestDispatcher("next1.jsp");
+			dis.forward(request, response);
+		} catch (Exception e) {
+			e.printStackTrace();
+			response.sendRedirect("next.jsp");
+		}
+
 	}
 
 }
