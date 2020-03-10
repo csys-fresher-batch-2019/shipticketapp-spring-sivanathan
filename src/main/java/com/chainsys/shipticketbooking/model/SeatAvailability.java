@@ -38,11 +38,11 @@ public class SeatAvailability {
 	}
 
 	public int getBookingSeats() {
-		return BookingSeats;
+		return bookingSeat;
 	}
 
 	public void setBookingSeats(int bookingSeats) {
-		BookingSeats = bookingSeats;
+		bookingSeat = bookingSeats;
 	}
 
 	public String getTicketStatus() {
@@ -69,19 +69,19 @@ public class SeatAvailability {
 		this.shipNo = shipNo;
 	}
 
-	public int getjourneyNo() {
+	public int getJourneyNo() {
 		return journeyNo;
 	}
 
-	public void setjourneyNo(int journeyNo) {
+	public void setJourneyNo(int journeyNo) {
 		this.journeyNo = journeyNo;
 	}
 
-	public int getuserNo() {
+	public int getUserNo() {
 		return userNo;
 	}
 
-	public void setuserNo(int userNo) {
+	public void setUserNo(int userNo) {
 		this.userNo = userNo;
 	}
 
@@ -89,7 +89,7 @@ public class SeatAvailability {
 	private int journeyId;
 	private int availabilitySeats;
 	private int userId;
-	private int BookingSeats;
+	private int bookingSeat;
 	private String ticketStatus;
 	private int cost;
 	private int shipNo;
@@ -99,13 +99,13 @@ public class SeatAvailability {
 	@Override
 	public String toString() {
 		return "SeatAvailability [shipId=" + shipId + ", journeyId=" + journeyId + ", availabilitySeats="
-				+ availabilitySeats + ", userId=" + userId + ", BookingSeats=" + BookingSeats + ", ticketStatus="
+				+ availabilitySeats + ", userId=" + userId + ", BookingSeats=" + bookingSeat + ", ticketStatus="
 				+ ticketStatus + ", cost=" + cost + ", shipNo=" + shipNo + ", journeyNo=" + journeyNo + ", userNo="
 				+ userNo + ", getShipId()=" + getShipId() + ", getJourneyId()=" + getJourneyId()
 				+ ", getAvailabilitySeats()=" + getAvailabilitySeats() + ", getUserId()=" + getUserId()
 				+ ", getBookingSeats()=" + getBookingSeats() + ", getTicketStatus()=" + getTicketStatus()
-				+ ", getCost()=" + getCost() + ", getShipNo()=" + getShipNo() + ", getjourneyNo()=" + getjourneyNo()
-				+ ", getuserNo()=" + getuserNo() + ", hashCode()=" + hashCode() + ", getClass()=" + getClass()
+				+ ", getCost()=" + getCost() + ", getShipNo()=" + getShipNo() + ", getjourneyNo()=" + getJourneyNo()
+				+ ", getuserNo()=" + getUserNo() + ", hashCode()=" + hashCode() + ", getClass()=" + getClass()
 				+ ", toString()=" + super.toString() + "]";
 	}
 

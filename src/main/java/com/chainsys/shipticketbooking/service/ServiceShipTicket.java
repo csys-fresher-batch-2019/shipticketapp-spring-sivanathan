@@ -44,7 +44,8 @@ public class ServiceShipTicket {
 		} catch (DBException e) {
 			e.printStackTrace();
 			// throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION);
-			logger.error(ErrorMessages.INVALID_DB_EXCEPTION + "" + e);
+			// logger.error(ErrorMessages.INVALID_DB_EXCEPTION + "" + e);
+			throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION, e);
 		}
 	}
 
@@ -54,9 +55,9 @@ public class ServiceShipTicket {
 		} catch (DBException e) {
 			e.printStackTrace();
 			// throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION);
-			logger.error(ErrorMessages.INVALID_DB_EXCEPTION + "" + e);
+			// logger.error(ErrorMessages.INVALID_DB_EXCEPTION + "" + e);
+			throw new ServiceException(ErrorMessages.CONNECTION_FAILURE, e);
 		}
-		return 0;
 	}
 
 	public boolean AdminLogin(int adminId, String pass) throws ServiceException {
@@ -66,11 +67,13 @@ public class ServiceShipTicket {
 			adminLogin = admin.adminExist(adminId, pass);
 		} catch (ValidatorException e) {
 			// throw new ServiceException(ErrorMessages.ADMIN_LOGIN_FAILED);
-			logger.error(ErrorMessages.ADMIN_LOGIN_FAILED);
+			// logger.error(ErrorMessages.ADMIN_LOGIN_FAILED);
+			throw new ServiceException(ErrorMessages.ADMIN_LOGIN_FAILED, e);
 		} catch (DBException e) {
 			e.printStackTrace();
 			// throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION);
-			logger.error(ErrorMessages.INVALID_DB_EXCEPTION + "" + e);
+			// logger.error(ErrorMessages.INVALID_DB_EXCEPTION + "" + e);
+			throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION, e);
 		}
 
 		return adminLogin;
@@ -85,12 +88,14 @@ public class ServiceShipTicket {
 		} catch (ValidatorException e) {
 			e.printStackTrace();
 			// throw new ServiceException(ErrorMessages.USER_LOGIN_FAILED);
-			logger.error(ErrorMessages.USER_LOGIN_FAILED + "" + e);
+			// logger.error(ErrorMessages.USER_LOGIN_FAILED + "" + e);
+			throw new ServiceException(ErrorMessages.USER_LOGIN_FAILED, e);
 
 		} catch (DBException e) {
 			e.printStackTrace();
 			// throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION);
-			logger.error(ErrorMessages.INVALID_DB_EXCEPTION + "" + e);
+			// logger.error(ErrorMessages.INVALID_DB_EXCEPTION + "" + e);
+			throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION, e);
 		}
 
 		return userLogin;
@@ -103,10 +108,10 @@ public class ServiceShipTicket {
 		} catch (DBException e) {
 			e.printStackTrace();
 			// throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION);
-			logger.error(ErrorMessages.INVALID_DB_EXCEPTION + "" + e);
+			// logger.error(ErrorMessages.INVALID_DB_EXCEPTION + "" + e);
+			throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION, e);
 
 		}
-		return 0;
 	}
 
 	public void add(SeatAvailability a) throws ServiceException {
@@ -115,7 +120,8 @@ public class ServiceShipTicket {
 		} catch (DBException e) {
 			e.printStackTrace();
 			// throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION);
-			logger.error(ErrorMessages.INVALID_DB_EXCEPTION + "" + e);
+			// logger.error(ErrorMessages.INVALID_DB_EXCEPTION + "" + e);
+			throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION, e);
 		}
 	}
 
@@ -125,7 +131,8 @@ public class ServiceShipTicket {
 		} catch (DBException e) {
 			e.printStackTrace();
 			// throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION);
-			logger.error(ErrorMessages.INVALID_DB_EXCEPTION + "" + e);
+			// logger.error(ErrorMessages.INVALID_DB_EXCEPTION + "" + e);
+			throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION, e);
 		}
 	}
 
@@ -135,7 +142,8 @@ public class ServiceShipTicket {
 		} catch (DBException e) {
 			e.printStackTrace();
 			// throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION);
-			logger.error(ErrorMessages.INVALID_DB_EXCEPTION + "" + e);
+			// logger.error(ErrorMessages.INVALID_DB_EXCEPTION + "" + e);
+			throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION, e);
 		}
 	}
 
@@ -145,7 +153,8 @@ public class ServiceShipTicket {
 		} catch (DBException e) {
 			e.printStackTrace();
 			// throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION);
-			logger.error(ErrorMessages.INVALID_DB_EXCEPTION + "" + e);
+			// logger.error(ErrorMessages.INVALID_DB_EXCEPTION + "" + e);
+			throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION, e);
 		}
 	}
 
@@ -155,9 +164,9 @@ public class ServiceShipTicket {
 		} catch (DBException e) {
 			e.printStackTrace();
 			// throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION);
-			logger.error(ErrorMessages.INVALID_DB_EXCEPTION + "" + e);
+			// logger.error(ErrorMessages.INVALID_DB_EXCEPTION + "" + e);
+			throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION, e);
 		}
-		return 0;
 	}
 
 	public void addBooking(Booking a) throws ServiceException {
@@ -166,7 +175,8 @@ public class ServiceShipTicket {
 		} catch (DBException e) {
 			e.printStackTrace();
 			// throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION);
-			logger.error(ErrorMessages.INVALID_DB_EXCEPTION + "" + e);
+			// logger.error(ErrorMessages.INVALID_DB_EXCEPTION + "" + e);
+			throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION, e);
 		}
 	}
 
@@ -176,7 +186,8 @@ public class ServiceShipTicket {
 		} catch (DBException e) {
 			e.printStackTrace();
 			// throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION);
-			logger.error(ErrorMessages.INVALID_DB_EXCEPTION + "" + e);
+			// logger.error(ErrorMessages.INVALID_DB_EXCEPTION + "" + e);
+			throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION, e);
 		}
 	}
 
@@ -186,7 +197,8 @@ public class ServiceShipTicket {
 		} catch (DBException e) {
 			e.printStackTrace();
 			// throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION);
-			logger.error(ErrorMessages.INVALID_DB_EXCEPTION + "" + e);
+			// logger.error(ErrorMessages.INVALID_DB_EXCEPTION + "" + e);
+			throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION, e);
 		}
 	}
 
@@ -196,9 +208,9 @@ public class ServiceShipTicket {
 		} catch (DBException e) {
 			e.printStackTrace();
 			// throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION);
-			logger.error(ErrorMessages.INVALID_DB_EXCEPTION + "" + e);
+			// logger.error(ErrorMessages.INVALID_DB_EXCEPTION + "" + e);
+			throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION, e);
 		}
-		return 0;
 	}
 
 	public void addJourney(Journey a) throws ServiceException {
@@ -207,7 +219,8 @@ public class ServiceShipTicket {
 		} catch (DBException e) {
 			e.printStackTrace();
 			// throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION);
-			logger.error(ErrorMessages.INVALID_DB_EXCEPTION + "" + e);
+			// logger.error(ErrorMessages.INVALID_DB_EXCEPTION + "" + e);
+			throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION, e);
 		}
 	}
 
@@ -217,7 +230,8 @@ public class ServiceShipTicket {
 		} catch (DBException e) {
 			e.printStackTrace();
 			// throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION);
-			logger.error(ErrorMessages.INVALID_DB_EXCEPTION + "" + e);
+			// logger.error(ErrorMessages.INVALID_DB_EXCEPTION + "" + e);
+			throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION, e);
 		}
 	}
 
@@ -227,7 +241,8 @@ public class ServiceShipTicket {
 		} catch (DBException e) {
 			e.printStackTrace();
 			// throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION);
-			logger.error(ErrorMessages.INVALID_DB_EXCEPTION + "" + e);
+			// logger.error(ErrorMessages.INVALID_DB_EXCEPTION + "" + e);
+			throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION, e);
 		}
 	}
 
@@ -237,9 +252,9 @@ public class ServiceShipTicket {
 		} catch (DBException e) {
 			e.printStackTrace();
 			// throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION);
-			logger.error(ErrorMessages.INVALID_DB_EXCEPTION + "" + e);
+			// logger.error(ErrorMessages.INVALID_DB_EXCEPTION + "" + e);
+			throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION, e);
 		}
-		return null;
 	}
 
 	public void addShip(ShipDetail s) throws ServiceException {
@@ -248,7 +263,8 @@ public class ServiceShipTicket {
 		} catch (DBException e) {
 			e.printStackTrace();
 			// throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION);
-			logger.error(ErrorMessages.INVALID_DB_EXCEPTION + "" + e);
+			// logger.error(ErrorMessages.INVALID_DB_EXCEPTION + "" + e);
+			throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION, e);
 		}
 	}
 
@@ -258,7 +274,8 @@ public class ServiceShipTicket {
 		} catch (DBException e) {
 			e.printStackTrace();
 			// throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION);
-			logger.error(ErrorMessages.INVALID_DB_EXCEPTION + "" + e);
+			// logger.error(ErrorMessages.INVALID_DB_EXCEPTION + "" + e);
+			throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION, e);
 		}
 	}
 
@@ -268,7 +285,8 @@ public class ServiceShipTicket {
 		} catch (DBException e) {
 			e.printStackTrace();
 			// throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION);
-			logger.error(ErrorMessages.INVALID_DB_EXCEPTION + "" + e);
+			// logger.error(ErrorMessages.INVALID_DB_EXCEPTION + "" + e);
+			throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION, e);
 		}
 	}
 
@@ -278,9 +296,9 @@ public class ServiceShipTicket {
 		} catch (DBException e) {
 			e.printStackTrace();
 			// throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION);
-			logger.error(ErrorMessages.INVALID_DB_EXCEPTION + "" + e);
+			// logger.error(ErrorMessages.INVALID_DB_EXCEPTION + "" + e);
+			throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION, e);
 		}
-		return null;
 	}
 
 	public ArrayList<ShipDetail> Ship() throws ServiceException {
@@ -289,9 +307,9 @@ public class ServiceShipTicket {
 		} catch (DBException e) {
 			e.printStackTrace();
 			// throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION);
-			logger.error(ErrorMessages.INVALID_DB_EXCEPTION + "" + e);
+			// logger.error(ErrorMessages.INVALID_DB_EXCEPTION + "" + e);
+			throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION, e);
 		}
-		return null;
 	}
 
 	public ArrayList<ShipDetail> routeShip() throws ServiceException {
@@ -300,9 +318,9 @@ public class ServiceShipTicket {
 		} catch (DBException e) {
 			e.printStackTrace();
 			// throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION);
-			logger.error(ErrorMessages.INVALID_DB_EXCEPTION + "" + e);
+			// logger.error(ErrorMessages.INVALID_DB_EXCEPTION + "" + e);
+			throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION, e);
 		}
-		return null;
 	}
 
 	public void distinctShip(String s) throws ServiceException {
@@ -311,7 +329,8 @@ public class ServiceShipTicket {
 		} catch (DBException e) {
 			e.printStackTrace();
 			// throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION);
-			logger.error(ErrorMessages.INVALID_DB_EXCEPTION + "" + e);
+			// logger.error(ErrorMessages.INVALID_DB_EXCEPTION + "" + e);
+			throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION, e);
 		}
 	}
 
@@ -321,7 +340,8 @@ public class ServiceShipTicket {
 		} catch (DBException e) {
 			e.printStackTrace();
 			// throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION);
-			logger.error(ErrorMessages.INVALID_DB_EXCEPTION + "" + e);
+			// logger.error(ErrorMessages.INVALID_DB_EXCEPTION + "" + e);
+			throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION, e);
 		}
 	}
 
@@ -331,7 +351,8 @@ public class ServiceShipTicket {
 		} catch (DBException e) {
 			e.printStackTrace();
 			// throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION);
-			logger.error(ErrorMessages.INVALID_DB_EXCEPTION + "" + e);
+			// logger.error(ErrorMessages.INVALID_DB_EXCEPTION + "" + e);
+			throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION, e);
 		}
 	}
 
@@ -341,7 +362,8 @@ public class ServiceShipTicket {
 		} catch (DBException e) {
 			e.printStackTrace();
 			// throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION);
-			logger.error(ErrorMessages.INVALID_DB_EXCEPTION + "" + e);
+			// logger.error(ErrorMessages.INVALID_DB_EXCEPTION + "" + e);
+			throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION, e);
 		}
 	}
 
@@ -351,7 +373,8 @@ public class ServiceShipTicket {
 		} catch (DBException e) {
 			e.printStackTrace();
 			// throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION);
-			logger.error(ErrorMessages.INVALID_DB_EXCEPTION + "" + e);
+			// logger.error(ErrorMessages.INVALID_DB_EXCEPTION + "" + e);
+			throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION, e);
 		}
 	}
 
@@ -361,9 +384,9 @@ public class ServiceShipTicket {
 		} catch (DBException e) {
 			e.printStackTrace();
 			// throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION);
-			logger.error(ErrorMessages.INVALID_DB_EXCEPTION + "" + e);
+			// logger.error(ErrorMessages.INVALID_DB_EXCEPTION + "" + e);
+			throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION, e);
 		}
-		return 0;
 	}
 
 	public void validSearch(int adminId, String pass) throws ValidatorException {

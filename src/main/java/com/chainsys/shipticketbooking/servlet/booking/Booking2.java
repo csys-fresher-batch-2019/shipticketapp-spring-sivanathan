@@ -62,8 +62,8 @@ public class Booking2 extends HttpServlet {
 
 		b2.setShipNo(shipId);
 		b2.setBookingSeats(seat);
-		b2.setuserNo(user_id);
-		b2.setjourneyNo(journeyId);
+		b2.setUserNo(user_id);
+		b2.setJourneyNo(journeyId);
 		b2.setCost(cost);
 		b2.setTicketStatus(status);
 

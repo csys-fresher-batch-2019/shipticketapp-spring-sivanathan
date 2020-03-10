@@ -109,7 +109,7 @@ public class SeatDAOImplementation implements SeatDAO {
 		try (Connection connection = ConnectionUtil.getConnection();) {
 			try (PreparedStatement statement = connection.prepareStatement(sql);) {
 				// smt4 = com.prepareStatement(sql);
-				statement.setInt(1, b.getuserNo());
+				statement.setInt(1, b.getUserNo());
 				{
 					try (ResultSet result = statement.executeQuery();) {
 
@@ -120,7 +120,7 @@ public class SeatDAOImplementation implements SeatDAO {
 							String sqlselect = "select email from user_detail where user_id in (select user_id from booking_detail where ticket_status='ordered' and user_id=?)";
 
 							try (PreparedStatement stm = connection.prepareStatement(sqlselect);) {
-								stm.setInt(1, b.getuserNo());
+								stm.setInt(1, b.getUserNo());
 								// logger.info(sqlselect);
 								ResultSet value = stm.executeQuery();
 								// logger.debug(value2);
@@ -134,7 +134,7 @@ public class SeatDAOImplementation implements SeatDAO {
 									if (result.getString("ticket_status").equalsIgnoreCase("ordered")) {
 										SendSmsIml.send("sivanathan011198@gmail.com", "8608872041", email,
 												" Your Application is ordered ", "stay tuned for further update",
-												b.getuserNo());
+												b.getUserNo());
 									}
 								}
 							} catch (SQLException | IOException e) {
@@ -168,9 +168,9 @@ public class SeatDAOImplementation implements SeatDAO {
 			String sql = "call TICKET_BOOKING(?,?,?,?,?,?)";
 			try (CallableStatement statement = connection.prepareCall(sql);) {
 
-				statement.setInt(1, b.getuserNo());
+				statement.setInt(1, b.getUserNo());
 				statement.setInt(2, b.getShipNo());
-				statement.setInt(3, b.getjourneyNo());
+				statement.setInt(3, b.getJourneyNo());
 				statement.setInt(4, b.getBookingSeats());
 				statement.setString(5, b.getTicketStatus());
 				statement.setInt(6, b.getCost());

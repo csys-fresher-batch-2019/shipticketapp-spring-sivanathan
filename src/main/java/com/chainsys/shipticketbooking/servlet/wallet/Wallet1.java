@@ -36,7 +36,7 @@ public class Wallet1 extends HttpServlet {
 		String error = request.getParameter("errorMessages");
 
 		logger.info(error);
-		seat.setuserNo(user_id);
+		seat.setUserNo(user_id);
 		if (error.equalsIgnoreCase("null")) {
 			try {
 
