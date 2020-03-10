@@ -18,13 +18,13 @@ public class AdminDAOImplementation implements AdminDAO {
 	{
 		Logger logger = Logger.getInstance();
 
-		try (Connection con = TestConnection.getConnection();) {
-			try (Statement stmt = con.createStatement();) {
+		try (Connection connection = TestConnection.getConnection();) {
+			try (Statement stmt = connection.createStatement();) {
 
 				String sql = "select pass_word from AdminRegister where Admin_id=" + adminId + "";
-				try (ResultSet rs1 = stmt.executeQuery(sql);) {
-					if (rs1.next()) {
-						String password = rs1.getString("pass_word");
+				try (ResultSet resultset = stmt.executeQuery(sql);) {
+					if (resultset.next()) {
+						String password = resultset.getString("pass_word");
 
 						if (pass.equals(password)) {
 							return true;

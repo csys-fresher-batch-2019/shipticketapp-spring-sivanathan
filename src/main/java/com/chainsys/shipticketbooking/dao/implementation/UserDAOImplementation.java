@@ -25,26 +25,26 @@ public class UserDAOImplementation implements UserDAO {
 		 * UserDAOImplementation();
 		 */
 
-		try (Connection com = TestConnection.getConnection();) {
+		try (Connection connection = TestConnection.getConnection();) {
 			String sql = "insert into user_detail(user_name,user_id,date_of_birth,contact_number,gender,pass,email) values(?,?,?,?,?,?,?)";
-			try (PreparedStatement smt = com.prepareStatement(sql);) {
+			try (PreparedStatement statement = connection.prepareStatement(sql);) {
 				// smt = com.prepareStatement(sql);
 
-				smt.setString(1, a.getUserName());
-				smt.setInt(2, a.getUserId());
+				statement.setString(1, a.getUserName());
+				statement.setInt(2, a.getUserId());
 				java.sql.Date date1 = java.sql.Date.valueOf(a.getDateOfBirth());
-				smt.setDate(3, date1);
-				smt.setLong(4, a.getContactNumber());
-				smt.setString(5, a.getGender());
-				smt.setString(6, a.getPassword());
-				smt.setString(7, a.getEmail());
+				statement.setDate(3, date1);
+				statement.setLong(4, a.getContactNumber());
+				statement.setString(5, a.getGender());
+				statement.setString(6, a.getPassword());
+				statement.setString(7, a.getEmail());
 
-				logger.info("sql statement:" + sql);
+				// logger.info("sql statement:" + sql);
 				// System.out.println(sql);
 
-				int row1 = smt.executeUpdate();
+				int row = statement.executeUpdate();
 
-				logger.info("NO OF ROWS INSERTED:" + row1);
+				logger.info("NO OF ROWS INSERTED:" + row);
 				// System.out.println(row1);
 				// smt.close();
 			}
@@ -52,15 +52,15 @@ public class UserDAOImplementation implements UserDAO {
 			catch (SQLException e)
 
 			{
-				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + "" + e);
 				e.printStackTrace();
+				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + "" + e);
 
 			}
 		} catch (SQLException | DBException e)
 
 		{
-			logger.error(ErrorMessages.INVALID_CONNECTIONSTATEMENT + "" + e);
 			e.printStackTrace();
+			logger.error(ErrorMessages.INVALID_CONNECTIONSTATEMENT + "" + e);
 
 		}
 	}
@@ -69,31 +69,31 @@ public class UserDAOImplementation implements UserDAO {
 	public void updateUser(User a) {
 		// PreparedStatement smt1 = null;
 
-		try (Connection com = TestConnection.getConnection();) {
-			String sql1 = "update user_detail set contact_number=? where user_id=?";
-			try (PreparedStatement smt1 = com.prepareStatement(sql1);) {
+		try (Connection connection = TestConnection.getConnection();) {
+			String sql = "update user_detail set contact_number=? where user_id=?";
+			try (PreparedStatement statement = connection.prepareStatement(sql);) {
 				// smt1 = com.prepareStatement(sql1);
 
-				smt1.setLong(1, a.getContactNumber());
-				smt1.setInt(2, a.getUserId());
-				logger.info(sql1);
+				statement.setLong(1, a.getContactNumber());
+				statement.setInt(2, a.getUserId());
+				// logger.info(sql);
 
-				int row1 = smt1.executeUpdate();
+				int row1 = statement.executeUpdate();
 				logger.info("NO OF ROWS UPDATED:" + row1);
 			}
 
 			catch (SQLException e)
 
 			{
-				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + "" + e);
 				e.printStackTrace();
+				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + "" + e);
 
 			}
 		} catch (SQLException | DBException e)
 
 		{
-			logger.error(ErrorMessages.INVALID_CONNECTIONSTATEMENT + "" + e);
 			e.printStackTrace();
+			logger.error(ErrorMessages.INVALID_CONNECTIONSTATEMENT + "" + e);
 
 		}
 
@@ -103,28 +103,28 @@ public class UserDAOImplementation implements UserDAO {
 	public void deleteUser(User a) {
 		// PreparedStatement smt2 = null;
 
-		try (Connection com = TestConnection.getConnection();) {
+		try (Connection connection = TestConnection.getConnection();) {
 
-			String sql1 = "delete from user_detail  where user_id=?";
-			try (PreparedStatement smt2 = com.prepareStatement(sql1);) {
+			String sql = "delete from user_detail  where user_id=?";
+			try (PreparedStatement statement = connection.prepareStatement(sql);) {
 				// smt2 = com.prepareStatement(sql1);
-				smt2.setInt(1, a.getUserId());
-				logger.info(sql1);
+				statement.setInt(1, a.getUserId());
+				// logger.info(sql);
 
-				int row2 = smt2.executeUpdate();
-				logger.info("NO OF ROWS DELETED:" + row2);
+				int row = statement.executeUpdate();
+				logger.info("NO OF ROWS DELETED:" + row);
 			} catch (SQLException e)
 
 			{
-				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + "" + e);
 				e.printStackTrace();
+				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + "" + e);
 
 			}
 		} catch (SQLException | DBException e)
 
 		{
-			logger.error(ErrorMessages.INVALID_CONNECTIONSTATEMENT + "" + e);
 			e.printStackTrace();
+			logger.error(ErrorMessages.INVALID_CONNECTIONSTATEMENT + "" + e);
 
 		}
 	}
@@ -153,40 +153,43 @@ public class UserDAOImplementation implements UserDAO {
 	public void passwordResetUser(User a) {
 		// PreparedStatement smt3 = null;
 
-		try (Connection com = TestConnection.getConnection();) {
+		try (Connection connection = TestConnection.getConnection();) {
 
-			String sql3 = "update user_detail set pass=? where user_id=?";
-			try (PreparedStatement smt3 = com.prepareStatement(sql3);) { // smt3 = com.prepareStatement(sql3);
-				smt3.setInt(2, a.getUserId());
-				smt3.setString(1, a.getPassword());
-				logger.info(sql3);
+			String sql = "update user_detail set pass=? where user_id=?";
+			try (PreparedStatement statement = connection.prepareStatement(sql);) { // smt3 =
+																					// com.prepareStatement(sql3);
+				statement.setInt(2, a.getUserId());
+				statement.setString(1, a.getPassword());
+				// logger.info(sql);
 
-				int row3 = smt3.executeUpdate();
-				logger.info("NO OF  UPDATED:" + row3);
+				int row = statement.executeUpdate();
+				logger.info("NO OF  UPDATED:" + row);
 
 			} catch (SQLException e) {
-				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + "" + e);
 				e.printStackTrace();
+				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + "" + e);
+
 			}
 		} catch (SQLException | DBException e) {
-			logger.error(ErrorMessages.INVALID_CREATESTATEMENT + "" + e);
 			e.printStackTrace();
+			logger.error(ErrorMessages.INVALID_CREATESTATEMENT + "" + e);
+
 		}
 	}
 
 	public boolean userExist(int userId, String password) {
 
-		Statement stmt6 = null;
+		Statement statement = null;
 		boolean result = false;
-		ResultSet rs = null;
-		try (Connection com = TestConnection.getConnection();) {
+		ResultSet value = null;
+		try (Connection connection = TestConnection.getConnection();) {
 			try {
-				stmt6 = com.createStatement();
-				if (stmt6.executeUpdate("select user_id from user_detail  where user_id='" + userId + "'") != 0) {
-					rs = stmt6.executeQuery("select pass from user_detail  where user_id='" + userId + "'");
-					rs.next();
+				statement = connection.createStatement();
+				if (statement.executeUpdate("select user_id from user_detail  where user_id='" + userId + "'") != 0) {
+					value = statement.executeQuery("select pass from user_detail  where user_id='" + userId + "'");
+					value.next();
 
-					if (password.equals(rs.getString("pass"))) {
+					if (password.equals(value.getString("pass"))) {
 
 						result = true;
 						return result;

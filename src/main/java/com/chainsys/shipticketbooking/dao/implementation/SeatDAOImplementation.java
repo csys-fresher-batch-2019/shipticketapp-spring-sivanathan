@@ -22,19 +22,19 @@ public class SeatDAOImplementation implements SeatDAO {
 
 		// Connection com = null;
 		// PreparedStatement smt1 = null;
-		try (Connection com = TestConnection.getConnection();) {
+		try (Connection connection = TestConnection.getConnection();) {
 			// com = TestConnection.getConnection();
-			String sql1 = "insert into seat_availability(ship_id,journey_id,available_seat) values(?,?,?)";
-			try (PreparedStatement smt1 = com.prepareStatement(sql1);) {
+			String sql = "insert into seat_availability(ship_id,journey_id,available_seat) values(?,?,?)";
+			try (PreparedStatement statement = connection.prepareStatement(sql);) {
 
-				smt1.setInt(1, a.getShipId());
-				smt1.setInt(3, a.getAvailabilitySeats());
-				smt1.setInt(2, a.getJourneyId());
+				statement.setInt(1, a.getShipId());
+				statement.setInt(3, a.getAvailabilitySeats());
+				statement.setInt(2, a.getJourneyId());
 
-				logger.debug(sql1);
+				// logger.debug(sql);
 
-				int row = smt1.executeUpdate();
-				logger.debug(row);
+				int row = statement.executeUpdate();
+				logger.debug("NO OF ROWS INSERTED:" + row);
 
 			} catch (SQLException e) {
 				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + "" + e);
@@ -48,17 +48,17 @@ public class SeatDAOImplementation implements SeatDAO {
 
 		// Connection com = null;
 		// PreparedStatement smt2 = null;
-		try (Connection com = TestConnection.getConnection();) {
+		try (Connection connection = TestConnection.getConnection();) {
 
-			String sql2 = "update seat_availability set available_seat=? where ship_id=? ";
-			try (PreparedStatement smt2 = com.prepareStatement(sql2);) {
-				smt2.setInt(1, a.getAvailabilitySeats());
-				smt2.setInt(2, a.getShipId());
+			String sql = "update seat_availability set available_seat=? where ship_id=? ";
+			try (PreparedStatement statement = connection.prepareStatement(sql);) {
+				statement.setInt(1, a.getAvailabilitySeats());
+				statement.setInt(2, a.getShipId());
 				// smt2.setInt(3, a.getJourneyId());
-				logger.debug(sql2);
+				// logger.debug(sql);
 
-				int row1 = smt2.executeUpdate();
-				logger.debug(row1);
+				int row = statement.executeUpdate();
+				logger.debug("NO OF ROWS UPDATED:" + row);
 			} catch (SQLException e) {
 				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + "" + e);
 			}
@@ -71,16 +71,16 @@ public class SeatDAOImplementation implements SeatDAO {
 		// PreparedStatement smt3 = null;
 
 		// Connection com = null;
-		try (Connection com = TestConnection.getConnection();) {
-			String sql3 = "delete from seat_availability  where ship_id=? and journey_id=?";
-			try (PreparedStatement smt3 = com.prepareStatement(sql3);) {
+		try (Connection connection = TestConnection.getConnection();) {
+			String sql = "delete from seat_availability  where ship_id=? and journey_id=?";
+			try (PreparedStatement statement = connection.prepareStatement(sql);) {
 				// smt3 = com.prepareStatement(sql3);
-				smt3.setInt(1, a.getShipId());
-				smt3.setInt(2, a.getJourneyId());
-				logger.debug(sql3);
+				statement.setInt(1, a.getShipId());
+				statement.setInt(2, a.getJourneyId());
+				// logger.debug(sql);
 
-				int row2 = smt3.executeUpdate();
-				logger.debug(row2);
+				int row = statement.executeUpdate();
+				logger.debug("NO OF ROWS DELETED:" + row);
 
 			} catch (SQLException e) {
 				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + "" + e);
@@ -91,35 +91,35 @@ public class SeatDAOImplementation implements SeatDAO {
 	}
 
 	public void findTicketStatusAndCost(SeatAvailability b) {
-		String value = "ordered";
+		// String value = "ordered";
 		String sql = "select ticket_status,cost from booking_detail where user_id = ?";
 		// logger.info(sql);
-		try (Connection com = TestConnection.getConnection();) {
-			try (PreparedStatement smt4 = com.prepareStatement(sql);) {
+		try (Connection connection = TestConnection.getConnection();) {
+			try (PreparedStatement statement = connection.prepareStatement(sql);) {
 				// smt4 = com.prepareStatement(sql);
-				smt4.setInt(1, b.getuserNo());
+				statement.setInt(1, b.getuserNo());
 				{
-					try (ResultSet value1 = smt4.executeQuery();) {
+					try (ResultSet result = statement.executeQuery();) {
 
-						logger.debug(sql);
-						if (value1.next()) {
-							logger.debug("status:" + value1.getString("ticket_status"));
-							logger.debug("total:" + value1.getInt("cost"));
+						// logger.debug(sql);
+						if (result.next()) {
+							logger.debug("status:" + result.getString("ticket_status"));
+							logger.debug("total:" + result.getInt("cost"));
 							String sqlselect = "select email from user_detail where user_id in (select user_id from booking_detail where ticket_status='ordered' and user_id=?)";
 
-							try (PreparedStatement stm = com.prepareStatement(sqlselect);) {
+							try (PreparedStatement stm = connection.prepareStatement(sqlselect);) {
 								stm.setInt(1, b.getuserNo());
-								logger.info(sqlselect);
-								ResultSet value2 = stm.executeQuery();
+								// logger.info(sqlselect);
+								ResultSet value = stm.executeQuery();
 								// logger.debug(value2);
 
 								String email = "";
 								// System.out.println("!!");
-								if (value2.next()) {
-									email = value2.getString("email");
+								if (value.next()) {
+									email = value.getString("email");
 									logger.debug("emailID:" + email);
 
-									if (value1.getString("ticket_status").equalsIgnoreCase(value)) {
+									if (result.getString("ticket_status").equalsIgnoreCase("ordered")) {
 										SendSmsIml.send("sivanathan011198@gmail.com", "8608872041", email,
 												" Your Application is ordered ", "stay tuned for further update",
 												b.getuserNo());
@@ -148,19 +148,19 @@ public class SeatDAOImplementation implements SeatDAO {
 
 	public void procedure(SeatAvailability b) {
 		// String value = "ordered";
-		try (Connection com = TestConnection.getConnection();) {
-			String sql4 = "call TICKET_BOOKING(?,?,?,?,?,?)";
-			try (CallableStatement stmt = com.prepareCall(sql4);) {
+		try (Connection connection = TestConnection.getConnection();) {
+			String sql = "call TICKET_BOOKING(?,?,?,?,?,?)";
+			try (CallableStatement statement = connection.prepareCall(sql);) {
 
-				stmt.setInt(1, b.getuserNo());
-				stmt.setInt(2, b.getShipNo());
-				stmt.setInt(3, b.getjourneyNo());
-				stmt.setInt(4, b.getBookingSeats());
-				stmt.setString(5, b.getTicketStatus());
-				stmt.setInt(6, b.getCost());
+				statement.setInt(1, b.getuserNo());
+				statement.setInt(2, b.getShipNo());
+				statement.setInt(3, b.getjourneyNo());
+				statement.setInt(4, b.getBookingSeats());
+				statement.setString(5, b.getTicketStatus());
+				statement.setInt(6, b.getCost());
 
 				logger.debug(b);
-				stmt.execute();
+				statement.execute();
 				// findTicketStatusAndCost(b);
 				// System.out.println(b.getTicketStatus());
 
@@ -205,15 +205,15 @@ public class SeatDAOImplementation implements SeatDAO {
 		// PreparedStatement smt4 = null;
 		int cost = 0;
 		// Connection com = null;
-		try (Connection com = TestConnection.getConnection();) {
+		try (Connection connection = TestConnection.getConnection();) {
 			// com = TestConnection.getConnection();
-			String sql4 = "select " + b + "(cost)as cost from booking_detail";
-			try (PreparedStatement smt4 = com.prepareStatement(sql4);) {
+			String sql = "select " + b + "(cost)as cost from booking_detail";
+			try (PreparedStatement statement = connection.prepareStatement(sql);) {
 				// smt4 = com.prepareStatement(sql4);
 
-				try (ResultSet rs4 = smt4.executeQuery();) {
-					if (rs4.next()) {
-						cost = rs4.getInt("cost");
+				try (ResultSet result = statement.executeQuery();) {
+					if (result.next()) {
+						cost = result.getInt("cost");
 						logger.debug("cost:" + cost);
 					}
 
@@ -234,20 +234,20 @@ public class SeatDAOImplementation implements SeatDAO {
 	@Override
 	public int findAvailableSeats(SeatAvailability b) {
 		int seats = 0;
-		try (Connection com = TestConnection.getConnection();) {
+		try (Connection connection = TestConnection.getConnection();) {
 			// com = TestConnection.getConnection();
-			String sql8 = "select available_seat from seat_availability where (ship_id =? and journey_id =?)";
+			String sql = "select available_seat from seat_availability where (ship_id =? and journey_id =?)";
 
-			try (PreparedStatement smt8 = com.prepareStatement(sql8);) {
+			try (PreparedStatement statement = connection.prepareStatement(sql);) {
 				// smt4 = com.prepareStatement(sql4);
-				smt8.setInt(1, b.getShipId());
-				System.out.println(b.getShipId());
-				smt8.setInt(2, b.getJourneyId());
-				System.out.println(b.getJourneyId());
-				try (ResultSet rs8 = smt8.executeQuery();) {
-					System.out.println(sql8);
-					if (rs8.next()) {
-						seats = rs8.getInt("available_seat");
+				statement.setInt(1, b.getShipId());
+				// System.out.println(b.getShipId());
+				statement.setInt(2, b.getJourneyId());
+				// System.out.println(b.getJourneyId());
+				try (ResultSet result = statement.executeQuery();) {
+					// System.out.println(sql);
+					if (result.next()) {
+						seats = result.getInt("available_seat");
 						logger.debug("availableseat:" + seats);
 					}
 
@@ -271,16 +271,16 @@ public class SeatDAOImplementation implements SeatDAO {
 		// PreparedStatement smt4 = null;
 		int cost = 0;
 		// Connection com = null;
-		try (Connection com = TestConnection.getConnection();) {
+		try (Connection connection = TestConnection.getConnection();) {
 			// com = TestConnection.getConnection();
-			String sql4 = "select cost from booking_detail where (journey_id=? and ship_id=?)";
-			try (PreparedStatement smt4 = com.prepareStatement(sql4);) {
+			String sql = "select cost from booking_detail where (journey_id=? and ship_id=?)";
+			try (PreparedStatement statement = connection.prepareStatement(sql);) {
 				// smt4 = com.prepareStatement(sql4);
-				smt4.setInt(1, a);
-				smt4.setInt(2, b);
-				try (ResultSet rs4 = smt4.executeQuery();) {
-					while (rs4.next()) {
-						cost = rs4.getInt("cost");
+				statement.setInt(1, a);
+				statement.setInt(2, b);
+				try (ResultSet result = statement.executeQuery();) {
+					while (result.next()) {
+						cost = result.getInt("cost");
 
 						logger.debug("cost:" + cost);
 					}

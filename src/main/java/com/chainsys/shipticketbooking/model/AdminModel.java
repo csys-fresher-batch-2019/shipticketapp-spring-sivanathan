@@ -6,6 +6,6 @@ import lombok.Data;
 public class AdminModel {
 	private int adminId;
 	private String adminName;
-	private String emailId;
-	private String passWord;
+	private String email;
+	private String password;
 }

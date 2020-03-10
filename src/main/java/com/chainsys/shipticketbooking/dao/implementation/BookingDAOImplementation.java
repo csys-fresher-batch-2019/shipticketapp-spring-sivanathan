@@ -19,24 +19,24 @@ public class BookingDAOImplementation implements BookingDAO {
 
 	public void saveBooking(Booking a) {
 		// PreparedStatement smt1=null;
-		try (Connection com = TestConnection.getConnection();) {
+		try (Connection connection = TestConnection.getConnection();) {
 
-			String sql1 = "insert into booking_detail(booking_id,user_id,ship_id,journey_id,booking_seats,date_of_booking,ticket_status,cost) values(booking_id.nextval,?,?,?,?,?,?,?)";
-			try (PreparedStatement smt1 = com.prepareStatement(sql1);) {
+			String sql = "insert into booking_detail(booking_id,user_id,ship_id,journey_id,booking_seats,date_of_booking,ticket_status,cost) values(booking_id.nextval,?,?,?,?,?,?,?)";
+			try (PreparedStatement statement = connection.prepareStatement(sql);) {
 
 				// smt1.setInt(1, a.bookingId);
-				smt1.setInt(1, a.getUserId());
-				smt1.setInt(2, a.getShipId());
-				smt1.setInt(3, a.getJourneyId());
-				smt1.setInt(4, a.getBookingSeats());
+				statement.setInt(1, a.getUserId());
+				statement.setInt(2, a.getShipId());
+				statement.setInt(3, a.getJourneyId());
+				statement.setInt(4, a.getBookingSeats());
 				// smt1.setInt(5, a.shipId);
 				java.sql.Timestamp date1 = java.sql.Timestamp.valueOf(LocalDateTime.now());
-				smt1.setTimestamp(5, date1);
-				smt1.setString(6, a.getStatus());
-				smt1.setInt(7, a.getCost());
-				logger.debug(sql1);
-				int row = smt1.executeUpdate();
-				logger.debug(row);
+				statement.setTimestamp(5, date1);
+				statement.setString(6, a.getStatus());
+				statement.setInt(7, a.getCost());
+				// logger.debug(sql);
+				int row = statement.executeUpdate();
+				logger.debug("NO OF ROWS INSERTED:" + row);
 			} catch (SQLException e) {
 				e.printStackTrace();
 				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + "" + e);
@@ -49,17 +49,17 @@ public class BookingDAOImplementation implements BookingDAO {
 
 	public void updateBooking(Booking a) {
 		// PreparedStatement smt2 =null;
-		try (Connection com = TestConnection.getConnection();) {
+		try (Connection connection = TestConnection.getConnection();) {
 
-			String sql2 = "update booking_detail set ticket_status=? where user_id=? and journey_id=?";
-			try (PreparedStatement smt2 = com.prepareStatement(sql2);) {
+			String sql = "update booking_detail set ticket_status=? where user_id=? and journey_id=?";
+			try (PreparedStatement statement = connection.prepareStatement(sql);) {
 
-				smt2.setString(1, a.getStatus());
-				smt2.setInt(2, a.getUserId());
-				smt2.setInt(3, a.getJourneyId());
-				logger.debug(sql2);
-				int row1 = smt2.executeUpdate();
-				logger.debug(row1);
+				statement.setString(1, a.getStatus());
+				statement.setInt(2, a.getUserId());
+				statement.setInt(3, a.getJourneyId());
+				logger.debug(sql);
+				int row = statement.executeUpdate();
+				logger.debug("NO OF ROWS UPDATED:" + row);
 			} catch (SQLException e) {
 				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + "" + e);
 			}
@@ -69,16 +69,16 @@ public class BookingDAOImplementation implements BookingDAO {
 	}
 
 	public void deleteBooking(Booking a) {
-		try (Connection com = TestConnection.getConnection();) {
+		try (Connection connection = TestConnection.getConnection();) {
 
-			String sql3 = "delete from booking_detail  where user_id=? and journey_id=?";
-			try (PreparedStatement smt3 = com.prepareStatement(sql3);) {
-				smt3.setInt(1, a.getUserId());
-				smt3.setInt(2, a.getJourneyId());
-				System.out.println(sql3);
+			String sql = "delete from booking_detail  where user_id=? and journey_id=?";
+			try (PreparedStatement statement = connection.prepareStatement(sql);) {
+				statement.setInt(1, a.getUserId());
+				statement.setInt(2, a.getJourneyId());
+				System.out.println(sql);
 
-				int row2 = smt3.executeUpdate();
-				logger.debug(row2);
+				int row = statement.executeUpdate();
+				logger.debug("NO OF ROWS DELETED:" + row);
 			} catch (SQLException e) {
 				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + "" + e);
 			}
@@ -90,15 +90,15 @@ public class BookingDAOImplementation implements BookingDAO {
 	public int countOfBooking() {
 		// public void count(String b) throws Exception {
 		int value = 0;
-		try (Connection com = TestConnection.getConnection();) {
-			String sql4 = "select count(*) from booking_detail";
+		try (Connection connection = TestConnection.getConnection();) {
+			String sql = "select count(*) from booking_detail";
 			// String sql4 = "select " + b + "(*) from booking_detail";
-			try (PreparedStatement smt4 = com.prepareStatement(sql4);) {
+			try (PreparedStatement statement = connection.prepareStatement(sql);) {
 
-				try (ResultSet rs4 = smt4.executeQuery();) {
+				try (ResultSet result = statement.executeQuery();) {
 
-					if (rs4.next()) {
-						value = rs4.getInt("count(*)");
+					if (result.next()) {
+						value = result.getInt("count(*)");
 						logger.debug("count:" + value);
 					}
 				} catch (SQLException e) {
@@ -118,18 +118,18 @@ public class BookingDAOImplementation implements BookingDAO {
 	public int findCostOfBooking(Booking b) {
 
 		int res = 0;
-		try (Connection com = TestConnection.getConnection();) {
-			String sql5 = "select cost from booking_detail where (ship_id=? and journey_id=? and user_id=?)";
-			try (PreparedStatement smt5 = com.prepareStatement(sql5);) {
-				smt5.setInt(1, b.getShipId());
-				smt5.setInt(2, b.getJourneyId());
-				smt5.setInt(3, b.getUserId());
-				System.out.println(sql5);
+		try (Connection connection = TestConnection.getConnection();) {
+			String sql = "select cost from booking_detail where (ship_id=? and journey_id=? and user_id=?)";
+			try (PreparedStatement statement = connection.prepareStatement(sql);) {
+				statement.setInt(1, b.getShipId());
+				statement.setInt(2, b.getJourneyId());
+				statement.setInt(3, b.getUserId());
+				System.out.println(sql);
 
-				try (ResultSet rs5 = smt5.executeQuery();) {
-					if (rs5.next()) {
-						res = rs5.getInt("cost");
-						logger.debug("cost:" + rs5.getInt("cost"));
+				try (ResultSet result = statement.executeQuery();) {
+					if (result.next()) {
+						res = result.getInt("cost");
+						logger.debug("cost:" + result.getInt("cost"));
 					}
 				} catch (SQLException e) {
 					e.printStackTrace();

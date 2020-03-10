@@ -19,23 +19,23 @@ public class ShipDetailDAOImplementation implements ShipDetailDAO {
 	// Connection com = null;
 
 	public void saveShipDetail(ShipDetail s) {
-		try (Connection com = TestConnection.getConnection();) {
+		try (Connection connection = TestConnection.getConnection();) {
 
 			String sql = "insert into ship_detail(ship_id,ship_name,source_place,destination_place,total_no_of_seats,classes,amount) values(?,?,?,?,?,?,?)";
-			try (PreparedStatement smt = com.prepareStatement(sql);) {
-				smt.setInt(1, s.getShipId());
-				smt.setString(2, s.getShipName());
-				smt.setString(3, s.getSourcePlace());
-				smt.setString(4, s.getDestinationPlace());
-				smt.setInt(5, s.getNoOfSeats());
-				smt.setString(6, s.getClasses());
-				smt.setInt(7, s.getAmount());
+			try (PreparedStatement statement = connection.prepareStatement(sql);) {
+				statement.setInt(1, s.getShipId());
+				statement.setString(2, s.getShipName());
+				statement.setString(3, s.getSourcePlace());
+				statement.setString(4, s.getDestinationPlace());
+				statement.setInt(5, s.getNoOfSeats());
+				statement.setString(6, s.getClasses());
+				statement.setInt(7, s.getAmount());
 
-				logger.info(sql);
+				// logger.info(sql);
 
-				int row = smt.executeUpdate();
+				int row = statement.executeUpdate();
 
-				logger.info(row);
+				logger.info("NO OF ROWS INSERTED:" + row);
 
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -50,18 +50,18 @@ public class ShipDetailDAOImplementation implements ShipDetailDAO {
 
 	public void updateShipDetail(ShipDetail s) {
 
-		try (Connection com = TestConnection.getConnection();) {
+		try (Connection connection = TestConnection.getConnection();) {
 
-			String sql1 = "update ship_detail set total_no_of_seats=? where ship_id=?";
+			String sql = "update ship_detail set total_no_of_seats=? where ship_id=?";
 
-			try (PreparedStatement smt1 = com.prepareStatement(sql1);) {
-				smt1.setInt(1, s.getNoOfSeats());
-				smt1.setInt(2, s.getShipId());
+			try (PreparedStatement statement = connection.prepareStatement(sql);) {
+				statement.setInt(1, s.getNoOfSeats());
+				statement.setInt(2, s.getShipId());
 
-				logger.info(sql1);
+				// logger.info(sql);
 
-				int row1 = smt1.executeUpdate();
-				logger.info(row1);
+				int row = statement.executeUpdate();
+				logger.info("NO OF ROWS UPDATED:" + row);
 			} catch (SQLException e) {
 				e.printStackTrace();
 				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + "" + e);
@@ -76,15 +76,15 @@ public class ShipDetailDAOImplementation implements ShipDetailDAO {
 
 	public void deleteShipDetail(ShipDetail s) {
 
-		try (Connection com = TestConnection.getConnection();) {
+		try (Connection connection = TestConnection.getConnection();) {
 
-			String sql2 = "delete from ship_detail  where ship_id=?";
-			try (PreparedStatement smt2 = com.prepareStatement(sql2);) {
-				smt2.setInt(1, s.getShipId());
-				logger.info(sql2);
+			String sql = "delete from ship_detail  where ship_id=?";
+			try (PreparedStatement statement = connection.prepareStatement(sql);) {
+				statement.setInt(1, s.getShipId());
+//				logger.info(sql);
 
-				int row2 = smt2.executeUpdate();
-				logger.info(row2);
+				int row = statement.executeUpdate();
+				logger.info("NO OF ROWS DELETED:" + row);
 
 			}
 
@@ -104,25 +104,25 @@ public class ShipDetailDAOImplementation implements ShipDetailDAO {
 
 		// ResultSet rs = null;
 		ArrayList<ShipDetail> list = new ArrayList<ShipDetail>();
-		try (Connection com = TestConnection.getConnection();) {
+		try (Connection connection = TestConnection.getConnection();) {
 
-			String sql3 = "select * from ship_detail where(source_place=? and destination_place=?)";
+			String sql = "select amount,classes,source_place,destination_place,ship_id,ship_name from ship_detail where(source_place=? and destination_place=?)";
 			// String sql3 = "select source_place,destination_place from ship_detail where
 			// ship_id=?";
-			try (PreparedStatement smt3 = com.prepareStatement(sql3);) {
+			try (PreparedStatement statement = connection.prepareStatement(sql);) {
 
-				smt3.setString(1, s.getSourcePlace());
-				smt3.setString(2, s.getDestinationPlace());
+				statement.setString(1, s.getSourcePlace());
+				statement.setString(2, s.getDestinationPlace());
 				{
-					try (ResultSet rs = smt3.executeQuery();) {
-						while (rs.next()) {
+					try (ResultSet result = statement.executeQuery();) {
+						while (result.next()) {
 							ShipDetail ship = new ShipDetail();
-							ship.setAmount(rs.getInt("amount"));
-							ship.setClasses(rs.getString("classes"));
-							ship.setSourcePlace(rs.getString("source_place"));
-							ship.setDestinationPlace(rs.getString("destination_place"));
-							ship.setShipId(rs.getInt("ship_id"));
-							ship.setShipName(rs.getString("ship_name"));
+							ship.setAmount(result.getInt("amount"));
+							ship.setClasses(result.getString("classes"));
+							ship.setSourcePlace(result.getString("source_place"));
+							ship.setDestinationPlace(result.getString("destination_place"));
+							ship.setShipId(result.getInt("ship_id"));
+							ship.setShipName(result.getString("ship_name"));
 							// ship.setNoOfSeats(rs.getInt("total_no_of_seats"));
 							list.add(ship);
 
@@ -152,13 +152,13 @@ public class ShipDetailDAOImplementation implements ShipDetailDAO {
 	public void distinctShip(String s) {
 		// PreparedStatement smt4 = null;
 		// ResultSet rs4 = null;
-		try (Connection com = TestConnection.getConnection();) {
-			String sql4 = "select distinct(" + s + ") as classes from ship_detail";
-			try (PreparedStatement smt4 = com.prepareStatement(sql4);) {
-				try (ResultSet rs4 = smt4.executeQuery();) {
-					while (rs4.next()) {
+		try (Connection connection = TestConnection.getConnection();) {
+			String sql = "select distinct(" + s + ") as classes from ship_detail";
+			try (PreparedStatement statement = connection.prepareStatement(sql);) {
+				try (ResultSet result = statement.executeQuery();) {
+					while (result.next()) {
 
-						logger.info(rs4.getString("classes"));
+						logger.info(result.getString("classes"));
 					}
 				} catch (SQLException e) {
 					e.printStackTrace();
@@ -180,24 +180,24 @@ public class ShipDetailDAOImplementation implements ShipDetailDAO {
 
 		// ResultSet rs1 = null;
 		ArrayList<ShipDetail> list = new ArrayList<ShipDetail>();
-		try (Connection com = TestConnection.getConnection();) {
+		try (Connection connection = TestConnection.getConnection();) {
 
-			String sql3 = "select * from ship_detail";
+			String sql = "select amount,classes,source_place,destination_place,ship_id,ship_name,total_no_of_seats from ship_detail";
 			// String sql3 = "select source_place,destination_place from ship_detail where
 			// ship_id=?";
-			try (Statement stm = com.createStatement();) {
-				try (ResultSet rs1 = stm.executeQuery(sql3);) {
-					logger.debug(rs1);
+			try (Statement statement = connection.createStatement();) {
+				try (ResultSet result = statement.executeQuery(sql);) {
+					// logger.debug(result);
 
-					while (rs1.next()) {
+					while (result.next()) {
 						ShipDetail ship = new ShipDetail();
-						ship.setAmount(rs1.getInt("amount"));
-						ship.setClasses(rs1.getString("classes"));
-						ship.setSourcePlace(rs1.getString("source_place"));
-						ship.setDestinationPlace(rs1.getString("destination_place"));
-						ship.setShipId(rs1.getInt("ship_id"));
-						ship.setShipName(rs1.getString("ship_name"));
-						ship.setNoOfSeats(rs1.getInt("total_no_of_seats"));
+						ship.setAmount(result.getInt("amount"));
+						ship.setClasses(result.getString("classes"));
+						ship.setSourcePlace(result.getString("source_place"));
+						ship.setDestinationPlace(result.getString("destination_place"));
+						ship.setShipId(result.getInt("ship_id"));
+						ship.setShipName(result.getString("ship_name"));
+						ship.setNoOfSeats(result.getInt("total_no_of_seats"));
 						list.add(ship);
 
 					}
@@ -223,20 +223,20 @@ public class ShipDetailDAOImplementation implements ShipDetailDAO {
 
 		// ResultSet rs1 = null;
 		ArrayList<ShipDetail> list = new ArrayList<ShipDetail>();
-		try (Connection com = TestConnection.getConnection();) {
+		try (Connection connection = TestConnection.getConnection();) {
 
-			String sql3 = "select * from ship_route";
+			String sql = "select route_place from ship_route";
 			// String sql3 = "select source_place,destination_place from ship_detail";
 			// String sql3 = "select source_place,destination_place from ship_detail where
 			// ship_id=?";
-			try (Statement stm = com.createStatement();) {
-				try (ResultSet rs1 = stm.executeQuery(sql3);) {
-					logger.debug(rs1);
+			try (Statement statement = connection.createStatement();) {
+				try (ResultSet result = statement.executeQuery(sql);) {
+					// logger.debug(result);
 
-					while (rs1.next()) {
+					while (result.next()) {
 						ShipDetail ship = new ShipDetail();
 
-						ship.setRoutePlace(rs1.getString("route_place"));
+						ship.setRoutePlace(result.getString("route_place"));
 
 						list.add(ship);
 
