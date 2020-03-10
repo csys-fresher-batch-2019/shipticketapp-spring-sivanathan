@@ -90,6 +90,7 @@ public class SeatDAOImplementation implements SeatDAO {
 	public void findTicketStatusAndCost(SeatAvailability b) {
 		String value = "ordered";
 		String sql = "select ticket_status,cost from booking_detail where user_id = ?";
+		//logger.info(sql);
 		try (Connection com = TestConnection.getConnection();) {
 		try (PreparedStatement smt4 = com.prepareStatement(sql);) {
 			// smt4 = com.prepareStatement(sql);
@@ -102,8 +103,10 @@ public class SeatDAOImplementation implements SeatDAO {
 						logger.debug("status:" + value1.getString("ticket_status"));
 						logger.debug("total:" + value1.getInt("cost"));
 						String sqlselect = "select email from user_detail where user_id in (select user_id from booking_detail where ticket_status='ordered' and user_id=?)";
+						
 						try (PreparedStatement stm = com.prepareStatement(sqlselect);) {
 							stm.setInt(1, b.getuserNo());
+							logger.info(sqlselect);
 							ResultSet value2 = stm.executeQuery();
 							// logger.debug(value2);
 
