@@ -4,12 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 import com.chainsys.shipticketbooking.dao.AdminDAO;
 import com.chainsys.shipticketbooking.exception.DBException;
 import com.chainsys.shipticketbooking.exception.ErrorMessages;
-import com.chainsys.shipticketbooking.logger.Logger;
 import com.chainsys.shipticketbooking.util.ConnectionUtil;
 
 public class AdminDAOImplementation implements AdminDAO {
@@ -17,7 +15,7 @@ public class AdminDAOImplementation implements AdminDAO {
 	public boolean adminExist(int adminId, String pass) throws DBException
 
 	{
-		Logger logger = Logger.getInstance();
+		// Logger logger = Logger.getInstance();
 
 		try (Connection connection = ConnectionUtil.getConnection();) {
 			String sql = "select pass_word from AdminRegister where Admin_id=?";
