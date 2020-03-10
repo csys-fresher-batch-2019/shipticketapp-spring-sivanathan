@@ -12,7 +12,8 @@ public class ErrorMessages {
 	public static final String INVALID_CALLABLESTATEMENT = "INVALID CALLABLE STATEMENT";
 	public static final String INVALID_CONNECTIONSTATEMENT = "INVALID CONNECTION STATEMENT";
 	public static final String INVALID_PIN = "Invalid pin";
-	public static final String INVALID_VALIDATE = "INVALID VALIDATE STATEMENT";
+	public static final String INVALID_VALIDATE_USER = "INVALID USER VALIDATE STATEMENT";
+	public static final String INVALID_VALIDATE_PASSWORD = "INVALID PASSWORD VALIDATE STATEMENT";
 	public static final String INVALID_DB_EXCEPTION = "INVALID DB EXCEPTION";
 	public static final String INVALID_RESULTSET = "INVALID RESULTSET EXCEPTION";
 

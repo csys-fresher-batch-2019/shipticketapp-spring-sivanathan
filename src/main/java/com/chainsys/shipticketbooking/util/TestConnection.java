@@ -2,6 +2,7 @@ package com.chainsys.shipticketbooking.util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 
 import com.chainsys.shipticketbooking.exception.DBException;
 import com.chainsys.shipticketbooking.exception.ErrorMessages;
@@ -22,9 +23,9 @@ public class TestConnection {
 			// it is used to communicate with url
 			// con = DriverManager.getConnection("jdbc:oracle:thin:@13.235.147.120:1521:XE",
 			// "sivanathan", "sivanathan");
-		} catch (Exception e) {
+		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
-			logger.error(ErrorMessages.CONNECTION_FAILURE);
+			logger.error(ErrorMessages.CONNECTION_FAILURE + "" + e);
 		}
 
 		return con;
