@@ -1,6 +1,7 @@
 package com.chainsys.shipticketbooking.servlet.wallet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -40,6 +41,9 @@ public class Wallet1 extends HttpServlet {
 			try {
 				
 				m4.findamount(seat);
+				PrintWriter out = response.getWriter();
+		        out.write("SUCCESSFULLY BOOKED");        
+		        out.flush();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

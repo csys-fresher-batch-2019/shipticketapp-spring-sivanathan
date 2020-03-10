@@ -18,13 +18,12 @@
 		<center>
 			<h1>total amount</h1>
 			total amount:<input type="number" name="amount" value="<%=amount%>"
-				readonly> <br>
-			<br> payment through:<br> <br> <input type="radio"
-				name="cash" id="credit" disabled value="credit" id="credit" required>credit
-			card <br> <br> <input type="radio" name="cash" id="net"
-				disabled value="net" required>net banking <br> <br>
-			<input type="radio" name="cash" id="wallet" value="wallet" required>wallet
-			<br> <br>
+				readonly> <br> <br> payment through:<br> <br>
+			<input type="radio" name="cash" id="credit" disabled value="credit"
+				id="credit" required>credit card <br> <br> <input
+				type="radio" name="cash" id="net" disabled value="net" required>net
+			banking <br> <br> <input type="radio" name="cash"
+				id="wallet" value="wallet" required>wallet <br> <br>
 
 
 			<button type="submit">confirm</button>
@@ -35,6 +34,12 @@
 
 
 	<script>
+		window.history.forward();
+
+		function noBack() {
+			window.history.forward();
+		}
+
 		function call() {
 			event.preventDefault();
 			var option = document.getElementById("wallet").value;
