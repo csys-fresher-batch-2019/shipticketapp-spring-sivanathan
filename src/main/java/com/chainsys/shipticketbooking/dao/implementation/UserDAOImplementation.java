@@ -12,20 +12,20 @@ import com.chainsys.shipticketbooking.exception.DBException;
 import com.chainsys.shipticketbooking.exception.ErrorMessages;
 import com.chainsys.shipticketbooking.logger.Logger;
 import com.chainsys.shipticketbooking.model.User;
-import com.chainsys.shipticketbooking.util.TestConnection;
+import com.chainsys.shipticketbooking.util.ConnectionUtil;
 
 public class UserDAOImplementation implements UserDAO {
 	Logger logger = Logger.getInstance();
 
 	// for adding the user details in sql.
-	public void saveUser(User a) {
+	public void saveUser(User a) throws DBException {
 		/*
 		 * Jdbi jdbi=TestConnection.getJdbi(); //ServiceShipTicket
 		 * service=jdbi.onDemand(service.class); UserDAO user = new
 		 * UserDAOImplementation();
 		 */
 
-		try (Connection connection = TestConnection.getConnection();) {
+		try (Connection connection = ConnectionUtil.getConnection();) {
 			String sql = "insert into user_detail(user_name,user_id,date_of_birth,contact_number,gender,pass,email) values(?,?,?,?,?,?,?)";
 			try (PreparedStatement statement = connection.prepareStatement(sql);) {
 				// smt = com.prepareStatement(sql);
@@ -53,23 +53,25 @@ public class UserDAOImplementation implements UserDAO {
 
 			{
 				e.printStackTrace();
-				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + "" + e);
+				// logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + "" + e);
+				throw new DBException(ErrorMessages.INVALID_PREPARESTATEMENT, e);
 
 			}
 		} catch (SQLException | DBException e)
 
 		{
 			e.printStackTrace();
-			logger.error(ErrorMessages.INVALID_CONNECTIONSTATEMENT + "" + e);
+			// logger.error(ErrorMessages.INVALID_CONNECTIONSTATEMENT + "" + e);
+			throw new DBException(ErrorMessages.CONNECTION_FAILURE, e);
 
 		}
 	}
 
 	// for update the user contact number using the user id.
-	public void updateUser(User a) {
+	public void updateUser(User a) throws DBException {
 		// PreparedStatement smt1 = null;
 
-		try (Connection connection = TestConnection.getConnection();) {
+		try (Connection connection = ConnectionUtil.getConnection();) {
 			String sql = "update user_detail set contact_number=? where user_id=?";
 			try (PreparedStatement statement = connection.prepareStatement(sql);) {
 				// smt1 = com.prepareStatement(sql1);
@@ -86,24 +88,26 @@ public class UserDAOImplementation implements UserDAO {
 
 			{
 				e.printStackTrace();
-				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + "" + e);
+				// logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + "" + e);
+				throw new DBException(ErrorMessages.INVALID_PREPARESTATEMENT, e);
 
 			}
 		} catch (SQLException | DBException e)
 
 		{
 			e.printStackTrace();
-			logger.error(ErrorMessages.INVALID_CONNECTIONSTATEMENT + "" + e);
+			// logger.error(ErrorMessages.INVALID_CONNECTIONSTATEMENT + "" + e);
+			throw new DBException(ErrorMessages.INVALID_CONNECTIONSTATEMENT, e);
 
 		}
 
 	}
 
 	// delete the user id from the sql.
-	public void deleteUser(User a) {
+	public void deleteUser(User a) throws DBException {
 		// PreparedStatement smt2 = null;
 
-		try (Connection connection = TestConnection.getConnection();) {
+		try (Connection connection = ConnectionUtil.getConnection();) {
 
 			String sql = "delete from user_detail  where user_id=?";
 			try (PreparedStatement statement = connection.prepareStatement(sql);) {
@@ -117,14 +121,16 @@ public class UserDAOImplementation implements UserDAO {
 
 			{
 				e.printStackTrace();
-				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + "" + e);
+				// logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + "" + e);
+				throw new DBException(ErrorMessages.INVALID_PREPARESTATEMENT, e);
 
 			}
 		} catch (SQLException | DBException e)
 
 		{
 			e.printStackTrace();
-			logger.error(ErrorMessages.INVALID_CONNECTIONSTATEMENT + "" + e);
+			// logger.error(ErrorMessages.INVALID_CONNECTIONSTATEMENT + "" + e);
+			throw new DBException(ErrorMessages.INVALID_CONNECTIONSTATEMENT, e);
 
 		}
 	}
@@ -150,10 +156,10 @@ public class UserDAOImplementation implements UserDAO {
 	 */
 
 	// reset the password for the user if there is login failed
-	public void passwordResetUser(User a) {
+	public void passwordResetUser(User a) throws DBException {
 		// PreparedStatement smt3 = null;
 
-		try (Connection connection = TestConnection.getConnection();) {
+		try (Connection connection = ConnectionUtil.getConnection();) {
 
 			String sql = "update user_detail set pass=? where user_id=?";
 			try (PreparedStatement statement = connection.prepareStatement(sql);) { // smt3 =
@@ -167,22 +173,24 @@ public class UserDAOImplementation implements UserDAO {
 
 			} catch (SQLException e) {
 				e.printStackTrace();
-				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + "" + e);
+				// logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + "" + e);
+				throw new DBException(ErrorMessages.INVALID_PREPARESTATEMENT, e);
 
 			}
 		} catch (SQLException | DBException e) {
 			e.printStackTrace();
-			logger.error(ErrorMessages.INVALID_CREATESTATEMENT + "" + e);
+			// logger.error(ErrorMessages.INVALID_CREATESTATEMENT + "" + e);
+			throw new DBException(ErrorMessages.INVALID_CREATESTATEMENT, e);
 
 		}
 	}
 
-	public boolean userExist(int userId, String password) {
+	public boolean userExist(int userId, String password) throws DBException {
 
 		Statement statement = null;
 		boolean result = false;
 		ResultSet value = null;
-		try (Connection connection = TestConnection.getConnection();) {
+		try (Connection connection = ConnectionUtil.getConnection();) {
 			try {
 				statement = connection.createStatement();
 				if (statement.executeUpdate("select user_id from user_detail  where user_id='" + userId + "'") != 0) {
@@ -198,12 +206,15 @@ public class UserDAOImplementation implements UserDAO {
 				}
 
 			} catch (SQLException e) {
-				logger.error(ErrorMessages.INVALID_CREATESTATEMENT + "" + e);
 				e.printStackTrace();
+				// logger.error(ErrorMessages.INVALID_CREATESTATEMENT + "" + e);
+				throw new DBException(ErrorMessages.INVALID_CREATESTATEMENT, e);
+
 			}
 		} catch (SQLException | DBException e) {
 			e.printStackTrace();
-			logger.error(ErrorMessages.INVALID_CONNECTIONSTATEMENT + "" + e);
+			// logger.error(ErrorMessages.INVALID_CONNECTIONSTATEMENT + "" + e);
+			throw new DBException(ErrorMessages.INVALID_CONNECTIONSTATEMENT, e);
 		}
 		return result;
 	}

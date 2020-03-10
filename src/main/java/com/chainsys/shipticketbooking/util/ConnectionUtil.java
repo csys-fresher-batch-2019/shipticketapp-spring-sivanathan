@@ -8,7 +8,7 @@ import com.chainsys.shipticketbooking.exception.DBException;
 import com.chainsys.shipticketbooking.exception.ErrorMessages;
 import com.chainsys.shipticketbooking.logger.Logger;
 
-public class TestConnection {
+public class ConnectionUtil {
 	public static Connection getConnection() throws DBException {
 		Logger logger = Logger.getInstance();
 		Connection con = null;

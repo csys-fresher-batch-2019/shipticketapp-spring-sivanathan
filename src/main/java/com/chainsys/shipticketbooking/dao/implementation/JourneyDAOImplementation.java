@@ -11,14 +11,14 @@ import com.chainsys.shipticketbooking.exception.DBException;
 import com.chainsys.shipticketbooking.exception.ErrorMessages;
 import com.chainsys.shipticketbooking.logger.Logger;
 import com.chainsys.shipticketbooking.model.Journey;
-import com.chainsys.shipticketbooking.util.TestConnection;
+import com.chainsys.shipticketbooking.util.ConnectionUtil;
 
 public class JourneyDAOImplementation implements JourneyDAO {
 	Connection com = null;
 	Logger logger = Logger.getInstance();
 
-	public void saveJourney(Journey a) {
-		try (Connection connection = TestConnection.getConnection();) {
+	public void saveJourney(Journey a) throws DBException {
+		try (Connection connection = ConnectionUtil.getConnection();) {
 
 			String sql = "insert into journey_detail(journey_id,source_date,destination_date,ship_id)values(?,?,?,?)";
 			try (PreparedStatement statement = connection.prepareStatement(sql);) {
@@ -33,16 +33,18 @@ public class JourneyDAOImplementation implements JourneyDAO {
 				logger.debug("NO OF ROWS INSERTED:" + row);
 			} catch (SQLException e) {
 				e.printStackTrace();
-				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + "" + e);
+				//logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + "" + e);
+				throw new DBException(ErrorMessages.INVALID_PREPARESTATEMENT,e);
 			}
 		} catch (SQLException | DBException e) {
 			e.printStackTrace();
-			logger.error(ErrorMessages.CONNECTION_FAILURE + "" + e);
+			//logger.error(ErrorMessages.CONNECTION_FAILURE + "" + e);
+			throw new DBException(ErrorMessages.CONNECTION_FAILURE,e);
 		}
 	}
 
-	public void updateJourney(Journey a) {
-		try (Connection connection = TestConnection.getConnection();) {
+	public void updateJourney(Journey a) throws DBException {
+		try (Connection connection = ConnectionUtil.getConnection();) {
 
 			String sql = "update journey_detail set destination_date=? where ship_id=?";
 			try (PreparedStatement statement = connection.prepareStatement(sql);) {
@@ -55,16 +57,18 @@ public class JourneyDAOImplementation implements JourneyDAO {
 				logger.debug("NO OF ROWS UPDATED:" + row);
 			} catch (SQLException e) {
 				e.printStackTrace();
-				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + "" + e);
+				//logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + "" + e);
+				throw new DBException(ErrorMessages.INVALID_PREPARESTATEMENT,e);
 			}
 		} catch (SQLException | DBException e) {
 			e.printStackTrace();
-			logger.error(ErrorMessages.CONNECTION_FAILURE + "" + e);
+			//logger.error(ErrorMessages.CONNECTION_FAILURE + "" + e);
+			throw new DBException(ErrorMessages.CONNECTION_FAILURE,e);
 		}
 	}
 
-	public void deleteJourney(Journey a) {
-		try (Connection connection = TestConnection.getConnection();) {
+	public void deleteJourney(Journey a) throws DBException {
+		try (Connection connection = ConnectionUtil.getConnection();) {
 
 			String sql = "delete from journey_detail  where ship_id=?";
 			try (PreparedStatement statement = connection.prepareStatement(sql);) {
@@ -76,17 +80,19 @@ public class JourneyDAOImplementation implements JourneyDAO {
 
 			} catch (SQLException e) {
 				e.printStackTrace();
-				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + "" + e);
+				//logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + "" + e);
+				throw new DBException(ErrorMessages.INVALID_PREPARESTATEMENT,e);
 			}
 		} catch (SQLException | DBException e) {
 			e.printStackTrace();
-			logger.error(ErrorMessages.CONNECTION_FAILURE + "" + e);
+			//logger.error(ErrorMessages.CONNECTION_FAILURE + "" + e);
+			throw new DBException(ErrorMessages.CONNECTION_FAILURE,e);
 		}
 	}
 
-	public ArrayList<Journey> findAllJourney(int a) {
+	public ArrayList<Journey> findAllJourney(int a) throws DBException {
 		ArrayList<Journey> list = new ArrayList<Journey>();
-		try (Connection connection = TestConnection.getConnection();) {
+		try (Connection connection = ConnectionUtil.getConnection();) {
 
 			String sql = "select journey_id,source_date,destination_date,ship_id from journey_detail where ship_id =?";
 			// String sql4 = "select * from journey_detail where destination_date between ?
@@ -108,16 +114,19 @@ public class JourneyDAOImplementation implements JourneyDAO {
 					}
 				} catch (SQLException e) {
 					e.printStackTrace();
-					logger.error(ErrorMessages.INVALID_RESULTSET + "" + e);
+					//logger.error(ErrorMessages.INVALID_RESULTSET + "" + e);
+					throw new DBException(ErrorMessages.INVALID_RESULTSET,e);
 				}
 
 			} catch (SQLException e) {
 				e.printStackTrace();
-				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + "" + e);
+				//logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + "" + e);
+				throw new DBException(ErrorMessages.INVALID_PREPARESTATEMENT,e);
 			}
 		} catch (SQLException | DBException e) {
 			e.printStackTrace();
-			logger.error(ErrorMessages.CONNECTION_FAILURE + "" + e);
+			//logger.error(ErrorMessages.CONNECTION_FAILURE + "" + e);
+			throw new DBException(ErrorMessages.CONNECTION_FAILURE,e);
 		}
 		return list;
 

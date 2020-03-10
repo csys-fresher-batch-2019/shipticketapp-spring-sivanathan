@@ -11,15 +11,15 @@ import com.chainsys.shipticketbooking.exception.DBException;
 import com.chainsys.shipticketbooking.exception.ErrorMessages;
 import com.chainsys.shipticketbooking.logger.Logger;
 import com.chainsys.shipticketbooking.model.Booking;
-import com.chainsys.shipticketbooking.util.TestConnection;
+import com.chainsys.shipticketbooking.util.ConnectionUtil;
 
 public class BookingDAOImplementation implements BookingDAO {
 	Connection com = null;
 	Logger logger = Logger.getInstance();
 
-	public void saveBooking(Booking a) {
+	public void saveBooking(Booking a) throws DBException {
 		// PreparedStatement smt1=null;
-		try (Connection connection = TestConnection.getConnection();) {
+		try (Connection connection = ConnectionUtil.getConnection();) {
 
 			String sql = "insert into booking_detail(booking_id,user_id,ship_id,journey_id,booking_seats,date_of_booking,ticket_status,cost) values(booking_id.nextval,?,?,?,?,?,?,?)";
 			try (PreparedStatement statement = connection.prepareStatement(sql);) {
@@ -39,17 +39,19 @@ public class BookingDAOImplementation implements BookingDAO {
 				logger.debug("NO OF ROWS INSERTED:" + row);
 			} catch (SQLException e) {
 				e.printStackTrace();
-				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + "" + e);
+				// logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + "" + e);
+				throw new DBException(ErrorMessages.INVALID_PREPARESTATEMENT, e);
 			}
 		} catch (SQLException | DBException e) {
 			e.printStackTrace();
-			logger.error(ErrorMessages.CONNECTION_FAILURE + "" + e);
+			// logger.error(ErrorMessages.CONNECTION_FAILURE + "" + e);
+			throw new DBException(ErrorMessages.CONNECTION_FAILURE, e);
 		}
 	}
 
-	public void updateBooking(Booking a) {
+	public void updateBooking(Booking a) throws DBException {
 		// PreparedStatement smt2 =null;
-		try (Connection connection = TestConnection.getConnection();) {
+		try (Connection connection = ConnectionUtil.getConnection();) {
 
 			String sql = "update booking_detail set ticket_status=? where user_id=? and journey_id=?";
 			try (PreparedStatement statement = connection.prepareStatement(sql);) {
@@ -61,15 +63,19 @@ public class BookingDAOImplementation implements BookingDAO {
 				int row = statement.executeUpdate();
 				logger.debug("NO OF ROWS UPDATED:" + row);
 			} catch (SQLException e) {
-				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + "" + e);
+				e.printStackTrace();
+				// logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + "" + e);
+				throw new DBException(ErrorMessages.INVALID_PREPARESTATEMENT, e);
 			}
 		} catch (SQLException | DBException e) {
-			logger.error(ErrorMessages.CONNECTION_FAILURE + "" + e);
+			e.printStackTrace();
+			// logger.error(ErrorMessages.CONNECTION_FAILURE + "" + e);
+			throw new DBException(ErrorMessages.CONNECTION_FAILURE, e);
 		}
 	}
 
-	public void deleteBooking(Booking a) {
-		try (Connection connection = TestConnection.getConnection();) {
+	public void deleteBooking(Booking a) throws DBException {
+		try (Connection connection = ConnectionUtil.getConnection();) {
 
 			String sql = "delete from booking_detail  where user_id=? and journey_id=?";
 			try (PreparedStatement statement = connection.prepareStatement(sql);) {
@@ -80,17 +86,21 @@ public class BookingDAOImplementation implements BookingDAO {
 				int row = statement.executeUpdate();
 				logger.debug("NO OF ROWS DELETED:" + row);
 			} catch (SQLException e) {
-				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + "" + e);
+				e.printStackTrace();
+				// logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + "" + e);
+				throw new DBException(ErrorMessages.INVALID_PREPARESTATEMENT, e);
 			}
 		} catch (SQLException | DBException e) {
-			logger.error(ErrorMessages.CONNECTION_FAILURE + "" + e);
+			e.printStackTrace();
+			// logger.error(ErrorMessages.CONNECTION_FAILURE + "" + e);
+			throw new DBException(ErrorMessages.CONNECTION_FAILURE, e);
 		}
 	}
 
-	public int countOfBooking() {
+	public int countOfBooking() throws DBException {
 		// public void count(String b) throws Exception {
 		int value = 0;
-		try (Connection connection = TestConnection.getConnection();) {
+		try (Connection connection = ConnectionUtil.getConnection();) {
 			String sql = "select count(*) from booking_detail";
 			// String sql4 = "select " + b + "(*) from booking_detail";
 			try (PreparedStatement statement = connection.prepareStatement(sql);) {
@@ -104,27 +114,32 @@ public class BookingDAOImplementation implements BookingDAO {
 				} catch (SQLException e) {
 					e.printStackTrace();
 					// throw new Exception(ErrorMessages.INVALID_RESULTSET,e);
-					logger.error(ErrorMessages.INVALID_RESULTSET + "" + e);
+					// logger.error(ErrorMessages.INVALID_RESULTSET + "" + e);
+					throw new DBException(ErrorMessages.INVALID_RESULTSET, e);
 				}
 			} catch (SQLException e) {
-				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + "" + e);
+				e.printStackTrace();
+				// logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + "" + e);
+				throw new DBException(ErrorMessages.INVALID_PREPARESTATEMENT, e);
 			}
 		} catch (SQLException | DBException e) {
-			logger.error(ErrorMessages.CONNECTION_FAILURE + "" + e);
+			e.printStackTrace();
+			// logger.error(ErrorMessages.CONNECTION_FAILURE + "" + e);
+			throw new DBException(ErrorMessages.CONNECTION_FAILURE, e);
 		}
 		return value;
 	}
 
-	public int findCostOfBooking(Booking b) {
+	public int findCostOfBooking(Booking b) throws DBException {
 
 		int res = 0;
-		try (Connection connection = TestConnection.getConnection();) {
+		try (Connection connection = ConnectionUtil.getConnection();) {
 			String sql = "select cost from booking_detail where (ship_id=? and journey_id=? and user_id=?)";
 			try (PreparedStatement statement = connection.prepareStatement(sql);) {
 				statement.setInt(1, b.getShipId());
 				statement.setInt(2, b.getJourneyId());
 				statement.setInt(3, b.getUserId());
-				System.out.println(sql);
+				// System.out.println(sql);
 
 				try (ResultSet result = statement.executeQuery();) {
 					if (result.next()) {
@@ -133,16 +148,19 @@ public class BookingDAOImplementation implements BookingDAO {
 					}
 				} catch (SQLException e) {
 					e.printStackTrace();
-					logger.error(ErrorMessages.INVALID_RESULTSET + "" + e);
+					// logger.error(ErrorMessages.INVALID_RESULTSET + "" + e);
+					throw new DBException(ErrorMessages.INVALID_RESULTSET, e);
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
-				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + "" + e);
+				// logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + "" + e);
+				throw new DBException(ErrorMessages.INVALID_PREPARESTATEMENT, e);
 
 			}
 		} catch (SQLException | DBException e) {
 			e.printStackTrace();
-			logger.error(ErrorMessages.INVALID_CONNECTIONSTATEMENT + "" + e);
+			// logger.error(ErrorMessages.INVALID_CONNECTIONSTATEMENT + "" + e);
+			throw new DBException(ErrorMessages.INVALID_CONNECTIONSTATEMENT, e);
 
 		}
 		return res;
