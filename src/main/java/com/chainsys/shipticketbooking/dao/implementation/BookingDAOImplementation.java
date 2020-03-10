@@ -3,9 +3,11 @@ package com.chainsys.shipticketbooking.dao.implementation;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 
 import com.chainsys.shipticketbooking.dao.BookingDAO;
+import com.chainsys.shipticketbooking.exception.DBException;
 import com.chainsys.shipticketbooking.exception.ErrorMessages;
 import com.chainsys.shipticketbooking.logger.Logger;
 import com.chainsys.shipticketbooking.model.Booking;
@@ -35,13 +37,13 @@ public class BookingDAOImplementation implements BookingDAO {
 				logger.debug(sql1);
 				int row = smt1.executeUpdate();
 				logger.debug(row);
-			} catch (Exception e) {
+			} catch (SQLException e) {
 				e.printStackTrace();
-				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + e);
+				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + ""+e);
 			}
-		} catch (Exception e) {
+		} catch (SQLException | DBException e) {
 			e.printStackTrace();
-			logger.error(ErrorMessages.CONNECTION_FAILURE + e);
+			logger.error(ErrorMessages.CONNECTION_FAILURE +""+ e);
 		}
 	}
 
@@ -58,11 +60,11 @@ public class BookingDAOImplementation implements BookingDAO {
 				logger.debug(sql2);
 				int row1 = smt2.executeUpdate();
 				logger.debug(row1);
-			} catch (Exception e) {
-				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + e);
+			} catch (SQLException e) {
+				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + ""+e);
 			}
-		} catch (Exception e) {
-			logger.error(ErrorMessages.CONNECTION_FAILURE + e);
+		} catch (SQLException | DBException e) {
+			logger.error(ErrorMessages.CONNECTION_FAILURE + ""+e);
 		}
 	}
 
@@ -77,11 +79,11 @@ public class BookingDAOImplementation implements BookingDAO {
 
 				int row2 = smt3.executeUpdate();
 				logger.debug(row2);
-			} catch (Exception e) {
-				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + e);
+			} catch (SQLException e) {
+				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + ""+e);
 			}
-		} catch (Exception e) {
-			logger.error(ErrorMessages.CONNECTION_FAILURE + e);
+		} catch (SQLException | DBException e) {
+			logger.error(ErrorMessages.CONNECTION_FAILURE + ""+e);
 		}
 	}
 
@@ -99,15 +101,16 @@ public class BookingDAOImplementation implements BookingDAO {
 						value = rs4.getInt("count(*)");
 						logger.debug("count:" + value);
 					}
-				} catch (Exception e) {
+				} catch (SQLException e) {
 					e.printStackTrace();
-					throw new Exception(ErrorMessages.INVALID_RESULTSET);
+					// throw new Exception(ErrorMessages.INVALID_RESULTSET,e);
+					logger.error(ErrorMessages.INVALID_RESULTSET + "" + e);
 				}
-			} catch (Exception e) {
-				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + e);
+			} catch (SQLException e) {
+				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + "" + e);
 			}
-		} catch (Exception e) {
-			logger.error(ErrorMessages.CONNECTION_FAILURE + e);
+		} catch (SQLException | DBException e) {
+			logger.error(ErrorMessages.CONNECTION_FAILURE + ""+e);
 		}
 		return value;
 	}
@@ -128,18 +131,18 @@ public class BookingDAOImplementation implements BookingDAO {
 						res = rs5.getInt("cost");
 						logger.debug("cost:" + rs5.getInt("cost"));
 					}
-				} catch (Exception e) {
+				} catch (SQLException e) {
 					e.printStackTrace();
-					logger.error(ErrorMessages.INVALID_RESULTSET + e);
+					logger.error(ErrorMessages.INVALID_RESULTSET + ""+e);
 				}
-			} catch (Exception e) {
+			} catch (SQLException e) {
 				e.printStackTrace();
-				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT);
+				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT+""+e);
 
 			}
-		} catch (Exception e) {
+		} catch (SQLException | DBException e) {
 			e.printStackTrace();
-			logger.error(ErrorMessages.INVALID_CONNECTIONSTATEMENT);
+			logger.error(ErrorMessages.INVALID_CONNECTIONSTATEMENT+""+e);
 
 		}
 		return res;

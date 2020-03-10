@@ -2,9 +2,11 @@ package com.chainsys.shipticketbooking.dao.implementation;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 import com.chainsys.shipticketbooking.dao.AdminDAO;
+import com.chainsys.shipticketbooking.exception.DBException;
 import com.chainsys.shipticketbooking.exception.ErrorMessages;
 import com.chainsys.shipticketbooking.logger.Logger;
 import com.chainsys.shipticketbooking.util.TestConnection;
@@ -29,18 +31,18 @@ public class AdminDAOImplementation implements AdminDAO {
 						}
 					}
 
-				} catch (Exception e) {
+				} catch (SQLException e) {
 					e.printStackTrace();
-					throw new Exception(ErrorMessages.INVALID_RESULTSET);
+					logger.error(ErrorMessages.INVALID_RESULTSET + "" + e);
 				}
-			} catch (Exception e) {
+			} catch (SQLException e) {
 				e.printStackTrace();
-				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT);
+				logger.error(ErrorMessages.INVALID_CREATESTATEMENT + "" + e);
 				// logger.error("Exception"+e);
 			}
-		} catch (Exception e) {
+		} catch (DBException | SQLException e) {
 			e.printStackTrace();
-			logger.error(ErrorMessages.CONNECTION_FAILURE);
+			logger.error(ErrorMessages.CONNECTION_FAILURE + "" + e);
 		}
 		return false;
 	}

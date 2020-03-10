@@ -57,66 +57,19 @@ table, th, td {
 
 
 
-		<!--  	
-<table style="width:100%">
-  <tr>
-    <th>SHIP ID</th>
-    <th>SHIP NAME</th> 
-    <th>SOURCE PLACE</th>
-    <th>DESTINATION PLACE</th>
-    <th>TOTAL NO OF SEATS</th>
-    <th>CLASSES</th>
-    <th>AMOUNT</th>
-    
-  </tr>
-  <tr>
-    <td><a href="aaa.jsp?shipid=112233">112233</td>
-    <td>aaa ship</td>
-    <td>amindivi</td>
-    <td>lagoons</td>
-    <td>200</td>
-    <td>first class</td>
-    <td>5000</td>
-  </tr>
-  <tr>
-    <td><a href="bbb.jsp?shipid=114455">114455</a></td>
-    <td>bbb ship</td>
-    <td>kaavaratti</td>
-    <td>minicoy</td>
-    <td>100</td>
-    <td>vip</td>
-    <td>6000</td>  </tr>
-  <tr>
-    <td><a href="ccc.jsp?shipid=116677">116677</td>
-    <td>ccc ship</td>
-    <td>corals</td>
-    <td>arabiansea</td>
-    <td>150</td>
-    <td>second class</td>
-    <td>4000</td>
-  </tr>
-  <tr>
-    <td><a href="ddd.jsp?shipid=117788">117788</td>
-    <td>ddd ship</td>
-    <td>amindivi</td>
-    <td>arabiansea</td>
-    <td>200</td>
-    <td>second class</td>
-    <td>3000</td>
-  </tr>
-  <br>
-  
-</table>-->
+		
 		<br>
 		<br>
 		<a href="forget.jsp">Reset Password </a>
-</center>
 
-</body>
+
+	</body>
+</center>
 <div
 	style="position: absolute; top: 0; right: 0; width: 100px; text-align: right;">
 
-	<jsp:include page="logout.jsp" /></center>
+	<jsp:include page="logout.jsp" />
+</center>
 </div>
 
 </html>

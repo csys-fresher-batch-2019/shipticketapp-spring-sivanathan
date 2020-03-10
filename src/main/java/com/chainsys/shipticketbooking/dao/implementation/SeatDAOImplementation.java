@@ -1,12 +1,14 @@
 package com.chainsys.shipticketbooking.dao.implementation;
 
+import java.io.IOException;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.SQLException;
 
 import com.chainsys.shipticketbooking.dao.SeatDAO;
+import com.chainsys.shipticketbooking.exception.DBException;
 import com.chainsys.shipticketbooking.exception.ErrorMessages;
 import com.chainsys.shipticketbooking.logger.Logger;
 import com.chainsys.shipticketbooking.mail.SendSmsIml;
@@ -34,11 +36,11 @@ public class SeatDAOImplementation implements SeatDAO {
 				int row = smt1.executeUpdate();
 				logger.debug(row);
 
-			} catch (Exception e) {
-				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + e);
+			} catch (SQLException e) {
+				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT+""+e);
 			}
-		} catch (Exception e) {
-			logger.error(ErrorMessages.CONNECTION_FAILURE + e);
+		} catch (SQLException | DBException e) {
+			logger.error(ErrorMessages.CONNECTION_FAILURE+""+e);
 		}
 	}
 
@@ -57,11 +59,11 @@ public class SeatDAOImplementation implements SeatDAO {
 
 				int row1 = smt2.executeUpdate();
 				logger.debug(row1);
-			} catch (Exception e) {
-				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + e);
+			} catch (SQLException e) {
+				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT+""+e);
 			}
-		} catch (Exception e) {
-			logger.error(ErrorMessages.CONNECTION_FAILURE + e);
+		} catch (SQLException | DBException e) {
+			logger.error(ErrorMessages.CONNECTION_FAILURE+""+e);
 		}
 	}
 
@@ -80,11 +82,11 @@ public class SeatDAOImplementation implements SeatDAO {
 				int row2 = smt3.executeUpdate();
 				logger.debug(row2);
 
-			} catch (Exception e) {
-				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + e);
+			} catch (SQLException e) {
+				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT+""+e);
 			}
-		} catch (Exception e) {
-			logger.error(ErrorMessages.CONNECTION_FAILURE + e);
+		} catch (SQLException | DBException e) {
+			logger.error(ErrorMessages.CONNECTION_FAILURE+""+e);
 		}
 	}
 	public void findTicketStatusAndCost(SeatAvailability b) {
@@ -122,23 +124,23 @@ public class SeatDAOImplementation implements SeatDAO {
 											b.getuserNo());
 								}
 							}
-						} catch (Exception e) {
+						} catch (SQLException | IOException e) {
 							e.printStackTrace();
-							logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + e);
+							logger.error(ErrorMessages.INVALID_PREPARESTATEMENT +""+e);
 						}
 					}
-				} catch (Exception e) {
+				} catch (SQLException e) {
 					e.printStackTrace();
-					logger.error(ErrorMessages.INVALID_RESULTSET);
+					logger.error(ErrorMessages.INVALID_RESULTSET+""+e);
 				}
 			}
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
-			logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + e);
+			logger.error(ErrorMessages.INVALID_PREPARESTATEMENT+""+e);
 		}
-	} catch (Exception e) {
+	} catch (SQLException | DBException e) {
 		e.printStackTrace();
-		logger.error(ErrorMessages.CONNECTION_FAILURE + e);
+		logger.error(ErrorMessages.CONNECTION_FAILURE+""+e);
 	}
 	
 }
@@ -211,13 +213,13 @@ public class SeatDAOImplementation implements SeatDAO {
 					e.printStackTrace();
 					logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + e);
 				}
-			}*/ }catch (Exception e) {
+			}*/ }catch (SQLException e) {
 				e.printStackTrace();
-				logger.error(ErrorMessages.INVALID_CALLABLESTATEMENT + e);
+				logger.error(ErrorMessages.INVALID_CALLABLESTATEMENT+""+e);
 			}
-		} catch (Exception e) {
+		} catch (SQLException | DBException e) {
 			e.printStackTrace();
-			logger.error(ErrorMessages.CONNECTION_FAILURE + e);
+			logger.error(ErrorMessages.CONNECTION_FAILURE+""+e);
 		}
 	}
 
@@ -237,15 +239,16 @@ public class SeatDAOImplementation implements SeatDAO {
 						logger.debug("cost:" + cost);
 					}
 
-				} catch (Exception e) {
+				} catch (SQLException e) {
 					e.printStackTrace();
-					throw new Exception(ErrorMessages.INVALID_RESULTSET);
+					logger.error(ErrorMessages.INVALID_RESULTSET+""+e);
+					//throw new Exception(ErrorMessages.INVALID_RESULTSET);
 				}
-			} catch (Exception e) {
-				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + e);
+			} catch (SQLException e) {
+				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT+""+e);
 			}
-		} catch (Exception e) {
-			logger.error(ErrorMessages.CONNECTION_FAILURE + e);
+		} catch (SQLException | DBException e) {
+			logger.error(ErrorMessages.CONNECTION_FAILURE+""+e);
 		}
 		return cost;
 	}
@@ -270,16 +273,17 @@ public class SeatDAOImplementation implements SeatDAO {
 						logger.debug("availableseat:" + seats);
 					}
 
-				} catch (Exception e) {
+				} catch (SQLException e) {
 					e.printStackTrace();
-					throw new Exception(ErrorMessages.INVALID_RESULTSET);
+				//	throw new Exception(ErrorMessages.INVALID_RESULTSET);
+					logger.error(ErrorMessages.INVALID_RESULTSET+""+e);
 				}
-			} catch (Exception e) {
+			} catch (SQLException e) {
 
-				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + e);
+				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT+""+e);
 			}
-		} catch (Exception e) {
-			logger.error(ErrorMessages.CONNECTION_FAILURE + e);
+		} catch (SQLException | DBException e) {
+			logger.error(ErrorMessages.CONNECTION_FAILURE+""+e);
 		}
 		return seats;
 
@@ -303,16 +307,17 @@ public class SeatDAOImplementation implements SeatDAO {
 						logger.debug("cost:" + cost);
 					}
 
-				} catch (Exception e) {
+				} catch (SQLException e) {
 					e.printStackTrace();
-					throw new Exception(ErrorMessages.INVALID_RESULTSET);
+					//throw new Exception(ErrorMessages.INVALID_RESULTSET);
+					logger.error(ErrorMessages.INVALID_RESULTSET+""+e);
 				}
-			} catch (Exception e) {
+			} catch (SQLException e) {
 
-				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + e);
+				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT+""+e);
 			}
-		} catch (Exception e) {
-			logger.error(ErrorMessages.CONNECTION_FAILURE + e);
+		} catch (SQLException | DBException e) {
+			logger.error(ErrorMessages.CONNECTION_FAILURE+""+e);
 		}
 		return cost;
 	}

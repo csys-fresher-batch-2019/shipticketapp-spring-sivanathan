@@ -4,9 +4,11 @@ package com.chainsys.shipticketbooking.dao.implementation;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 import com.chainsys.shipticketbooking.dao.UserDAO;
+import com.chainsys.shipticketbooking.exception.DBException;
 import com.chainsys.shipticketbooking.exception.ErrorMessages;
 import com.chainsys.shipticketbooking.logger.Logger;
 import com.chainsys.shipticketbooking.model.User;
@@ -47,17 +49,17 @@ public class UserDAOImplementation implements UserDAO {
 				// smt.close();
 			}
 
-			catch (Exception e)
+			catch (SQLException e)
 
 			{
-				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT);
+				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT+""+e);
 				e.printStackTrace();
 
 			}
-		} catch (Exception e)
+		} catch (SQLException | DBException e)
 
 		{
-			logger.error(ErrorMessages.INVALID_CONNECTIONSTATEMENT);
+			logger.error(ErrorMessages.INVALID_CONNECTIONSTATEMENT+""+e);
 			e.printStackTrace();
 
 		}
@@ -80,17 +82,17 @@ public class UserDAOImplementation implements UserDAO {
 				logger.info("NO OF ROWS UPDATED:" + row1);
 			}
 
-			catch (Exception e)
+			catch (SQLException e)
 
 			{
-				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT);
+				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT+""+e);
 				e.printStackTrace();
 
 			}
-		} catch (Exception e)
+		} catch (SQLException | DBException e)
 
 		{
-			logger.error(ErrorMessages.INVALID_CONNECTIONSTATEMENT);
+			logger.error(ErrorMessages.INVALID_CONNECTIONSTATEMENT+""+e);
 			e.printStackTrace();
 
 		}
@@ -111,17 +113,17 @@ public class UserDAOImplementation implements UserDAO {
 
 				int row2 = smt2.executeUpdate();
 				logger.info("NO OF ROWS DELETED:" + row2);
-			} catch (Exception e)
+			} catch (SQLException e)
 
 			{
-				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT);
+				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT+""+e);
 				e.printStackTrace();
 
 			}
-		} catch (Exception e)
+		} catch (SQLException | DBException e)
 
 		{
-			logger.error(ErrorMessages.INVALID_CONNECTIONSTATEMENT);
+			logger.error(ErrorMessages.INVALID_CONNECTIONSTATEMENT+""+e);
 			e.printStackTrace();
 
 		}
@@ -162,12 +164,12 @@ public class UserDAOImplementation implements UserDAO {
 				int row3 = smt3.executeUpdate();
 				logger.info("NO OF  UPDATED:" + row3);
 
-			} catch (Exception e) {
-				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT);
+			} catch (SQLException e) {
+				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT+""+e);
 				e.printStackTrace();
 			}
-		} catch (Exception e) {
-			logger.error(ErrorMessages.INVALID_CREATESTATEMENT);
+		} catch (SQLException | DBException e) {
+			logger.error(ErrorMessages.INVALID_CREATESTATEMENT+""+e);
 			e.printStackTrace();
 		}
 	}
@@ -192,13 +194,13 @@ public class UserDAOImplementation implements UserDAO {
 
 				}
 
-			} catch (Exception e) {
-				logger.error(ErrorMessages.INVALID_CREATESTATEMENT);
+			} catch (SQLException e) {
+				logger.error(ErrorMessages.INVALID_CREATESTATEMENT+""+e);
 				e.printStackTrace();
 			}
-		} catch (Exception e) {
+		} catch (SQLException | DBException e) {
 			e.printStackTrace();
-			logger.error(ErrorMessages.INVALID_CONNECTIONSTATEMENT);
+			logger.error(ErrorMessages.INVALID_CONNECTIONSTATEMENT+""+e);
 		}
 		return result;
 	}

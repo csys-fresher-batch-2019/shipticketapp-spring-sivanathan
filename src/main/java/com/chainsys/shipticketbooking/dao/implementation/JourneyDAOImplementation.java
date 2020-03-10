@@ -3,9 +3,11 @@ package com.chainsys.shipticketbooking.dao.implementation;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.chainsys.shipticketbooking.dao.JourneyDAO;
+import com.chainsys.shipticketbooking.exception.DBException;
 import com.chainsys.shipticketbooking.exception.ErrorMessages;
 import com.chainsys.shipticketbooking.logger.Logger;
 import com.chainsys.shipticketbooking.model.Journey;
@@ -29,13 +31,13 @@ public class JourneyDAOImplementation implements JourneyDAO {
 				logger.debug(sql1);
 				int row1 = smt1.executeUpdate();
 				logger.debug(row1);
-			} catch (Exception e) {
+			} catch (SQLException e) {
 				e.printStackTrace();
-				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT);
+				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT+""+e);
 			}
-		} catch (Exception e) {
+		} catch (SQLException | DBException e) {
 			e.printStackTrace();
-			logger.error(ErrorMessages.CONNECTION_FAILURE);
+			logger.error(ErrorMessages.CONNECTION_FAILURE+""+e);
 		}
 	}
 
@@ -51,13 +53,13 @@ public class JourneyDAOImplementation implements JourneyDAO {
 
 				int row2 = smt2.executeUpdate();
 				logger.debug(row2);
-			} catch (Exception e) {
+			} catch (SQLException e) {
 				e.printStackTrace();
-				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT);
+				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT+""+e);
 			}
-		} catch (Exception e) {
+		} catch (SQLException | DBException e) {
 			e.printStackTrace();
-			logger.error(ErrorMessages.CONNECTION_FAILURE);
+			logger.error(ErrorMessages.CONNECTION_FAILURE+""+e);
 		}
 	}
 
@@ -72,13 +74,13 @@ public class JourneyDAOImplementation implements JourneyDAO {
 				int row3 = smt3.executeUpdate();
 				logger.debug(row3);
 
-			} catch (Exception e) {
+			} catch (SQLException e) {
 				e.printStackTrace();
-				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT);
+				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT+""+e);
 			}
-		} catch (Exception e) {
+		} catch (SQLException | DBException e) {
 			e.printStackTrace();
-			logger.error(ErrorMessages.CONNECTION_FAILURE);
+			logger.error(ErrorMessages.CONNECTION_FAILURE+""+e);
 		}
 	}
 
@@ -104,18 +106,18 @@ public class JourneyDAOImplementation implements JourneyDAO {
 						System.out.println(journey);
 
 					}
-				} catch (Exception e) {
+				} catch (SQLException e) {
 					e.printStackTrace();
-					throw new Exception(ErrorMessages.INVALID_RESULTSET);
+					logger.error(ErrorMessages.INVALID_RESULTSET+""+e);
 				}
 
-			} catch (Exception e) {
+			} catch (SQLException e) {
 				e.printStackTrace();
-				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT);
+				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT+""+e);
 			}
-		} catch (Exception e) {
+		} catch (SQLException | DBException e) {
 			e.printStackTrace();
-			logger.error(ErrorMessages.CONNECTION_FAILURE);
+			logger.error(ErrorMessages.CONNECTION_FAILURE+""+e);
 		}
 		return list;
 
