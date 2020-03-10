@@ -52,14 +52,14 @@ public class UserDAOImplementation implements UserDAO {
 			catch (SQLException e)
 
 			{
-				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT+""+e);
+				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + "" + e);
 				e.printStackTrace();
 
 			}
 		} catch (SQLException | DBException e)
 
 		{
-			logger.error(ErrorMessages.INVALID_CONNECTIONSTATEMENT+""+e);
+			logger.error(ErrorMessages.INVALID_CONNECTIONSTATEMENT + "" + e);
 			e.printStackTrace();
 
 		}
@@ -85,14 +85,14 @@ public class UserDAOImplementation implements UserDAO {
 			catch (SQLException e)
 
 			{
-				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT+""+e);
+				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + "" + e);
 				e.printStackTrace();
 
 			}
 		} catch (SQLException | DBException e)
 
 		{
-			logger.error(ErrorMessages.INVALID_CONNECTIONSTATEMENT+""+e);
+			logger.error(ErrorMessages.INVALID_CONNECTIONSTATEMENT + "" + e);
 			e.printStackTrace();
 
 		}
@@ -116,14 +116,14 @@ public class UserDAOImplementation implements UserDAO {
 			} catch (SQLException e)
 
 			{
-				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT+""+e);
+				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + "" + e);
 				e.printStackTrace();
 
 			}
 		} catch (SQLException | DBException e)
 
 		{
-			logger.error(ErrorMessages.INVALID_CONNECTIONSTATEMENT+""+e);
+			logger.error(ErrorMessages.INVALID_CONNECTIONSTATEMENT + "" + e);
 			e.printStackTrace();
 
 		}
@@ -165,11 +165,11 @@ public class UserDAOImplementation implements UserDAO {
 				logger.info("NO OF  UPDATED:" + row3);
 
 			} catch (SQLException e) {
-				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT+""+e);
+				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + "" + e);
 				e.printStackTrace();
 			}
 		} catch (SQLException | DBException e) {
-			logger.error(ErrorMessages.INVALID_CREATESTATEMENT+""+e);
+			logger.error(ErrorMessages.INVALID_CREATESTATEMENT + "" + e);
 			e.printStackTrace();
 		}
 	}
@@ -195,12 +195,12 @@ public class UserDAOImplementation implements UserDAO {
 				}
 
 			} catch (SQLException e) {
-				logger.error(ErrorMessages.INVALID_CREATESTATEMENT+""+e);
+				logger.error(ErrorMessages.INVALID_CREATESTATEMENT + "" + e);
 				e.printStackTrace();
 			}
 		} catch (SQLException | DBException e) {
 			e.printStackTrace();
-			logger.error(ErrorMessages.INVALID_CONNECTIONSTATEMENT+""+e);
+			logger.error(ErrorMessages.INVALID_CONNECTIONSTATEMENT + "" + e);
 		}
 		return result;
 	}

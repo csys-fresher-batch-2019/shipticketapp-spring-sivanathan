@@ -33,11 +33,11 @@ public class JourneyDAOImplementation implements JourneyDAO {
 				logger.debug(row1);
 			} catch (SQLException e) {
 				e.printStackTrace();
-				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT+""+e);
+				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + "" + e);
 			}
 		} catch (SQLException | DBException e) {
 			e.printStackTrace();
-			logger.error(ErrorMessages.CONNECTION_FAILURE+""+e);
+			logger.error(ErrorMessages.CONNECTION_FAILURE + "" + e);
 		}
 	}
 
@@ -55,11 +55,11 @@ public class JourneyDAOImplementation implements JourneyDAO {
 				logger.debug(row2);
 			} catch (SQLException e) {
 				e.printStackTrace();
-				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT+""+e);
+				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + "" + e);
 			}
 		} catch (SQLException | DBException e) {
 			e.printStackTrace();
-			logger.error(ErrorMessages.CONNECTION_FAILURE+""+e);
+			logger.error(ErrorMessages.CONNECTION_FAILURE + "" + e);
 		}
 	}
 
@@ -76,11 +76,11 @@ public class JourneyDAOImplementation implements JourneyDAO {
 
 			} catch (SQLException e) {
 				e.printStackTrace();
-				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT+""+e);
+				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + "" + e);
 			}
 		} catch (SQLException | DBException e) {
 			e.printStackTrace();
-			logger.error(ErrorMessages.CONNECTION_FAILURE+""+e);
+			logger.error(ErrorMessages.CONNECTION_FAILURE + "" + e);
 		}
 	}
 
@@ -108,16 +108,16 @@ public class JourneyDAOImplementation implements JourneyDAO {
 					}
 				} catch (SQLException e) {
 					e.printStackTrace();
-					logger.error(ErrorMessages.INVALID_RESULTSET+""+e);
+					logger.error(ErrorMessages.INVALID_RESULTSET + "" + e);
 				}
 
 			} catch (SQLException e) {
 				e.printStackTrace();
-				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT+""+e);
+				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + "" + e);
 			}
 		} catch (SQLException | DBException e) {
 			e.printStackTrace();
-			logger.error(ErrorMessages.CONNECTION_FAILURE+""+e);
+			logger.error(ErrorMessages.CONNECTION_FAILURE + "" + e);
 		}
 		return list;
 

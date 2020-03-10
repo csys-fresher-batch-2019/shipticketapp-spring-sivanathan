@@ -39,11 +39,11 @@ public class BookingDAOImplementation implements BookingDAO {
 				logger.debug(row);
 			} catch (SQLException e) {
 				e.printStackTrace();
-				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + ""+e);
+				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + "" + e);
 			}
 		} catch (SQLException | DBException e) {
 			e.printStackTrace();
-			logger.error(ErrorMessages.CONNECTION_FAILURE +""+ e);
+			logger.error(ErrorMessages.CONNECTION_FAILURE + "" + e);
 		}
 	}
 
@@ -61,10 +61,10 @@ public class BookingDAOImplementation implements BookingDAO {
 				int row1 = smt2.executeUpdate();
 				logger.debug(row1);
 			} catch (SQLException e) {
-				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + ""+e);
+				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + "" + e);
 			}
 		} catch (SQLException | DBException e) {
-			logger.error(ErrorMessages.CONNECTION_FAILURE + ""+e);
+			logger.error(ErrorMessages.CONNECTION_FAILURE + "" + e);
 		}
 	}
 
@@ -80,10 +80,10 @@ public class BookingDAOImplementation implements BookingDAO {
 				int row2 = smt3.executeUpdate();
 				logger.debug(row2);
 			} catch (SQLException e) {
-				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + ""+e);
+				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + "" + e);
 			}
 		} catch (SQLException | DBException e) {
-			logger.error(ErrorMessages.CONNECTION_FAILURE + ""+e);
+			logger.error(ErrorMessages.CONNECTION_FAILURE + "" + e);
 		}
 	}
 
@@ -110,7 +110,7 @@ public class BookingDAOImplementation implements BookingDAO {
 				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + "" + e);
 			}
 		} catch (SQLException | DBException e) {
-			logger.error(ErrorMessages.CONNECTION_FAILURE + ""+e);
+			logger.error(ErrorMessages.CONNECTION_FAILURE + "" + e);
 		}
 		return value;
 	}
@@ -133,16 +133,16 @@ public class BookingDAOImplementation implements BookingDAO {
 					}
 				} catch (SQLException e) {
 					e.printStackTrace();
-					logger.error(ErrorMessages.INVALID_RESULTSET + ""+e);
+					logger.error(ErrorMessages.INVALID_RESULTSET + "" + e);
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
-				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT+""+e);
+				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + "" + e);
 
 			}
 		} catch (SQLException | DBException e) {
 			e.printStackTrace();
-			logger.error(ErrorMessages.INVALID_CONNECTIONSTATEMENT+""+e);
+			logger.error(ErrorMessages.INVALID_CONNECTIONSTATEMENT + "" + e);
 
 		}
 		return res;

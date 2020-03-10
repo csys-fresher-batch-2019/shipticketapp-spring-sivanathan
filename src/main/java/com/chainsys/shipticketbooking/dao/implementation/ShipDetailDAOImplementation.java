@@ -39,12 +39,12 @@ public class ShipDetailDAOImplementation implements ShipDetailDAO {
 
 			} catch (SQLException e) {
 				e.printStackTrace();
-				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT+""+e);
+				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + "" + e);
 			}
 
 		} catch (SQLException | DBException e) {
 			e.printStackTrace();
-			logger.error(ErrorMessages.CONNECTION_FAILURE+""+e);
+			logger.error(ErrorMessages.CONNECTION_FAILURE + "" + e);
 		}
 	}
 
@@ -64,12 +64,12 @@ public class ShipDetailDAOImplementation implements ShipDetailDAO {
 				logger.info(row1);
 			} catch (SQLException e) {
 				e.printStackTrace();
-				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT+""+e);
+				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + "" + e);
 			}
 
 		} catch (SQLException | DBException e) {
 			e.printStackTrace();
-			logger.error(ErrorMessages.CONNECTION_FAILURE+""+e);
+			logger.error(ErrorMessages.CONNECTION_FAILURE + "" + e);
 		}
 
 	}
@@ -90,12 +90,12 @@ public class ShipDetailDAOImplementation implements ShipDetailDAO {
 
 			catch (SQLException e) {
 				e.printStackTrace();
-				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT+""+e);
+				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + "" + e);
 			}
 
 		} catch (SQLException | DBException e) {
 			e.printStackTrace();
-			logger.error(ErrorMessages.CONNECTION_FAILURE+""+e);
+			logger.error(ErrorMessages.CONNECTION_FAILURE + "" + e);
 		}
 
 	}
@@ -129,8 +129,8 @@ public class ShipDetailDAOImplementation implements ShipDetailDAO {
 						}
 					} catch (SQLException e) {
 						e.printStackTrace();
-						//throw new DBException(ErrorMessages.INVALID_RESULTSET);
-						logger.error(ErrorMessages.INVALID_RESULTSET+""+e);
+						// throw new DBException(ErrorMessages.INVALID_RESULTSET);
+						logger.error(ErrorMessages.INVALID_RESULTSET + "" + e);
 					}
 
 					// ArrayList<ShipDetail> list=new ArrayList<ShipDetail>();
@@ -139,12 +139,12 @@ public class ShipDetailDAOImplementation implements ShipDetailDAO {
 
 			} catch (SQLException e) {
 				e.printStackTrace();
-				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT+""+e);
+				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + "" + e);
 			}
 
 		} catch (SQLException | DBException e) {
 			e.printStackTrace();
-			logger.error(ErrorMessages.CONNECTION_FAILURE+""+e);
+			logger.error(ErrorMessages.CONNECTION_FAILURE + "" + e);
 		}
 		return list;
 	}
@@ -162,16 +162,16 @@ public class ShipDetailDAOImplementation implements ShipDetailDAO {
 					}
 				} catch (SQLException e) {
 					e.printStackTrace();
-					logger.error(ErrorMessages.INVALID_RESULTSET+""+e);
+					logger.error(ErrorMessages.INVALID_RESULTSET + "" + e);
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
-				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT+""+e);
+				logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + "" + e);
 			}
 
 		} catch (SQLException | DBException e) {
 			e.printStackTrace();
-			logger.error(ErrorMessages.CONNECTION_FAILURE+""+e);
+			logger.error(ErrorMessages.CONNECTION_FAILURE + "" + e);
 		}
 
 	}
@@ -203,18 +203,18 @@ public class ShipDetailDAOImplementation implements ShipDetailDAO {
 					}
 				} catch (SQLException e) {
 					e.printStackTrace();
-					//throw new DBException(ErrorMessages.INVALID_RESULTSET);
-					logger.error(ErrorMessages.INVALID_RESULTSET+""+e);
+					// throw new DBException(ErrorMessages.INVALID_RESULTSET);
+					logger.error(ErrorMessages.INVALID_RESULTSET + "" + e);
 				}
 
 			} catch (SQLException e) {
 				e.printStackTrace();
-				logger.error(ErrorMessages.INVALID_CREATESTATEMENT+""+e);
+				logger.error(ErrorMessages.INVALID_CREATESTATEMENT + "" + e);
 			}
 
 		} catch (SQLException | DBException e) {
 			e.printStackTrace();
-			logger.error(ErrorMessages.CONNECTION_FAILURE+""+e);
+			logger.error(ErrorMessages.CONNECTION_FAILURE + "" + e);
 		}
 		return list;
 	}
@@ -243,13 +243,13 @@ public class ShipDetailDAOImplementation implements ShipDetailDAO {
 					}
 				} catch (SQLException e) {
 					e.printStackTrace();
-					//throw new DBException(ErrorMessages.INVALID_RESULTSET);
-					logger.error(ErrorMessages.INVALID_RESULTSET+""+e);
+					// throw new DBException(ErrorMessages.INVALID_RESULTSET);
+					logger.error(ErrorMessages.INVALID_RESULTSET + "" + e);
 				}
 
 			} catch (SQLException e) {
 				e.printStackTrace();
-				logger.error(ErrorMessages.INVALID_CREATESTATEMENT+""+e);
+				logger.error(ErrorMessages.INVALID_CREATESTATEMENT + "" + e);
 			}
 
 		} catch (SQLException | DBException e) {
