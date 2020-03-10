@@ -19,19 +19,19 @@ public class Wallet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		response.getWriter().append("Served at: ").append(request.getContextPath());
-		
+
 		WalletAPI wallet = new WalletAPI();
 		Logger logger = Logger.getInstance();
-		
-		int user_id=Integer.parseInt(request.getParameter("userid"));
+
+		int user_id = Integer.parseInt(request.getParameter("userid"));
 		String name = request.getParameter("merchantId");
 		long contactNumber = Long.parseLong(request.getParameter("MobileNo"));
 		float amount = Float.parseFloat(request.getParameter("amount"));
-		
+
 		logger.info(name);
 		logger.info(contactNumber);
 		logger.info(amount);
-		
+
 		// {transactionId=183, status=SUCCESS, errorMessage=null}
 		// Object resultMap=(Object)wallet.paywallet(contactNumber, name, amount);
 
@@ -40,21 +40,21 @@ public class Wallet extends HttpServlet {
 
 			Integer transactionId = (Integer) resultMap.get("transactionId");
 			logger.info(transactionId);
-			
+
 			String status = (String) resultMap.get("status");
 			logger.info(status);
-			
+
 			String error = (String) resultMap.get("error");
 			logger.info(error);
 
-			//HttpSession session = request.getSession();
+			// HttpSession session = request.getSession();
 			request.setAttribute("api1", transactionId);
 			request.setAttribute("api2", status);
 			request.setAttribute("api3", error);
-			
+
 			RequestDispatcher dispatcher = request.getRequestDispatcher("wallet1.jsp");
 			dispatcher.forward(request, response);
-			//response.sendRedirect("wallet1.jsp");
+			// response.sendRedirect("wallet1.jsp");
 		} catch (ServletException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

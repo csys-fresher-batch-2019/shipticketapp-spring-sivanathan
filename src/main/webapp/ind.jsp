@@ -31,7 +31,11 @@ body {
 		crossorigin="anonymous"></script>
 
 	<form onsubmit="viewShip()">
-		<p><br><br><h5>ENTER THE SOURCE PLACE</h5></p>
+		<p>
+			<br>
+			<br>
+		<h5>ENTER THE SOURCE PLACE</h5>
+		</p>
 		<br> <select name="sourceplace" id="source">
 			<!--  <option <!-- <span id="span"></span> value="">select</option>-->
 			<option value="">select</option>
@@ -45,7 +49,11 @@ body {
 		</select>
 
 
-		<p><br><br><h5>ENTER THE DESTINATION PLACE</h5></p>
+		<p>
+			<br>
+			<br>
+		<h5>ENTER THE DESTINATION PLACE</h5>
+		</p>
 		<br> <select name="destinationplace" id="destination">
 			<option value="">select</option>
 			<option value="amindivi">amindivi</option>

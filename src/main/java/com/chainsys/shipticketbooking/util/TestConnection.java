@@ -12,6 +12,7 @@ public class TestConnection {
 	public static Connection getConnection() throws DBException {
 		Logger logger = Logger.getInstance();
 		Connection con = null;
+		// ctrl+shift+o to add all import
 		try {
 //
 //	        TimeZone timeZone = TimeZone.getTimeZone("Asia/Kolkata");
@@ -29,13 +30,14 @@ public class TestConnection {
 		}
 
 		return con;
-	}// ctrl+shift+o to add all import
-	/*
-	 * public static Jdbi getJdbi() { Jdbi jdbi=null; Connection connection; try {
-	 * connection = getConnection(); jdbi=Jdbi.create(connection);
-	 * jdbi.installPlugin(new SqlObjectPlugin()); } catch (Exception e) { throw new
-	 * RuntimeException(e); }
-	 * 
-	 * return jdbi; }
-	 */
+	}
+
 }
+/*
+ * public static Jdbi getJdbi() { Jdbi jdbi=null; Connection connection; try {
+ * connection = getConnection(); jdbi=Jdbi.create(connection);
+ * jdbi.installPlugin(new SqlObjectPlugin()); } catch (Exception e) { throw new
+ * RuntimeException(e); }
+ * 
+ * return jdbi; }
+ */

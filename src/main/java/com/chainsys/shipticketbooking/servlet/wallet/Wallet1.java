@@ -39,11 +39,11 @@ public class Wallet1 extends HttpServlet {
 		seat.setuserNo(user_id);
 		if (error.equalsIgnoreCase("null")) {
 			try {
-				
+
 				m4.findamount(seat);
 				PrintWriter out = response.getWriter();
-		        out.write("SUCCESSFULLY BOOKED");        
-		        out.flush();
+				out.write("SUCCESSFULLY BOOKED");
+				out.flush();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
