@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.chainsys.shipticketbooking.logger.Logger;
 import com.chainsys.shipticketbooking.model.Booking;
 import com.chainsys.shipticketbooking.model.SeatAvailability;
 import com.chainsys.shipticketbooking.service.ServiceShipTicket;
@@ -19,9 +20,9 @@ import com.chainsys.shipticketbooking.service.ServiceShipTicket;
 public class Booking1 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		PrintWriter out = response.getWriter();
 		// response.setContentType("text/html;charset=UTF-8");
@@ -32,27 +33,27 @@ public class Booking1 extends HttpServlet {
 		Booking b1 = new Booking();
 		Booking b3 = new Booking();
 		SeatAvailability b2 = new SeatAvailability();
-
+		Logger logger = Logger.getInstance();
 		int shipId = Integer.parseInt(request.getParameter("shipid"));
-		System.out.println(shipId);
+		logger.info(shipId);
 
 		int journeyId = Integer.parseInt(request.getParameter("journeyid"));
-		System.out.println(journeyId);
+		logger.info(journeyId);
 
 		int cost = Integer.parseInt(request.getParameter("cost_per_ticket"));
-		System.out.println(cost);
+		logger.info(cost);
 
 		String status = "pending";
-		System.out.println(status);
+		logger.info(status);
 
 		int user_id = Integer.parseInt(request.getParameter("userid"));
-		System.out.println(user_id);
+		logger.info(user_id);
 
 		int seat = Integer.parseInt(request.getParameter("bookingseats"));
-		System.out.println(seat);
+		logger.info(seat);
 
 		int aseat = Integer.parseInt(request.getParameter("availableseats"));
-		System.out.println(aseat);
+		logger.info(aseat);
 
 		b1.setShipId(shipId);
 		b1.setJourneyId(journeyId);
@@ -61,7 +62,7 @@ public class Booking1 extends HttpServlet {
 		b1.setUserId(user_id);
 		b1.setBookingSeats(seat);
 
-		System.out.println(b1);
+		logger.info(b1);
 
 		b2.setShipNo(shipId);
 		b2.setBookingSeats(seat);
@@ -70,13 +71,13 @@ public class Booking1 extends HttpServlet {
 		b2.setCost(cost);
 		b2.setTicketStatus(status);
 
-		System.out.println(b2);
+		logger.info(b2);
 
 		b3.setShipId(shipId);
 		b3.setJourneyId(journeyId);
 		b3.setUserId(user_id);
 
-		System.out.println(b3);
+		logger.info(b3);
 
 		if (aseat >= seat) {
 			try {
@@ -94,6 +95,7 @@ public class Booking1 extends HttpServlet {
 				dispatcher.forward(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
+				throw new ServletException("invalid booking", e);
 			}
 
 		} else {

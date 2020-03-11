@@ -10,31 +10,33 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.chainsys.shipticketbooking.logger.Logger;
 import com.chainsys.shipticketbooking.service.ServiceShipTicket;
 
 @WebServlet("/Admin")
 public class Admin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		ServiceShipTicket m4 = new ServiceShipTicket();
-
+Logger logger=Logger.getInstance();
 		int id = Integer.parseInt(request.getParameter("admin_id"));
 		String password = request.getParameter("password");
-		System.out.println(id + "-" + password);
+		logger.info(id + "-" + password);
 
 		try {
 			boolean value = m4.AdminLogin(id, password);
-			System.out.println(value);
+			logger.info(value);
 
 			int value1 = m4.count();
-			System.out.println(value1);
+			logger.info(value1);
 			HttpSession session1 = request.getSession();
 			session1.setAttribute("count", value1);
 
 			if (value) {
-				HttpSession session = request.getSession();
+				// HttpSession session = request.getSession();
 				RequestDispatcher dispatcher = request.getRequestDispatcher("admin1.jsp");
 				// session.setAttribute("email", email);
 				// s.setAttribute("password", password);

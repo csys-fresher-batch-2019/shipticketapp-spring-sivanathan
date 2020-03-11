@@ -17,5 +17,6 @@ public class ErrorMessages {
 	public static final String INVALID_EMAIL = "INVALID EMAIL EXCEPTION";
 	public static final String INVALID_DB_EXCEPTION = "INVALID DB EXCEPTION";
 	public static final String INVALID_RESULTSET = "INVALID RESULTSET EXCEPTION";
+	public static final String INVALID_SERVLET = "INVALID SERVLET EXCEPTION";
 
 }

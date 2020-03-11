@@ -187,14 +187,19 @@ public class UserDAOImplementation implements UserDAO {
 
 	public boolean userExist(int userId, String password) throws DBException {
 
-		Statement statement = null;
+//		Statement statement = null;
 		boolean result = false;
 		ResultSet value = null;
 		try (Connection connection = ConnectionUtil.getConnection();) {
-			try {
-				statement = connection.createStatement();
-				if (statement.executeUpdate("select user_id from user_detail  where user_id='" + userId + "'") != 0) {
-					value = statement.executeQuery("select pass from user_detail  where user_id='" + userId + "'");
+			String usersql = "select user_id from user_detail  where user_id=?";
+			String passql = "select pass from user_detail  where user_id=?";
+			try (PreparedStatement statement = connection.prepareStatement(usersql);
+					PreparedStatement state = connection.prepareStatement(passql);) {
+				statement.setInt(1, userId);
+				state.setInt(1, userId);
+
+				if (statement.executeUpdate() != 0) {
+					value = state.executeQuery();
 					value.next();
 
 					if (password.equals(value.getString("pass"))) {
@@ -207,15 +212,15 @@ public class UserDAOImplementation implements UserDAO {
 
 			} catch (SQLException e) {
 				e.printStackTrace();
-				// logger.error(ErrorMessages.INVALID_CREATESTATEMENT + "" + e);
-				throw new DBException(ErrorMessages.INVALID_CREATESTATEMENT, e);
-
+				throw new DBException(ErrorMessages.INVALID_PREPARESTATEMENT, e);
 			}
+
 		} catch (SQLException | DBException e) {
 			e.printStackTrace();
-			// logger.error(ErrorMessages.INVALID_CONNECTIONSTATEMENT + "" + e);
 			throw new DBException(ErrorMessages.INVALID_CONNECTIONSTATEMENT, e);
+
 		}
+
 		return result;
 	}
 }

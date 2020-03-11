@@ -9,20 +9,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.chainsys.shipticketbooking.logger.Logger;
 import com.chainsys.shipticketbooking.model.Journey;
 import com.chainsys.shipticketbooking.service.ServiceShipTicket;
 
 @WebServlet("/Admin7")
 public class Admin7 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		ServiceShipTicket m1 = new ServiceShipTicket();
 		Journey u1 = new Journey();
-
+Logger logger=Logger.getInstance();
 		int shipId = Integer.parseInt(request.getParameter("shipid"));
 
 		int journeyid = Integer.parseInt(request.getParameter("journeyid"));
@@ -32,15 +33,15 @@ public class Admin7 extends HttpServlet {
 
 		String destination = request.getParameter("destinationplace");
 		LocalDate destinationplace = LocalDate.parse(destination);
-		System.out.println(source + destination);
+		logger.info(source + destination);
 		u1.setDestinationDate(destinationplace);
-		;
+		
 		u1.setSourceDate(sourceplace);
-		;
+		
 		u1.setJourneyId(journeyid);
 		;
 		u1.setShipId(shipId);
-		System.out.println(u1);
+		logger.info(u1);
 		try {
 			m1.addJourney(u1);
 			// response.sendRedirect("admin8.jsp");

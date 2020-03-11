@@ -81,7 +81,7 @@ public class BookingDAOImplementation implements BookingDAO {
 			try (PreparedStatement statement = connection.prepareStatement(sql);) {
 				statement.setInt(1, a.getUserId());
 				statement.setInt(2, a.getJourneyId());
-				System.out.println(sql);
+				//System.out.println(sql);
 
 				int row = statement.executeUpdate();
 				logger.debug("NO OF ROWS DELETED:" + row);

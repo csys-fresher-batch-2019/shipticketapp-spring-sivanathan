@@ -106,13 +106,18 @@ public class SeatDAOImplementation implements SeatDAO {
 			String sqlselect = "select email from user_detail where user_id in (select user_id from booking_detail where ticket_status='ordered' and user_id=?)";
 			try (PreparedStatement stm = connection.prepareStatement(sqlselect);) {
 				stm.setInt(1, userId);
-				ResultSet value = stm.executeQuery();
+				try (ResultSet value = stm.executeQuery();) {
 //				String email = "";
-				// System.out.println("!!");
-				if (value.next()) {
-					email = value.getString("email");
-					logger.debug("emailID:" + email);
+					// System.out.println("!!");
+					if (value.next()) {
+						email = value.getString("email");
+						logger.debug("emailID:" + email);
 
+					}
+				} catch (SQLException e) {
+					e.printStackTrace();
+					// logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + "" + e);
+					throw new DBException(ErrorMessages.INVALID_RESULTSET, e);
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();

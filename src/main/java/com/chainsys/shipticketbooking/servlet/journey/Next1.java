@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.chainsys.shipticketbooking.logger.Logger;
 import com.chainsys.shipticketbooking.model.SeatAvailability;
 import com.chainsys.shipticketbooking.service.ServiceShipTicket;
 
@@ -17,6 +18,7 @@ import com.chainsys.shipticketbooking.service.ServiceShipTicket;
 public class Next1 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
@@ -28,15 +30,16 @@ public class Next1 extends HttpServlet {
 
 		ServiceShipTicket m4 = new ServiceShipTicket();
 		SeatAvailability u1 = new SeatAvailability();
+		Logger logger = Logger.getInstance();
 
 		int journey = Integer.parseInt(request.getParameter("journeyid"));
-		System.out.println(journey);
+		logger.info(journey);
 
 		HttpSession session5 = request.getSession();
 		session5.setAttribute("name", journey);
 
 		int shipId = Integer.parseInt(request.getParameter("shipid"));
-		System.out.println(shipId);
+		logger.info(shipId);
 
 		HttpSession session6 = request.getSession();
 		session6.setAttribute("sid", shipId);
@@ -46,13 +49,13 @@ public class Next1 extends HttpServlet {
 
 		try {
 			int cost = m4.Totalcost(shipId, journey);
-			System.out.println(cost);
+			logger.info(cost);
 
 			HttpSession session9 = request.getSession();
 			session9.setAttribute("cost", cost);
 
 			int availableseats = m4.seat(u1);
-			System.out.println(availableseats);
+			logger.info(availableseats);
 
 			HttpSession session1 = request.getSession();
 			session1.setAttribute("seats", availableseats);

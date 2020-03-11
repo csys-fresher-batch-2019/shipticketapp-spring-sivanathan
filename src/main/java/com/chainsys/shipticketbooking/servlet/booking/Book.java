@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.chainsys.shipticketbooking.logger.Logger;
 import com.chainsys.shipticketbooking.model.Booking;
 import com.chainsys.shipticketbooking.service.ServiceShipTicket;
 
@@ -16,34 +17,35 @@ import com.chainsys.shipticketbooking.service.ServiceShipTicket;
 public class Book extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
-
+		Logger logger = Logger.getInstance();
 		ServiceShipTicket s1 = new ServiceShipTicket();
 		Booking b1 = new Booking();
 
 		int shipId = Integer.parseInt(request.getParameter("shipId"));
-		System.out.println(shipId);
+		logger.info(shipId);
 
 		int journeyId = Integer.parseInt(request.getParameter("journeyid"));
-		System.out.println(journeyId);
+		logger.info(journeyId);
 
 		int cost = Integer.parseInt(request.getParameter("cost_per_ticket"));
-		System.out.println(cost);
+		logger.info(cost);
 
 		String status = request.getParameter("ticket_status");
-		System.out.println(status);
+		logger.info(status);
 
 		int user_id = Integer.parseInt(request.getParameter("userid"));
-		System.out.println(user_id);
+		logger.info(user_id);
 
 		int seat = Integer.parseInt(request.getParameter("bookingseats"));
-		System.out.println(seat);
+		logger.info(seat);
 
 		int aseat = Integer.parseInt(request.getParameter("availableseats"));
-		System.out.println(aseat);
+		logger.info(aseat);
 
 		b1.setShipId(shipId);
 		b1.setJourneyId(journeyId);
@@ -52,7 +54,7 @@ public class Book extends HttpServlet {
 		b1.setUserId(user_id);
 		b1.setBookingSeats(seat);
 
-		System.out.println(b1);
+		logger.info(b1);
 
 		try {
 			s1.addBooking(b1);
@@ -60,7 +62,6 @@ public class Book extends HttpServlet {
 			// request.SendRedirect("total.jsP");
 			dispatcher.forward(request, response);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			response.sendRedirect("book.jsp");
 		}

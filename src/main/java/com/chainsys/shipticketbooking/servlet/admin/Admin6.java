@@ -9,16 +9,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.chainsys.shipticketbooking.logger.Logger;
 import com.chainsys.shipticketbooking.model.ShipDetail;
 import com.chainsys.shipticketbooking.service.ServiceShipTicket;
 
 @WebServlet("/Admin6")
 public class Admin6 extends HttpServlet {
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		ServiceShipTicket m1 = new ServiceShipTicket();
+		Logger logger = Logger.getInstance();
 		ShipDetail u1 = new ShipDetail();
 		String name = request.getParameter("shipname");
 		int shipId = Integer.parseInt(request.getParameter("shipid"));
@@ -29,7 +32,7 @@ public class Admin6 extends HttpServlet {
 		String destination = request.getParameter("destinationplace");
 		// String email = request.getParameter("email");
 
-		System.out.println(u1);
+		logger.info(u1);
 		// System.out.println(password);
 		u1.setAmount(amount);
 		u1.setClasses(classes);

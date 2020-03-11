@@ -26,6 +26,7 @@ import com.chainsys.shipticketbooking.model.Journey;
 import com.chainsys.shipticketbooking.model.SeatAvailability;
 import com.chainsys.shipticketbooking.model.ShipDetail;
 import com.chainsys.shipticketbooking.model.User;
+import com.chainsys.shipticketbooking.validator.Validation;
 
 //it is used when client is not necessary to call DAO directly instead we using one service class to call all the DAO .So that service will call the DAO and return the statement to client through servelet.
 public class ServiceShipTicket {
@@ -37,6 +38,7 @@ public class ServiceShipTicket {
 	private ShipDetailDAO ship = new ShipDetailDAOImplementation();
 	private UserDAO user = new UserDAOImplementation();
 	Logger logger = Logger.getInstance();
+	Validation value=new Validation();
 
 	// static Jdbi jdbi=TestConnection.getJdbi();
 	// static UserDAO user=jdbi.onDemand(UserDAO.class);
@@ -83,7 +85,8 @@ public class ServiceShipTicket {
 	public boolean AdminLogin(int adminId, String pass) throws ServiceException {
 		boolean adminLogin = false;
 		try {
-			validSearch(adminId, pass);
+			
+		value.validatesearchforadmin(adminId, pass);
 			adminLogin = admin.adminExist(adminId, pass);
 		} catch (ValidatorException e) {
 			// throw new ServiceException(ErrorMessages.ADMIN_LOGIN_FAILED);
@@ -103,7 +106,7 @@ public class ServiceShipTicket {
 	public boolean User(int userId, String password) throws ServiceException {
 		boolean userLogin = false;
 		try {
-			validSearch1(userId, password);
+			value.validatesearchforuser(userId, password);
 			userLogin = user.userExist(userId, password);
 		} catch (ValidatorException e) {
 			e.printStackTrace();
@@ -409,26 +412,17 @@ public class ServiceShipTicket {
 		}
 	}
 
-	public void validSearch(int adminId, String pass) throws ValidatorException {
-		if (adminId == 0) {
-			// throw new ValidatorException("Invalid admin");
-			logger.error(ErrorMessages.INVALID_VALIDATE_USER);
+//	public void validSearch(int adminId, String pass) throws ValidatorException {
+//		if (adminId == 0) {
+//			// throw new ValidatorException("Invalid admin");
+//			logger.error(ErrorMessages.INVALID_VALIDATE_USER);
+//
+//		} else if (pass == null || pass.equals("") || pass.trim().equals("")) {
+//			// throw new ValidatorException("Invalid password");
+//			logger.error(ErrorMessages.INVALID_VALIDATE_PASSWORD);
+//		}
+//	}
+//
 
-		} else if (pass == null || pass.equals("") || pass.trim().equals("")) {
-			// throw new ValidatorException("Invalid password");
-			logger.error(ErrorMessages.INVALID_VALIDATE_PASSWORD);
-		}
-	}
-
-	public void validSearch1(int userId, String password) throws ValidatorException {
-		if (userId == 0) {
-			// throw new ValidatorException("Invalid userid");
-			logger.error(ErrorMessages.INVALID_VALIDATE_USER);
-
-		} else if (password == null || password.equals("") || password.trim().equals("")) {
-			// throw new ValidatorException("Invalid password");
-			logger.error(ErrorMessages.INVALID_VALIDATE_PASSWORD);
-		}
-	}
 
 }

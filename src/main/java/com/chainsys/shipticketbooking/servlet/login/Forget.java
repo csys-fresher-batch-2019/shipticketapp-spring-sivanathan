@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.chainsys.shipticketbooking.logger.Logger;
 import com.chainsys.shipticketbooking.model.User;
 import com.chainsys.shipticketbooking.service.ServiceShipTicket;
 
@@ -17,19 +18,20 @@ import com.chainsys.shipticketbooking.service.ServiceShipTicket;
 public class Forget extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		{
 			// UserDAOImplementation m4 = new UserDAOImplementation();
 			ServiceShipTicket m4 = new ServiceShipTicket();
 			User u1 = new User();
-			PrintWriter out = response.getWriter();
+			Logger logger = Logger.getInstance();
+			// PrintWriter out = response.getWriter();
 			int user_id = Integer.parseInt(request.getParameter("userid"));
 			// String email = request.getParameter("email");
 			String password = request.getParameter("password");
-			System.out.println(user_id + "-" + password);
+			logger.info(user_id + "-" + password);
 			u1.setUserId(user_id);
 			u1.setPassword(password);
 
