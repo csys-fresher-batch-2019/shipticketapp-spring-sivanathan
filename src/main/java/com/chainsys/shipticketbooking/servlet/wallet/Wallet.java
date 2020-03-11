@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import com.chainsys.shipticketbooking.logger.Logger;
 import com.chainsys.shipticketbooking.wallet.WalletAPI;
 
@@ -57,8 +58,10 @@ public class Wallet extends HttpServlet {
 			// response.sendRedirect("wallet1.jsp");
 		} catch (ServletException e) {
 			e.printStackTrace();
+			throw new ServletException("servletException",e);
 		} catch (IOException e) {
 			e.printStackTrace();
+			throw new IOException(e);
 		}
 
 	}
