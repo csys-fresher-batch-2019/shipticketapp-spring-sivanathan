@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.chainsys.shipticketbooking.logger.Logger;
 import com.chainsys.shipticketbooking.model.SeatAvailability;
 import com.chainsys.shipticketbooking.service.ServiceShipTicket;
 
@@ -17,13 +18,14 @@ import com.chainsys.shipticketbooking.service.ServiceShipTicket;
 public class aaa extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 
 		ServiceShipTicket m1 = new ServiceShipTicket();
 		SeatAvailability u1 = new SeatAvailability();
-
+		Logger logger = Logger.getInstance();
 		int value1 = 10202;
 		int value2 = 10707;
 
@@ -31,10 +33,10 @@ public class aaa extends HttpServlet {
 		HttpSession session = request.getSession();
 		session.setAttribute("journey", booking);
 
-		System.out.println(booking);
+		logger.info(booking);
 
 		int shipId = Integer.parseInt(request.getParameter("shipid"));
-		System.out.println(shipId);
+		logger.info(shipId);
 
 		HttpSession session1 = request.getSession();
 		session1.setAttribute("shipid", shipId);

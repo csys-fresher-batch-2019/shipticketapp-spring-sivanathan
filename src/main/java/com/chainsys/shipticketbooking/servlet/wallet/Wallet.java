@@ -17,6 +17,7 @@ import com.chainsys.shipticketbooking.wallet.WalletAPI;
 public class Wallet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		response.getWriter().append("Served at: ").append(request.getContextPath());
@@ -58,7 +59,7 @@ public class Wallet extends HttpServlet {
 			// response.sendRedirect("wallet1.jsp");
 		} catch (ServletException e) {
 			e.printStackTrace();
-			throw new ServletException("servletException",e);
+			throw new ServletException("servletException", e);
 		} catch (IOException e) {
 			e.printStackTrace();
 			throw new IOException(e);

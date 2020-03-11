@@ -1,10 +1,13 @@
 <%@page import="com.chainsys.shipticketbooking.model.Journey"%>
 <%@page import="java.util.ArrayList"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
 <html>
 <body>
 <head>
+<title>next</title>
 <style>
 table, th, td {
 	border: 1px solid black;
@@ -57,7 +60,7 @@ table, th, td {
 
 
 
-		
+
 		<br>
 		<br>
 		<a href="forget.jsp">Reset Password </a>
@@ -69,7 +72,7 @@ table, th, td {
 	style="position: absolute; top: 0; right: 0; width: 100px; text-align: right;">
 
 	<jsp:include page="logout.jsp" />
-</center>
+	</center>
 </div>
 
 </html>

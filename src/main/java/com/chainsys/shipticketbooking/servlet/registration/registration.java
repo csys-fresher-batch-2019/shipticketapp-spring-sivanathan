@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.chainsys.shipticketbooking.errorMessage.ErrorMessages;
+import com.chainsys.shipticketbooking.logger.Logger;
 import com.chainsys.shipticketbooking.model.User;
 import com.chainsys.shipticketbooking.service.ServiceShipTicket;
 
@@ -16,12 +18,14 @@ import com.chainsys.shipticketbooking.service.ServiceShipTicket;
 public class registration extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 
 		ServiceShipTicket m1 = new ServiceShipTicket();
 		User u1 = new User();
+		Logger logger = Logger.getInstance();
 		String name = request.getParameter("name");
 		int userId = Integer.parseInt(request.getParameter("userId"));
 		String date = request.getParameter("dob");// 2020-01-01\
@@ -31,7 +35,7 @@ public class registration extends HttpServlet {
 		String password = request.getParameter("password");
 		String email = request.getParameter("email");
 
-		System.out.println(u1);
+		logger.info(u1);
 		// System.out.println(password);
 		u1.setUserId(userId);
 		u1.setUserName(name);
@@ -45,9 +49,9 @@ public class registration extends HttpServlet {
 			m1.addUser(u1);
 			response.sendRedirect("login.jsp");
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			response.sendRedirect("register.jsp");
+			throw new ServletException(ErrorMessages.INVALID_SERVLET, e);
 		}
 
 	}
