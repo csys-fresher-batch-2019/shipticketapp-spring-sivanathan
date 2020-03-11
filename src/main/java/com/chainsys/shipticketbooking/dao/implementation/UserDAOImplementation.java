@@ -8,8 +8,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import com.chainsys.shipticketbooking.dao.UserDAO;
+import com.chainsys.shipticketbooking.errorMessage.ErrorMessages;
 import com.chainsys.shipticketbooking.exception.DBException;
-import com.chainsys.shipticketbooking.exception.ErrorMessages;
 import com.chainsys.shipticketbooking.logger.Logger;
 import com.chainsys.shipticketbooking.model.User;
 import com.chainsys.shipticketbooking.util.ConnectionUtil;

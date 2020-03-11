@@ -7,8 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.chainsys.shipticketbooking.dao.JourneyDAO;
+import com.chainsys.shipticketbooking.errorMessage.ErrorMessages;
 import com.chainsys.shipticketbooking.exception.DBException;
-import com.chainsys.shipticketbooking.exception.ErrorMessages;
 import com.chainsys.shipticketbooking.logger.Logger;
 import com.chainsys.shipticketbooking.model.Journey;
 import com.chainsys.shipticketbooking.util.ConnectionUtil;

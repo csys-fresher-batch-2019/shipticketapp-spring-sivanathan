@@ -14,8 +14,8 @@ import com.chainsys.shipticketbooking.dao.implementation.JourneyDAOImplementatio
 import com.chainsys.shipticketbooking.dao.implementation.SeatDAOImplementation;
 import com.chainsys.shipticketbooking.dao.implementation.ShipDetailDAOImplementation;
 import com.chainsys.shipticketbooking.dao.implementation.UserDAOImplementation;
+import com.chainsys.shipticketbooking.errorMessage.ErrorMessages;
 import com.chainsys.shipticketbooking.exception.DBException;
-import com.chainsys.shipticketbooking.exception.ErrorMessages;
 import com.chainsys.shipticketbooking.exception.ServiceException;
 import com.chainsys.shipticketbooking.exception.ValidatorException;
 import com.chainsys.shipticketbooking.logger.Logger;

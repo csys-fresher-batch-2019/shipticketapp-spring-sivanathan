@@ -4,8 +4,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import com.chainsys.shipticketbooking.errorMessage.ErrorMessages;
 import com.chainsys.shipticketbooking.exception.DBException;
-import com.chainsys.shipticketbooking.exception.ErrorMessages;
 import com.chainsys.shipticketbooking.logger.Logger;
 
 public class ConnectionUtil {

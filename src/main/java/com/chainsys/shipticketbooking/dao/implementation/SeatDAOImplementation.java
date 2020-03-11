@@ -8,8 +8,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.chainsys.shipticketbooking.dao.SeatDAO;
+import com.chainsys.shipticketbooking.errorMessage.ErrorMessages;
 import com.chainsys.shipticketbooking.exception.DBException;
-import com.chainsys.shipticketbooking.exception.ErrorMessages;
 import com.chainsys.shipticketbooking.logger.Logger;
 import com.chainsys.shipticketbooking.mail.SendSmsIml;
 import com.chainsys.shipticketbooking.model.SeatAvailability;
@@ -131,13 +131,18 @@ public class SeatDAOImplementation implements SeatDAO {
 									email = value.getString("email");
 									logger.debug("emailID:" + email);
 
-									if (result.getString("ticket_status").equalsIgnoreCase("ordered")) {
-										SendSmsIml.send("sivanathan011198@gmail.com", "8608872041", email,
-												" Your Application is ordered ", "stay tuned for further update",
-												b.getUserNo());
+									try {
+										if (result.getString("ticket_status").equalsIgnoreCase("ordered")) {
+											SendSmsIml.send("sivanathan011198@gmail.com", "8608872041", email,
+													" Your Application is ordered ", "stay tuned for further update",
+													b.getUserNo());
+										}
+									} catch (IOException e) {
+										e.printStackTrace();
+										throw new DBException(ErrorMessages.NO_DATA_FOUND, e);
 									}
 								}
-							} catch (SQLException | IOException e) {
+							} catch (SQLException e) {
 								e.printStackTrace();
 								// logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + "" + e);
 								throw new DBException(ErrorMessages.INVALID_PREPARESTATEMENT, e);

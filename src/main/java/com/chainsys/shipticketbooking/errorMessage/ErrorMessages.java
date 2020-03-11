@@ -1,4 +1,4 @@
-package com.chainsys.shipticketbooking.exception;
+package com.chainsys.shipticketbooking.errorMessage;
 
 public class ErrorMessages {
 
