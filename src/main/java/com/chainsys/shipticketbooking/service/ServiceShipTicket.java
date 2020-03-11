@@ -1,5 +1,6 @@
 package com.chainsys.shipticketbooking.service;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import com.chainsys.shipticketbooking.dao.AdminDAO;
@@ -19,6 +20,7 @@ import com.chainsys.shipticketbooking.exception.DBException;
 import com.chainsys.shipticketbooking.exception.ServiceException;
 import com.chainsys.shipticketbooking.exception.ValidatorException;
 import com.chainsys.shipticketbooking.logger.Logger;
+import com.chainsys.shipticketbooking.mail.SendSmsIml;
 import com.chainsys.shipticketbooking.model.Booking;
 import com.chainsys.shipticketbooking.model.Journey;
 import com.chainsys.shipticketbooking.model.SeatAvailability;
@@ -38,9 +40,27 @@ public class ServiceShipTicket {
 
 	// static Jdbi jdbi=TestConnection.getJdbi();
 	// static UserDAO user=jdbi.onDemand(UserDAO.class);
+	public void sendMail(String email, int b) throws ServiceException {
+
+		try {
+			SendSmsIml.send("sivanathan011198@gmail.com", "8608872041", email, " Your Application is ordered ",
+					"stay tuned for further update", b);
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw new ServiceException(ErrorMessages.INVALID_EMAIL, e);
+		}
+
+	}
+
 	public void findamount(SeatAvailability b) throws ServiceException {
 		try {
-			seat.findTicketStatusAndCost(b);
+			String email = ""; // dao.getEmail(b.getUserNo());
+
+			boolean result = seat.findTicketStatusAndCost(b);
+			email = seat.getEmail(b.getUserNo());
+			if (result) {
+				sendMail(email, b.getUserNo());
+			}
 		} catch (DBException e) {
 			e.printStackTrace();
 			// throw new ServiceException(ErrorMessages.INVALID_DB_EXCEPTION);

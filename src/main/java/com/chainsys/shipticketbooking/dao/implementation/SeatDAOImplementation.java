@@ -1,6 +1,5 @@
 package com.chainsys.shipticketbooking.dao.implementation;
 
-import java.io.IOException;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,7 +10,6 @@ import com.chainsys.shipticketbooking.dao.SeatDAO;
 import com.chainsys.shipticketbooking.errorMessage.ErrorMessages;
 import com.chainsys.shipticketbooking.exception.DBException;
 import com.chainsys.shipticketbooking.logger.Logger;
-import com.chainsys.shipticketbooking.mail.SendSmsIml;
 import com.chainsys.shipticketbooking.model.SeatAvailability;
 import com.chainsys.shipticketbooking.util.ConnectionUtil;
 
@@ -102,7 +100,35 @@ public class SeatDAOImplementation implements SeatDAO {
 		}
 	}
 
-	public void findTicketStatusAndCost(SeatAvailability b) throws DBException {
+	public String getEmail(int userId) throws DBException {
+		String email = null;
+		try (Connection connection = ConnectionUtil.getConnection();) {
+			String sqlselect = "select email from user_detail where user_id in (select user_id from booking_detail where ticket_status='ordered' and user_id=?)";
+			try (PreparedStatement stm = connection.prepareStatement(sqlselect);) {
+				stm.setInt(1, userId);
+				ResultSet value = stm.executeQuery();
+//				String email = "";
+				// System.out.println("!!");
+				if (value.next()) {
+					email = value.getString("email");
+					logger.debug("emailID:" + email);
+
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+				// logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + "" + e);
+				throw new DBException(ErrorMessages.INVALID_PREPARESTATEMENT, e);
+			}
+		} catch (SQLException | DBException e) {
+			e.printStackTrace();
+			// logger.error(ErrorMessages.CONNECTION_FAILURE + "" + e);
+			throw new DBException(ErrorMessages.CONNECTION_FAILURE, e);
+		}
+		return email;
+	}
+
+	public boolean findTicketStatusAndCost(SeatAvailability b) throws DBException {
+		boolean validation = false;
 		// String value = "ordered";
 		String sql = "select ticket_status,cost from booking_detail where user_id = ?";
 		// logger.info(sql);
@@ -117,37 +143,32 @@ public class SeatDAOImplementation implements SeatDAO {
 						if (result.next()) {
 							logger.debug("status:" + result.getString("ticket_status"));
 							logger.debug("total:" + result.getInt("cost"));
-							String sqlselect = "select email from user_detail where user_id in (select user_id from booking_detail where ticket_status='ordered' and user_id=?)";
+							// String sqlselect = "select email from user_detail where user_id in (select
+							// user_id from booking_detail where ticket_status='ordered' and user_id=?)";
 
-							try (PreparedStatement stm = connection.prepareStatement(sqlselect);) {
-								stm.setInt(1, b.getUserNo());
-								// logger.info(sqlselect);
-								ResultSet value = stm.executeQuery();
-								// logger.debug(value2);
+							/*
+							 * try (PreparedStatement stm = connection.prepareStatement(sqlselect);) {
+							 * stm.setInt(1, b.getUserNo()); // logger.info(sqlselect); ResultSet value =
+							 * stm.executeQuery(); // logger.debug(value2);
+							 * 
+							 * String email = ""; // System.out.println("!!"); if (value.next()) { email =
+							 * value.getString("email"); logger.debug("emailID:" + email);
+							 */
+							validation = result.getString("ticket_status").equalsIgnoreCase("ordered");
 
-								String email = "";
-								// System.out.println("!!");
-								if (value.next()) {
-									email = value.getString("email");
-									logger.debug("emailID:" + email);
-
-									try {
-										if (result.getString("ticket_status").equalsIgnoreCase("ordered")) {
-											SendSmsIml.send("sivanathan011198@gmail.com", "8608872041", email,
-													" Your Application is ordered ", "stay tuned for further update",
-													b.getUserNo());
-										}
-									} catch (IOException e) {
-										e.printStackTrace();
-										throw new DBException(ErrorMessages.NO_DATA_FOUND, e);
-									}
-								}
-							} catch (SQLException e) {
-								e.printStackTrace();
-								// logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + "" + e);
-								throw new DBException(ErrorMessages.INVALID_PREPARESTATEMENT, e);
-							}
+							// new ServiceShipTicket().sendMail(validation, email, b.getUserNo());
+							/*
+							 * if (validation) { SendSmsIml.send("sivanathan011198@gmail.com", "8608872041",
+							 * email, " Your Application is ordered ", "stay tuned for further update",
+							 * b.getUserNo()); }
+							 */
 						}
+						/*
+						 * } catch (SQLException e) { e.printStackTrace(); //
+						 * logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + "" + e); throw new
+						 * DBException(ErrorMessages.INVALID_PREPARESTATEMENT, e); }
+						 */
+						// getEmail(b.getUserNo());
 					} catch (SQLException e) {
 						e.printStackTrace();
 						// logger.error(ErrorMessages.INVALID_RESULTSET + "" + e);
@@ -164,6 +185,7 @@ public class SeatDAOImplementation implements SeatDAO {
 			// logger.error(ErrorMessages.CONNECTION_FAILURE + "" + e);
 			throw new DBException(ErrorMessages.CONNECTION_FAILURE, e);
 		}
+		return validation;
 
 	}
 
