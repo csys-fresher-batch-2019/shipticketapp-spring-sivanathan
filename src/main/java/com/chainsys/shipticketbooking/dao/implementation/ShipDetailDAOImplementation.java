@@ -7,15 +7,18 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.chainsys.shipticketbooking.dao.ShipDetailDAO;
 import com.chainsys.shipticketbooking.errorMessage.ErrorMessages;
 import com.chainsys.shipticketbooking.exception.DBException;
-import com.chainsys.shipticketbooking.logger.Logger;
 import com.chainsys.shipticketbooking.model.ShipDetail;
 import com.chainsys.shipticketbooking.util.ConnectionUtil;
 
 public class ShipDetailDAOImplementation implements ShipDetailDAO {
-	Logger logger = Logger.getInstance();
+	// Logger logger = Logger.getInstance();
+	private static final Logger LOGGER = LoggerFactory.getLogger(ShipDetailDAOImplementation.class);
 	// Connection com = null;
 
 	public void saveShipDetail(ShipDetail s) throws DBException {
@@ -35,16 +38,17 @@ public class ShipDetailDAOImplementation implements ShipDetailDAO {
 
 				int row = statement.executeUpdate();
 
-				logger.info("NO OF ROWS INSERTED:" + row);
+				LOGGER.info("NO OF ROWS INSERTED:" + row);
 
 			} catch (SQLException e) {
-				e.printStackTrace();
-				// logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + "" + e);
+				// e.printStackTrace();
+				LOGGER.error(ErrorMessages.INVALID_PREPARESTATEMENT, e);
 				throw new DBException(ErrorMessages.INVALID_PREPARESTATEMENT, e);
 			}
 
 		} catch (SQLException | DBException e) {
-			e.printStackTrace();
+			// e.printStackTrace();
+			LOGGER.error(ErrorMessages.CONNECTION_FAILURE, e);
 			// logger.error(ErrorMessages.CONNECTION_FAILURE + "" + e);
 			throw new DBException(ErrorMessages.CONNECTION_FAILURE, e);
 		}
@@ -63,15 +67,17 @@ public class ShipDetailDAOImplementation implements ShipDetailDAO {
 				// logger.info(sql);
 
 				int row = statement.executeUpdate();
-				logger.info("NO OF ROWS UPDATED:" + row);
+				LOGGER.info("NO OF ROWS UPDATED:" + row);
 			} catch (SQLException e) {
-				e.printStackTrace();
+				// e.printStackTrace();
+				LOGGER.error(ErrorMessages.INVALID_PREPARESTATEMENT, e);
 				// logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + "" + e);
 				throw new DBException(ErrorMessages.INVALID_PREPARESTATEMENT, e);
 			}
 
 		} catch (SQLException | DBException e) {
-			e.printStackTrace();
+			// e.printStackTrace();
+			LOGGER.error(ErrorMessages.CONNECTION_FAILURE, e);
 			// logger.error(ErrorMessages.CONNECTION_FAILURE + "" + e);
 			throw new DBException(ErrorMessages.CONNECTION_FAILURE, e);
 		}
@@ -88,18 +94,20 @@ public class ShipDetailDAOImplementation implements ShipDetailDAO {
 //				logger.info(sql);
 
 				int row = statement.executeUpdate();
-				logger.info("NO OF ROWS DELETED:" + row);
+				LOGGER.info("NO OF ROWS DELETED:" + row);
 
 			}
 
 			catch (SQLException e) {
-				e.printStackTrace();
+				// e.printStackTrace();
+				LOGGER.error(ErrorMessages.INVALID_PREPARESTATEMENT, e);
 				// logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + "" + e);
 				throw new DBException(ErrorMessages.INVALID_PREPARESTATEMENT, e);
 			}
 
 		} catch (SQLException | DBException e) {
-			e.printStackTrace();
+			// e.printStackTrace();
+			LOGGER.error(ErrorMessages.CONNECTION_FAILURE, e);
 			// logger.error(ErrorMessages.CONNECTION_FAILURE + "" + e);
 			throw new DBException(ErrorMessages.CONNECTION_FAILURE, e);
 		}
@@ -134,7 +142,8 @@ public class ShipDetailDAOImplementation implements ShipDetailDAO {
 
 						}
 					} catch (SQLException e) {
-						e.printStackTrace();
+						// e.printStackTrace();
+						LOGGER.error(ErrorMessages.INVALID_RESULTSET, e);
 						// throw new DBException(ErrorMessages.INVALID_RESULTSET);
 						// logger.error(ErrorMessages.INVALID_RESULTSET + "" + e);
 						throw new DBException(ErrorMessages.INVALID_RESULTSET, e);
@@ -145,13 +154,15 @@ public class ShipDetailDAOImplementation implements ShipDetailDAO {
 				}
 
 			} catch (SQLException e) {
-				e.printStackTrace();
+				// e.printStackTrace();
+				LOGGER.error(ErrorMessages.INVALID_PREPARESTATEMENT, e);
 				// logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + "" + e);
 				throw new DBException(ErrorMessages.INVALID_PREPARESTATEMENT, e);
 			}
 
 		} catch (SQLException | DBException e) {
-			e.printStackTrace();
+			// e.printStackTrace();
+			LOGGER.error(ErrorMessages.CONNECTION_FAILURE, e);
 			// logger.error(ErrorMessages.CONNECTION_FAILURE + "" + e);
 			throw new DBException(ErrorMessages.CONNECTION_FAILURE, e);
 		}
@@ -167,21 +178,24 @@ public class ShipDetailDAOImplementation implements ShipDetailDAO {
 				try (ResultSet result = statement.executeQuery();) {
 					while (result.next()) {
 
-						logger.info(result.getString("classes"));
+						LOGGER.info(result.getString("classes"));
 					}
 				} catch (SQLException e) {
-					e.printStackTrace();
+					// e.printStackTrace();
+					LOGGER.error(ErrorMessages.INVALID_RESULTSET, e);
 					// logger.error(ErrorMessages.INVALID_RESULTSET + "" + e);
 					throw new DBException(ErrorMessages.INVALID_RESULTSET, e);
 				}
 			} catch (SQLException e) {
-				e.printStackTrace();
+				// e.printStackTrace();
+				LOGGER.error(ErrorMessages.INVALID_PREPARESTATEMENT, e);
 				// logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + "" + e);
 				throw new DBException(ErrorMessages.INVALID_PREPARESTATEMENT, e);
 			}
 
 		} catch (SQLException | DBException e) {
-			e.printStackTrace();
+			// e.printStackTrace();
+			LOGGER.error(ErrorMessages.CONNECTION_FAILURE, e);
 			// logger.error(ErrorMessages.CONNECTION_FAILURE + "" + e);
 			throw new DBException(ErrorMessages.CONNECTION_FAILURE, e);
 		}
@@ -214,27 +228,29 @@ public class ShipDetailDAOImplementation implements ShipDetailDAO {
 
 					}
 				} catch (SQLException e) {
-					e.printStackTrace();
+					// e.printStackTrace();
+					LOGGER.error(ErrorMessages.INVALID_RESULTSET, e);
 					// throw new DBException(ErrorMessages.INVALID_RESULTSET);
 					// logger.error(ErrorMessages.INVALID_RESULTSET + "" + e);
 					throw new DBException(ErrorMessages.INVALID_RESULTSET, e);
 				}
 
 			} catch (SQLException e) {
-				e.printStackTrace();
+				// e.printStackTrace();
+				LOGGER.error(ErrorMessages.INVALID_CREATESTATEMENT, e);
 				// logger.error(ErrorMessages.INVALID_CREATESTATEMENT + "" + e);
 				throw new DBException(ErrorMessages.INVALID_CREATESTATEMENT, e);
 			}
 
 		} catch (SQLException | DBException e) {
-			e.printStackTrace();
-			// logger.error(ErrorMessages.CONNECTION_FAILURE + "" + e);
+//			e.printStackTrace();
+			LOGGER.error(ErrorMessages.CONNECTION_FAILURE, e);
 			throw new DBException(ErrorMessages.CONNECTION_FAILURE, e);
 		}
 		return list;
 	}
 
-	public ArrayList<ShipDetail> routeShip() {
+	public ArrayList<ShipDetail> routeShip() throws DBException {
 
 		// ResultSet rs1 = null;
 		ArrayList<ShipDetail> list = new ArrayList<ShipDetail>();
@@ -257,19 +273,22 @@ public class ShipDetailDAOImplementation implements ShipDetailDAO {
 
 					}
 				} catch (SQLException e) {
-					e.printStackTrace();
-					// throw new DBException(ErrorMessages.INVALID_RESULTSET);
-					logger.error(ErrorMessages.INVALID_RESULTSET + "" + e);
+					// e.printStackTrace();
+
+					LOGGER.error(ErrorMessages.INVALID_RESULTSET, e);
+					throw new DBException(ErrorMessages.INVALID_RESULTSET, e);
 				}
 
 			} catch (SQLException e) {
-				e.printStackTrace();
-				logger.error(ErrorMessages.INVALID_CREATESTATEMENT + "" + e);
+				// e.printStackTrace();
+				LOGGER.error(ErrorMessages.INVALID_CREATESTATEMENT, e);
+				throw new DBException(ErrorMessages.INVALID_CREATESTATEMENT, e);
 			}
 
 		} catch (SQLException | DBException e) {
-			e.printStackTrace();
-			logger.error(ErrorMessages.CONNECTION_FAILURE + e);
+			// e.printStackTrace();
+			LOGGER.error(ErrorMessages.CONNECTION_FAILURE, e);
+			throw new DBException(ErrorMessages.CONNECTION_FAILURE, e);
 		}
 		return list;
 	}

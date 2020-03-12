@@ -5,17 +5,19 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.chainsys.shipticketbooking.dao.UserDAO;
 import com.chainsys.shipticketbooking.errorMessage.ErrorMessages;
 import com.chainsys.shipticketbooking.exception.DBException;
-import com.chainsys.shipticketbooking.logger.Logger;
 import com.chainsys.shipticketbooking.model.User;
 import com.chainsys.shipticketbooking.util.ConnectionUtil;
 
 public class UserDAOImplementation implements UserDAO {
-	Logger logger = Logger.getInstance();
+//	Logger logger = Logger.getInstance();
+	private static final Logger LOGGER = LoggerFactory.getLogger(UserDAOImplementation.class);
 
 	// for adding the user details in sql.
 	public void saveUser(User a) throws DBException {
@@ -44,7 +46,7 @@ public class UserDAOImplementation implements UserDAO {
 
 				int row = statement.executeUpdate();
 
-				logger.info("NO OF ROWS INSERTED:" + row);
+				LOGGER.info("NO OF ROWS INSERTED:" + row);
 				// System.out.println(row1);
 				// smt.close();
 			}
@@ -52,15 +54,16 @@ public class UserDAOImplementation implements UserDAO {
 			catch (SQLException e)
 
 			{
-				e.printStackTrace();
-				// logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + "" + e);
+				// e.printStackTrace();
+				LOGGER.error(ErrorMessages.INVALID_PREPARESTATEMENT, e);
 				throw new DBException(ErrorMessages.INVALID_PREPARESTATEMENT, e);
 
 			}
 		} catch (SQLException | DBException e)
 
 		{
-			e.printStackTrace();
+			// e.printStackTrace();
+			LOGGER.error(ErrorMessages.CONNECTION_FAILURE, e);
 			// logger.error(ErrorMessages.INVALID_CONNECTIONSTATEMENT + "" + e);
 			throw new DBException(ErrorMessages.CONNECTION_FAILURE, e);
 
@@ -81,13 +84,14 @@ public class UserDAOImplementation implements UserDAO {
 				// logger.info(sql);
 
 				int row1 = statement.executeUpdate();
-				logger.info("NO OF ROWS UPDATED:" + row1);
+				LOGGER.info("NO OF ROWS UPDATED:" + row1);
 			}
 
 			catch (SQLException e)
 
 			{
-				e.printStackTrace();
+				// e.printStackTrace();
+				LOGGER.error(ErrorMessages.INVALID_PREPARESTATEMENT, e);
 				// logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + "" + e);
 				throw new DBException(ErrorMessages.INVALID_PREPARESTATEMENT, e);
 
@@ -95,7 +99,8 @@ public class UserDAOImplementation implements UserDAO {
 		} catch (SQLException | DBException e)
 
 		{
-			e.printStackTrace();
+			// e.printStackTrace();
+			LOGGER.error(ErrorMessages.INVALID_CONNECTIONSTATEMENT, e);
 			// logger.error(ErrorMessages.INVALID_CONNECTIONSTATEMENT + "" + e);
 			throw new DBException(ErrorMessages.INVALID_CONNECTIONSTATEMENT, e);
 
@@ -116,11 +121,12 @@ public class UserDAOImplementation implements UserDAO {
 				// logger.info(sql);
 
 				int row = statement.executeUpdate();
-				logger.info("NO OF ROWS DELETED:" + row);
+				LOGGER.info("NO OF ROWS DELETED:" + row);
 			} catch (SQLException e)
 
 			{
-				e.printStackTrace();
+				// e.printStackTrace();
+				LOGGER.error(ErrorMessages.INVALID_PREPARESTATEMENT, e);
 				// logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + "" + e);
 				throw new DBException(ErrorMessages.INVALID_PREPARESTATEMENT, e);
 
@@ -128,7 +134,8 @@ public class UserDAOImplementation implements UserDAO {
 		} catch (SQLException | DBException e)
 
 		{
-			e.printStackTrace();
+			// e.printStackTrace();
+			LOGGER.error(ErrorMessages.INVALID_CONNECTIONSTATEMENT, e);
 			// logger.error(ErrorMessages.INVALID_CONNECTIONSTATEMENT + "" + e);
 			throw new DBException(ErrorMessages.INVALID_CONNECTIONSTATEMENT, e);
 
@@ -169,27 +176,27 @@ public class UserDAOImplementation implements UserDAO {
 				// logger.info(sql);
 
 				int row = statement.executeUpdate();
-				logger.info("NO OF  UPDATED:" + row);
+				LOGGER.info("NO OF  UPDATED:" + row);
 
 			} catch (SQLException e) {
-				e.printStackTrace();
+				// e.printStackTrace();
+				LOGGER.error(ErrorMessages.INVALID_PREPARESTATEMENT, e);
 				// logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + "" + e);
 				throw new DBException(ErrorMessages.INVALID_PREPARESTATEMENT, e);
 
 			}
 		} catch (SQLException | DBException e) {
-			e.printStackTrace();
+			// e.printStackTrace();
+			LOGGER.error(ErrorMessages.CONNECTION_FAILURE, e);
 			// logger.error(ErrorMessages.INVALID_CREATESTATEMENT + "" + e);
-			throw new DBException(ErrorMessages.INVALID_CREATESTATEMENT, e);
+			throw new DBException(ErrorMessages.CONNECTION_FAILURE, e);
 
 		}
 	}
 
 	public boolean userExist(int userId, String password) throws DBException {
 
-//		Statement statement = null;
 		boolean result = false;
-		ResultSet value = null;
 		try (Connection connection = ConnectionUtil.getConnection();) {
 			String usersql = "select user_id from user_detail  where user_id=?";
 			String passql = "select pass from user_detail  where user_id=?";
@@ -199,28 +206,38 @@ public class UserDAOImplementation implements UserDAO {
 				state.setInt(1, userId);
 
 				if (statement.executeUpdate() != 0) {
-					value = state.executeQuery();
-					value.next();
+					try (ResultSet value = state.executeQuery();) {
+						value.next();
 
-					if (password.equals(value.getString("pass"))) {
+						if (password.equals(value.getString("pass"))) {
 
-						result = true;
-						return result;
+							result = true;
+							return result;
+						}
+
 					}
 
+					catch (SQLException e) {
+						// e.printStackTrace();
+						LOGGER.error(ErrorMessages.INVALID_RESULTSET, e);
+						throw new DBException(ErrorMessages.INVALID_RESULTSET, e);
+					}
 				}
-
 			} catch (SQLException e) {
-				e.printStackTrace();
+				// e.printStackTrace();
+				LOGGER.error(ErrorMessages.INVALID_PREPARESTATEMENT, e);
 				throw new DBException(ErrorMessages.INVALID_PREPARESTATEMENT, e);
 			}
+		}
 
-		} catch (SQLException | DBException e) {
-			e.printStackTrace();
+		catch (SQLException | DBException e) {
+			// e.printStackTrace();
+			LOGGER.error(ErrorMessages.INVALID_CONNECTIONSTATEMENT, e);
 			throw new DBException(ErrorMessages.INVALID_CONNECTIONSTATEMENT, e);
 
 		}
 
 		return result;
 	}
+
 }

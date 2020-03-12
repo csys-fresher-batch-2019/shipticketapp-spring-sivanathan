@@ -6,16 +6,20 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.chainsys.shipticketbooking.dao.JourneyDAO;
 import com.chainsys.shipticketbooking.errorMessage.ErrorMessages;
 import com.chainsys.shipticketbooking.exception.DBException;
-import com.chainsys.shipticketbooking.logger.Logger;
+
 import com.chainsys.shipticketbooking.model.Journey;
 import com.chainsys.shipticketbooking.util.ConnectionUtil;
 
 public class JourneyDAOImplementation implements JourneyDAO {
 	Connection com = null;
-	Logger logger = Logger.getInstance();
+	// Logger logger = Logger.getInstance();
+	private static final Logger LOGGER = LoggerFactory.getLogger(JourneyDAOImplementation.class);
 
 	public void saveJourney(Journey a) throws DBException {
 		try (Connection connection = ConnectionUtil.getConnection();) {
@@ -30,16 +34,18 @@ public class JourneyDAOImplementation implements JourneyDAO {
 				statement.setInt(4, a.getShipId());
 				// logger.debug(sql);
 				int row = statement.executeUpdate();
-				logger.debug("NO OF ROWS INSERTED:" + row);
+				LOGGER.debug("NO OF ROWS INSERTED:" + row);
 			} catch (SQLException e) {
-				e.printStackTrace();
-				//logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + "" + e);
-				throw new DBException(ErrorMessages.INVALID_PREPARESTATEMENT,e);
+				// e.printStackTrace();
+				LOGGER.error(ErrorMessages.INVALID_PREPARESTATEMENT, e);
+				// logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + "" + e);
+				throw new DBException(ErrorMessages.INVALID_PREPARESTATEMENT, e);
 			}
 		} catch (SQLException | DBException e) {
-			e.printStackTrace();
-			//logger.error(ErrorMessages.CONNECTION_FAILURE + "" + e);
-			throw new DBException(ErrorMessages.CONNECTION_FAILURE,e);
+			// e.printStackTrace();
+			LOGGER.error(ErrorMessages.CONNECTION_FAILURE, e);
+			// logger.error(ErrorMessages.CONNECTION_FAILURE + "" + e);
+			throw new DBException(ErrorMessages.CONNECTION_FAILURE, e);
 		}
 	}
 
@@ -54,16 +60,18 @@ public class JourneyDAOImplementation implements JourneyDAO {
 //				logger.debug(sql);
 
 				int row = statement.executeUpdate();
-				logger.debug("NO OF ROWS UPDATED:" + row);
+				LOGGER.debug("NO OF ROWS UPDATED:" + row);
 			} catch (SQLException e) {
-				e.printStackTrace();
-				//logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + "" + e);
-				throw new DBException(ErrorMessages.INVALID_PREPARESTATEMENT,e);
+				// e.printStackTrace();
+				LOGGER.error(ErrorMessages.INVALID_PREPARESTATEMENT, e);
+				// logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + "" + e);
+				throw new DBException(ErrorMessages.INVALID_PREPARESTATEMENT, e);
 			}
 		} catch (SQLException | DBException e) {
-			e.printStackTrace();
-			//logger.error(ErrorMessages.CONNECTION_FAILURE + "" + e);
-			throw new DBException(ErrorMessages.CONNECTION_FAILURE,e);
+			// e.printStackTrace();
+			LOGGER.error(ErrorMessages.CONNECTION_FAILURE, e);
+			// logger.error(ErrorMessages.CONNECTION_FAILURE + "" + e);
+			throw new DBException(ErrorMessages.CONNECTION_FAILURE, e);
 		}
 	}
 
@@ -76,17 +84,19 @@ public class JourneyDAOImplementation implements JourneyDAO {
 //				logger.debug(sql);
 
 				int row = statement.executeUpdate();
-				logger.debug("NO OF ROWS DELETED:" + row);
+				LOGGER.debug("NO OF ROWS DELETED:" + row);
 
 			} catch (SQLException e) {
-				e.printStackTrace();
-				//logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + "" + e);
-				throw new DBException(ErrorMessages.INVALID_PREPARESTATEMENT,e);
+				// e.printStackTrace();
+				LOGGER.error(ErrorMessages.INVALID_PREPARESTATEMENT, e);
+				// logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + "" + e);
+				throw new DBException(ErrorMessages.INVALID_PREPARESTATEMENT, e);
 			}
 		} catch (SQLException | DBException e) {
-			e.printStackTrace();
-			//logger.error(ErrorMessages.CONNECTION_FAILURE + "" + e);
-			throw new DBException(ErrorMessages.CONNECTION_FAILURE,e);
+			// e.printStackTrace();
+			LOGGER.error(ErrorMessages.CONNECTION_FAILURE, e);
+			// logger.error(ErrorMessages.CONNECTION_FAILURE + "" + e);
+			throw new DBException(ErrorMessages.CONNECTION_FAILURE, e);
 		}
 	}
 
@@ -109,24 +119,27 @@ public class JourneyDAOImplementation implements JourneyDAO {
 						journey.setDestinationDate(result.getDate("destination_date").toLocalDate());
 						journey.setShipId(result.getInt("ship_id"));
 						list.add(journey);
-						logger.debug(journey);
+						// LOGGER.debug(journey);
 
 					}
 				} catch (SQLException e) {
-					e.printStackTrace();
-					//logger.error(ErrorMessages.INVALID_RESULTSET + "" + e);
-					throw new DBException(ErrorMessages.INVALID_RESULTSET,e);
+					// e.printStackTrace();
+					LOGGER.error(ErrorMessages.INVALID_RESULTSET, e);
+					// logger.error(ErrorMessages.INVALID_RESULTSET + "" + e);
+					throw new DBException(ErrorMessages.INVALID_RESULTSET, e);
 				}
 
 			} catch (SQLException e) {
-				e.printStackTrace();
-				//logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + "" + e);
-				throw new DBException(ErrorMessages.INVALID_PREPARESTATEMENT,e);
+				// e.printStackTrace();
+				LOGGER.error(ErrorMessages.INVALID_PREPARESTATEMENT, e);
+				// logger.error(ErrorMessages.INVALID_PREPARESTATEMENT + "" + e);
+				throw new DBException(ErrorMessages.INVALID_PREPARESTATEMENT, e);
 			}
 		} catch (SQLException | DBException e) {
-			e.printStackTrace();
-			//logger.error(ErrorMessages.CONNECTION_FAILURE + "" + e);
-			throw new DBException(ErrorMessages.CONNECTION_FAILURE,e);
+			// e.printStackTrace();
+			LOGGER.error(ErrorMessages.CONNECTION_FAILURE, e);
+			// logger.error(ErrorMessages.CONNECTION_FAILURE + "" + e);
+			throw new DBException(ErrorMessages.CONNECTION_FAILURE, e);
 		}
 		return list;
 
