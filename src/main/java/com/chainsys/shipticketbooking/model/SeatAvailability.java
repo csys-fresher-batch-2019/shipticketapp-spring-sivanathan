@@ -1,8 +1,5 @@
 package com.chainsys.shipticketbooking.model;
 
-import lombok.Data;
-
-@Data
 public class SeatAvailability {
 
 	public int getShipId() {
