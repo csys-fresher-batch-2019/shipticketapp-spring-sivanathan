@@ -6,10 +6,65 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Document</title>
 </head>
+<nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
+
+	<a class="navbar-brand" href="ind.jsp">HOME</a>
+	<button class="navbar-toggler" type="button" data-toggle="collapse"
+		data-target="#navbarNav" aria-controls="navbarNav"
+		aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+	<div class="collapse navbar-collapse" id="navbarNav">
+		<ul class="navbar-nav">
+			<li class="nav-item active"><a class="nav-link"
+				href="register.jsp">REGISTRATION<span class="sr-only">(current)</span></a>
+			</li>
+			<li class="nav-item"><a class="nav-link" href="login.jsp">LOGIN</a>
+			</li>
+			<li class="nav-item"><a class="nav-link" href="admin.jsp">ADMIN</a>
+			</li>
+			<li class="nav-item"><a class="nav-link disabled" href="#">CONTACT
+					NUMBER</a></li>
+		</ul>
+	</div>
+</nav>
+<div id="carouselExampleIndicators" class="carousel slide"
+	data-ride="carousel">
+	<ol class="carousel-indicators">
+		<li data-target="#carouselExampleIndicators" data-slide-to="0"
+			class="active"></li>
+		<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+		<li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+	</ol>
+	<div class="carousel-inner">
+		<div class="carousel-item active">
+			<img class="d-block w-100"
+				src="assets/images/ship_sea_sky_sail_wave_96342_3840x2400.jpg"
+				alt="First slide">
+		</div>
+		<div class="carousel-item">
+			<img class="d-block w-100" src="assets/images/369448.jpg"
+				alt="Second slide">
+		</div>
+		<div class="carousel-item">
+			<img class="d-block w-100" src="assets/images/842292.jpg"
+				alt="Third slide">
+		</div>
+	</div>
+	<a class="carousel-control-prev" href="#carouselExampleIndicators"
+		role="button" data-slide="prev"> <span
+		class="carousel-control-prev-icon" aria-hidden="true"></span> <span
+		class="sr-only">Previous</span>
+	</a> <a class="carousel-control-next" href="#carouselExampleIndicators"
+		role="button" data-slide="next"> <span
+		class="carousel-control-next-icon" aria-hidden="true"></span> <span
+		class="sr-only">Next</span>
+	</a>
+</div>
 <center>
 	<h1>WELCOME TO MY SHIPTICKET BOOKING</h1>
 </center>
-<style>
+<!-- <style>
 body {
 	background-image:
 		url('assets/images/ship_sea_sky_sail_wave_96342_3840x2400.jpg');
@@ -17,7 +72,7 @@ body {
 	background-attachment: fixed;
 	background-size: 100% 100%;
 }
-</style>
+</style> -->
 
 <body>
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -29,13 +84,10 @@ body {
 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
 		integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
 		crossorigin="anonymous"></script>
-
+<body style="background-color: Cyan;">
 	<form onsubmit="viewShip()">
-		<p>
-			<br>
-			<br>
-		<h5>ENTER THE SOURCE PLACE</h5>
-		</p>
+
+		<h5>ENTER THE SOURCE PLACE:</h5>
 		<br> <select name="sourceplace" id="source">
 			<!--  <option <!-- <span id="span"></span> value="">select</option>-->
 			<option value="">select</option>
@@ -49,12 +101,10 @@ body {
 		</select>
 
 
-		<p>
-			<br>
-			<br>
-		<h5>ENTER THE DESTINATION PLACE</h5>
-		</p>
-		<br> <select name="destinationplace" id="destination">
+		<h5>
+			<br>ENTER THE DESTINATION PLACE:
+		</h5>
+		<select name="destinationplace" id="destination">
 			<option value="">select</option>
 			<option value="amindivi">amindivi</option>
 			<option value="lagoons">lagoons</option>
@@ -71,8 +121,17 @@ body {
 	</form>
 
 
+	<div id="alert" class="alert alert-warning alert-dismissible fade show"
+		role="alert">
+		<strong>WELCOME!..</strong><br> You should check in on some of
+		those fields below.
+		<button type="button" class="close" data-dismiss="alert"
+			aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		</button>
+	</div>
 	<div id="container">
-		<h3>SHIP LIST</h3>
+
 
 		<table border="1" class="table table-bordered">
 			<thead>
@@ -90,32 +149,37 @@ body {
 			</tbody>
 		</table>
 	</div>
-	<div
-		style="position: absolute; bottom: 0; right: 0; width: 100px; text-align: right;">
+	<!-- <div
+		style="position: absolute; top: 0; right: 0; width: 200px; text-align: center;">
 
 		<h1>
-			<!-- <button  onclick=<a href="index.jsp">main</a>></button> -->
-			<button onclick="index()">main</button>
+			<button  onclick=<a href="index.jsp">main</a>></button>
+			<button class="btn btn-primary btn-lg btn-block" onclick="index()">main</button>
 			<br>
 		</h1>
-	</div>
-
+	
+ -->
 
 	<!-- java script -->
 	<script>
-		function index() {
+		function index()
+
+		{
 			window.location.href = "index.jsp";
 		}
 
-		window.history.forward();
+		/* 		
+		 * it is used for not to go back to front page
+		 window.history.forward();
 
-		function noBack() {
-			window.history.forward();
-		}
+		 function noBack() {
+		 window.history.forward();
+		 } */
 
 		function nextpage() {
 			window.location.replace("http://localhost:9000/index.jsp")
 		}
+		$("#alert").hide();
 		$("#container").hide();
 		function viewShip() {
 			event.preventDefault();
@@ -135,6 +199,7 @@ body {
 				alert("invalid selection");
 				alert("sourceplace and destinationplace should not be same");
 			} else {
+				$("#alert").show();
 				//alert("viewShip" + source + destination );
 
 				//Step 2: Perform ajax call

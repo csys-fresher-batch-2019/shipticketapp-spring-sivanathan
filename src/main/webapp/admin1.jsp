@@ -7,7 +7,7 @@
 <title>admin</title>
 </head>
 <body>
-	<form action=Admin1>
+	<form >
 		<center>
 			<body style="background-color: Cyan;">
 				<!--  <li><a href=".jsp">update the journey date</a></li>

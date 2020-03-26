@@ -1,6 +1,7 @@
 package com.chainsys.shipticketbooking.servlet.admin;
 
 import java.io.IOException;
+import java.net.UnknownHostException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,7 +15,8 @@ import com.chainsys.shipticketbooking.service.ServiceShipTicket;
 @WebServlet("/Admin4")
 public class Admin4 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-@Override
+
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
@@ -25,9 +27,9 @@ public class Admin4 extends HttpServlet {
 			int amount = m1.costOfBooking(total);
 			request.setAttribute("totalbooking", amount);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("totalbooking.jsp");
-			;
+
 			dispatcher.forward(request, response);
-		} catch (Exception e) {
+		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			response.sendRedirect("admin4.jsp");

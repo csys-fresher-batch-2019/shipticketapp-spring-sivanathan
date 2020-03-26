@@ -11,7 +11,7 @@
 	<body>
 	<body style="background-color: Cyan;">
 		<h1>admin</h1>
-		<form action="Admin">
+		<form action="Admin" method="POST">
 			<br> <br>Enter admin Id : <input type="number"
 				name="admin_id" placeholder="Enter number" required autofocus /> <br>
 			<br>Enter password : <input type="password" name="password"

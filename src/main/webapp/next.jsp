@@ -34,13 +34,14 @@ table, th, td {
 					<th>SEAT</th>
 			</thead>
 			<tbody>
+				<%
+					int i = 1;
+				%>
 				<c:forEach var="p" items="${ship}">
 					<%
 						//ArrayList<ShipDetail> list = (ArrayList<ShipDetail>) session.getAttribute("ship");
 							ArrayList<ShipDetail> list = new ArrayList<ShipDetail>();
 							if (list != null) {
-
-								int i = 1;
 
 								//		for (ShipDetail ship : list) 
 								//{

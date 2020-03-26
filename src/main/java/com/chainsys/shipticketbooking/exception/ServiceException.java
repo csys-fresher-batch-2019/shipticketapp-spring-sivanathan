@@ -9,11 +9,14 @@ public class ServiceException extends RuntimeException {
 	}
 
 	public ServiceException(String adminLoginFailed, ValidatorException e) {
-		// TODO Auto-generated constructor stub
 		super(e);
 	}
 
 	public ServiceException(String noDataFound, IOException e) {
+		super(e);
+	}
+
+	public ServiceException(String msg, ServiceException e) {
 		super(e);
 	}
 }

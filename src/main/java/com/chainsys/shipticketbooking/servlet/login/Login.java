@@ -19,13 +19,15 @@ import com.chainsys.shipticketbooking.service.ServiceShipTicket;
 @WebServlet("/Login")
 public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// UserDAOImplementation m4 = new UserDAOImplementation();
 		ServiceShipTicket m4 = new ServiceShipTicket();
 		Logger logger = Logger.getInstance();
 		PrintWriter out = response.getWriter();
+
 		int user_id = Integer.parseInt(request.getParameter("userid"));
 		// String email = request.getParameter("email");
 		String password = request.getParameter("password");

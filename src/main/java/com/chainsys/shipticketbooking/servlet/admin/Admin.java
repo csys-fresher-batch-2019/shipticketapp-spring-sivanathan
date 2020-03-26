@@ -18,10 +18,10 @@ public class Admin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		ServiceShipTicket m4 = new ServiceShipTicket();
-Logger logger=Logger.getInstance();
+		Logger logger = Logger.getInstance();
 		int id = Integer.parseInt(request.getParameter("admin_id"));
 		String password = request.getParameter("password");
 		logger.info(id + "-" + password);
@@ -54,7 +54,11 @@ Logger logger=Logger.getInstance();
 			// go to next page
 		} catch (Exception e) {
 			e.printStackTrace();
-			response.sendRedirect("admin.jsp");
+			try {
+				response.sendRedirect("admin.jsp");
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
 			// got to same page login.jsp request-forward
 		}
 	}
