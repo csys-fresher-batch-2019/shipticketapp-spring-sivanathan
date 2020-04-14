@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>wallet</title>
 </head>
 <%
 	int amount = (Integer) session.getAttribute("total");
@@ -15,16 +15,20 @@
 %>
 <body>
 	<center>
-		<form action="Wallet">
-			<br> user id:<input type="number" name="userid"
-				value=<%=user_id%>> <br> <br> <br>Enter the
-			phone number:<input type="tel" id="phone" name="MobileNo"
+		<form action="Wallet"><br>
+			 
+			Valid user id:<input type="number" name="userid"
+				value=<%=user_id%>> <br> <br> <br>
+			Enter the phone number:<input type="tel" id="phone" name="MobileNo"
 				pattern="[0-9]{3}[0-9]{3}[0-9]{4}"
-				placeholder="enter valid phone number" required> </br> <br>
-			<br>Enter the merchant id:<input type="text" name="merchantId"
-				placeholder="enter the valid merchant id" required> <br>
-			<br>Enter the amount:<input type="number" name="amount"
+				placeholder="enter valid phone number" required> <br> <br><br>
+			
+			Enter the merchant id:<input type="text" name="merchantId"
+				placeholder="enter the valid merchant id" required> <br><br>
+			
+			Enter the amount:<input type="number" name="amount"
 				value="<%=amount%>" readonly> <br> <br>
+				
 			<button type="submit">submit</button>
 			</form>
 	</center>

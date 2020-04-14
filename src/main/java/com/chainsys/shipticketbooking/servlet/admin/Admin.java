@@ -24,14 +24,14 @@ public class Admin extends HttpServlet {
 		Logger logger = Logger.getInstance();
 		int id = Integer.parseInt(request.getParameter("admin_id"));
 		String password = request.getParameter("password");
-		logger.info(id + "-" + password);
+		logger.info("admin id" + id + "password" + password);
 
 		try {
 			boolean value = m4.AdminLogin(id, password);
 			logger.info(value);
 
 			int value1 = m4.count();
-			logger.info(value1);
+			logger.info("total count of booking:" + value1);
 			HttpSession session1 = request.getSession();
 			session1.setAttribute("count", value1);
 

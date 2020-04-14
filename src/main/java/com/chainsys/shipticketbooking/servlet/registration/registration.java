@@ -49,7 +49,7 @@ public class registration extends HttpServlet {
 			m1.addUser(u1);
 			response.sendRedirect("login.jsp");
 		} catch (Exception e) {
-			e.printStackTrace();
+			// e.printStackTrace();
 			response.sendRedirect("register.jsp");
 			throw new ServletException(ErrorMessages.INVALID_SERVLET, e);
 		}
