@@ -75,7 +75,7 @@ body {
 
 		<br>
 		<button type="submit">Submit</button>
-		<br> <br>
+		
 		<button type="reset">reset</button>
 	</form>
 

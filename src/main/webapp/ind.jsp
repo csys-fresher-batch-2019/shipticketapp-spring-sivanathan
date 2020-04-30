@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Document</title>
+<title>INDEX</title>
 </head>
 <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
 
@@ -76,6 +75,7 @@ body {
 
 <body>
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
 	<link rel="stylesheet"
 		href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
 		integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
@@ -186,8 +186,8 @@ body {
 			$("#container").hide();
 			//Step 1: Get form values 
 			var source = $("#source").val();//using jquery
-			// var source = document.getElementById("source").value;//using javascript
-			var destination = document.getElementById("destination").value;
+			// var source = document.getElementById("source").value;
+			var destination = document.getElementById("destination").value;//using javascript
 
 			if ((source == "")) {
 				alert("enter the correct source place ");
@@ -207,7 +207,8 @@ body {
 				let url = "http://localhost:9000/api/getShip?destination="
 						+ destination + "&source=" + source;
 				//console.log(url);
-				$.getJSON(url, function(response) {
+				$.getJSON(url, function(response) {//for get method this is used
+					//$.post(url,function(response)) for post method this is used
 					$("#container").show();
 					var ShipList = response;
 					//alert(JSON.stringify(response));
@@ -225,13 +226,12 @@ body {
 
 				var shipObj = ShipList[i];
 
-				row = row + "<tr><td><h3>" + j + "</h3></td><td><h3>"
-						+ shipObj.shipId + "</h3></td><td><h3>"
-						+ shipObj.shipName + "</h3></td><td><h3>"
-						+ shipObj.sourcePlace + "</h3></td><td><h3>"
-						+ shipObj.destinationPlace + "</h3></td><td><h3>"
-						+ shipObj.amount + "</h3></td><td><h3>"
-						+ shipObj.classes + "</h3></td></tr><h3>";
+				row = row + "<tr><td>" + j + "</td><td>" + shipObj.shipId
+						+ "</td><td>" + shipObj.shipName + "</td><td>"
+						+ shipObj.sourcePlace + "</td><td>"
+						+ shipObj.destinationPlace + "</td><td>"
+						+ shipObj.amount + "</td><td>" + shipObj.classes
+						+ "</td></tr>";
 				j = j + 1;
 
 			}
